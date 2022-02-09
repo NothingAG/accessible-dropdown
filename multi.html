@@ -13,9 +13,11 @@
       <fieldset>
         <legend>Selected hobbies (3 in total)</legend>
 
-        <button>Soccer (X)</button>
-        <button>Hiking (X)</button>
-        <button>Cooking (X)</button>
+        <ol>
+          <li><button>Soccer (X)</button></li>
+          <li><button>Hiking (X)</button></li>
+          <li><button>Cooking (X)</button></li>
+        </ol>
       </fieldset>
 
       <label>
@@ -50,29 +52,5 @@
     <p>
       <button>Focusable element after</button>
     </p>
-
-    <h2>Todos Xaver: basic interactive functionality</h2>
-    
-    <ul>
-      <li>
-        When entering a filter term into the text field, the checkboxes should be filtered (set HTML `hidden` attribute).
-        <ul>
-          <li>Update "X options available" accordingly.</li>
-        </ul>
-      </li>
-      <li>When pressing `Up`/`Down` keys, the keyboard focus jumps between the filter text field and the checkboxes back and forth.</li>
-      <li>When a checkbox is checked, following elements are updated accordingly: the "Selected hobbies" fieldset's legend and contained buttons, the "X options selected" button, and the "Available hobbies" fieldset's legend.</li>
-      <li>When `Esc` is pressed while a checkbox is focused, the focus is put to the "X options selected" button.</li>
-      <li>When the "X options selected" button is pressed, then all checkboxes are unchecked, and the focus is set to the filter text field (and obviously, all other dependent elements are updated accordingly).</li>
-    </ul>
-
-    <h2>Some notes to keep in mind (@josua)</h2>
-
-    <ul>
-      <li>As `Enter` is intercepted by NVDA and JAWS, we cannot listen to this key on a checkbox (in contrast to radio buttons, checkboxes do not trigger focus mode), which does not allow us to use `Enter` to confirm-and-close => but `Esc` works, so we can use this instead (instead of cancel-and-close) (<a href="https://stackoverflow.com/questions/71040122">more info</a>)</li>
-      <li>I'm unsure about `Enter` on `&lt;li&gt;` => is this intercepted, too? While JAWS seems to toggle the checkbox in this situation, NVDA does not seem to...</li>
-      <li>The same holds true for `Arrow` keys, but the good thing is that `Up`/`Down` will move the screen reader cursor anyway between the list items (options).</li>
-      <li>Putting `role="alert"` seems to have some quirky effects: in Chrome, it is announced immediately, but not anymore when focusing the input.</li>
-    </ul>
   </body>
 </html>
