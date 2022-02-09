@@ -31,3 +31,9 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 - I'm unsure about `Enter` on `&lt;li&gt;` => is this intercepted, too? While JAWS seems to toggle the checkbox in this situation, NVDA does not seem to...
 - The same holds true for `Arrow` keys, but the good thing is that `Up`/`Down` will move the screen reader cursor anyway between the list items (options).
 - Putting `role="alert"` seems to have some quirky effects: in Chrome, it is announced immediately, but not anymore when focusing the input.
+
+## Resources
+
+- A typical single and multi selection use case from the ETH can be found here: https://www.bi.id.ethz.ch/pcm-open-services/
+- A former proof of concept for a single select autocomplete (it keeps the focus inside the text field when walking through options): https://www.accessibility-developer-guide.com/examples/widgets/autosuggest/_examples/autosuggest-with-radio-buttons/
+- A similar proof of concept, namely a date picker, which actually moves the focus into the dropdown when walking through options: https://www.accessibility-developer-guide.com/examples/widgets/datepicker/_examples/datepicker-with-radio-buttons/
