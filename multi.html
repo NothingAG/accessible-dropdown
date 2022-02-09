@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <title>Proof of Concept: Accessible Single/Multi-Select Dropdown</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js"></script>
+  </head>
+  <body>
+    <p>
+      <button>Focusable element before</button>
+    </p>
+
+    <form>
+      <fieldset>
+        <legend>Selected hobbies (3 in total)</legend>
+
+        <button>Soccer (X)</button>
+        <button>Hiking (X)</button>
+        <button>Cooking (X)</button>
+      </fieldset>
+
+      <label>
+        My hobbies:
+        <input type="text" aria-expanded="false" type="text" autocomplete="off"><button>3 options selected: Soccer, Hiking, and Cooking. Click to clear.</button>
+        <p>12 options available.</p>
+        <p>
+          Enter text to filter.
+          Keyboard: press up or down to walk through options, then space to toggle, escape to close.
+          Mobile: click option below.
+        </p>
+      </label>
+      <fieldset>
+        <legend>Available hobbies (3 selected)</legend>
+        <ol>
+          <li><label><input type="checkbox" name="my_hobbies" value="soccer" checked> Soccer</label></li>
+          <li><label><input type="checkbox" name="my_hobbies" value="badminton" id="y"> Badminton</label></li>
+          <li><label><input type="checkbox" name="my_hobbies" value="movies"> Movies</label></li>
+          <li><label><input type="checkbox" name="my_hobbies" value="gardening"> Gardening</label></li>
+          <li><label><input type="checkbox" name="my_hobbies" value="kickboxing"> Kickboxing</label></li>
+          <li><label><input type="checkbox" name="my_hobbies" value="hiking" checked> Hiking</label></li>
+          <li><label><input type="checkbox" name="my_hobbies" value="dancing"> Dancing</label></li>
+          <li><label><input type="checkbox" name="my_hobbies" value="painting"> Painting</label></li>
+          <li><label><input type="checkbox" name="my_hobbies" value="cooking" checked> Cooking</label></li>
+          <li><label><input type="checkbox" name="my_hobbies" value="reading"> Reading</label></li>
+          <li><label><input type="checkbox" name="my_hobbies" value="sleeping"> Sleeping</label></li>
+          <li><label><input type="checkbox" name="my_hobbies" value="programming"> Programming</label></li>
+        </ol>
+      </fieldset>
+    </form>
+
+    <p>
+      <button>Focusable element after</button>
+    </p>
+
+    <h2>Todos Xaver: basic interactive functionality</h2>
+    
+    <ul>
+      <li>
+        When entering a filter term into the text field, the checkboxes should be filtered (set HTML `hidden` attribute).
+        <ul>
+          <li>Update "X options available" accordingly.</li>
+        </ul>
+      </li>
+      <li>When pressing `Up`/`Down` keys, the keyboard focus jumps between the filter text field and the checkboxes back and forth.</li>
+      <li>When a checkbox is checked, following elements are updated accordingly: the "Selected hobbies" fieldset's legend and contained buttons, the "X options selected" button, and the "Available hobbies" fieldset's legend.</li>
+      <li>When `Esc` is pressed while a checkbox is focused, the focus is put to the "X options selected" button.</li>
+      <li>When the "X options selected" button is pressed, then all checkboxes are unchecked, and the focus is set to the filter text field (and obviously, all other dependent elements are updated accordingly).</li>
+    </ul>
+
+    <h2>Some notes to keep in mind (@josua)</h2>
+
+    <ul>
+      <li>As `Enter` is intercepted by NVDA and JAWS, we cannot listen to this key on a checkbox (in contrast to radio buttons, checkboxes do not trigger focus mode), which does not allow us to use `Enter` to confirm-and-close => but `Esc` works, so we can use this instead (instead of cancel-and-close) (<a href="https://stackoverflow.com/questions/71040122">more info</a>)</li>
+      <li>I'm unsure about `Enter` on `&lt;li&gt;` => is this intercepted, too? While JAWS seems to toggle the checkbox in this situation, NVDA does not seem to...</li>
+      <li>The same holds true for `Arrow` keys, but the good thing is that `Up`/`Down` will move the screen reader cursor anyway between the list items (options).</li>
+      <li>Putting `role="alert"` seems to have some quirky effects: in Chrome, it is announced immediately, but not anymore when focusing the input.</li>
+    </ul>
+  </body>
+</html>
