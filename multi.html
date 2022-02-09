@@ -2,7 +2,6 @@
   <head>
     <title>Proof of Concept: Accessible Single/Multi-Select Dropdown</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="scripts.js"></script>
   </head>
   <body>
     <p>
@@ -33,18 +32,18 @@
       <fieldset>
         <legend>Available hobbies (3 selected)</legend>
         <ol>
-          <li><label><input type="checkbox" name="my_hobbies" value="soccer" checked> Soccer</label></li>
-          <li><label><input type="checkbox" name="my_hobbies" value="badminton" id="y"> Badminton</label></li>
-          <li><label><input type="checkbox" name="my_hobbies" value="movies"> Movies</label></li>
-          <li><label><input type="checkbox" name="my_hobbies" value="gardening"> Gardening</label></li>
-          <li><label><input type="checkbox" name="my_hobbies" value="kickboxing"> Kickboxing</label></li>
-          <li><label><input type="checkbox" name="my_hobbies" value="hiking" checked> Hiking</label></li>
-          <li><label><input type="checkbox" name="my_hobbies" value="dancing"> Dancing</label></li>
-          <li><label><input type="checkbox" name="my_hobbies" value="painting"> Painting</label></li>
-          <li><label><input type="checkbox" name="my_hobbies" value="cooking" checked> Cooking</label></li>
-          <li><label><input type="checkbox" name="my_hobbies" value="reading"> Reading</label></li>
-          <li><label><input type="checkbox" name="my_hobbies" value="sleeping"> Sleeping</label></li>
-          <li><label><input type="checkbox" name="my_hobbies" value="programming"> Programming</label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="soccer" checked> Soccer</label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="badminton" id="y"> Badminton</label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="movies"> Movies</label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="gardening"> Gardening</label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="kickboxing"> Kickboxing</label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="hiking" checked> Hiking</label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="dancing"> Dancing</label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="painting"> Painting</label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="cooking" checked> Cooking</label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="reading"> Reading</label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="sleeping"> Sleeping</label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="programming"> Programming</label></li>
         </ol>
       </fieldset>
     </form>
@@ -53,4 +52,5 @@
       <button>Focusable element after</button>
     </p>
   </body>
+  <script src="scripts.js"></script>
 </html>
