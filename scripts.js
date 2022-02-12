@@ -41,7 +41,24 @@ function onKeyup(event) {
 }
 
 elems.input.addEventListener("focus", () => (lastSelected = 0));
+elems.availableHobbiesLegend = document.querySelector(
+  ".available-hobbies__legend"
+);
 
 function modulo(a, n) {
   return ((a % n) + n) % n;
+}
+
+elems.hobbyItemInputs = document.querySelectorAll(".hobby-item input");
+
+for (checkboxInput of elems.hobbyItemInputs) {
+  checkboxInput.addEventListener("input", onCheckboxInput);
+}
+
+function onCheckboxInput() {
+  const checkedItems = Array.from(elems.hobbyItems).filter(
+    (elem) => elem.querySelector("input").checked
+  );
+
+  elems.availableHobbiesLegend.innerHTML = `Available hobbies (${checkedItems.length} selected})`;
 }
