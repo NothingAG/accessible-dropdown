@@ -21,10 +21,6 @@ let numberOfElems = elems.arrowSelectableElems.length;
 document.addEventListener("keyup", onKeyup);
 
 function onKeyup(event) {
-  let currentlySelectable = elems.arrowSelectableElems.filter(
-    (elem) => !elem.hidden
-  );
-
   if (event.key === "ArrowDown" || event.key === "ArrowUp") {
     const direction = event.key === "ArrowDown" ? 1 : -1;
     for (let i = 0; i < elems.arrowSelectableElems.length; i++) {
