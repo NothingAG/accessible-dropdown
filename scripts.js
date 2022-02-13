@@ -94,7 +94,7 @@ function composeFilteringButtonText(checkboxLabels) {
   const part2 = `${rest.length ? rest.join(", ") + " and " : ""}${
     last ? last : ""
   }. `;
-  const part3 = "Click to clear.";
+  const part3 = "Click to unselect all.";
 
   return part1 + part2 + part3;
 }
@@ -121,4 +121,5 @@ function resetCheckboxes(event) {
     checkbox.checked = false;
   }
   onCheckboxChange();
+  elems.input.focus();
 }
