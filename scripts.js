@@ -95,3 +95,11 @@ function updateSelectedList(checkedItemTexts) {
     .join("");
   elems.selectedList.innerHTML = allEntries;
 }
+
+elems.hobbyItemInputs.forEach((checkbox) =>
+  checkbox.addEventListener("keyup", onCheckboxKeyup)
+);
+
+function onCheckboxKeyup(event) {
+  if (event.key === "Escape") elems.filterButton.focus();
+}
