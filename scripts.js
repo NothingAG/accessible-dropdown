@@ -54,10 +54,10 @@ function modulo(a, n) {
 }
 
 for (checkboxInput of elems.hobbyItemInputs) {
-  checkboxInput.addEventListener("input", onCheckboxInput);
+  checkboxInput.addEventListener("input", onCheckboxChange);
 }
 
-function onCheckboxInput() {
+function onCheckboxChange() {
   const checkedItems = Array.from(elems.hobbyItems).filter(
     (elem) => elem.querySelector("input").checked
   );
@@ -102,4 +102,13 @@ elems.hobbyItemInputs.forEach((checkbox) =>
 
 function onCheckboxKeyup(event) {
   if (event.key === "Escape") elems.filterButton.focus();
+}
+
+elems.filterButton.addEventListener("click", resetCheckboxes);
+
+function resetCheckboxes(event) {
+  for (checkbox of elems.hobbyItemInputs) {
+    checkbox.checked = false;
+  }
+  onCheckboxChange();
 }
