@@ -89,12 +89,16 @@ function composeFilteringButtonText(checkboxLabels) {
   const rest = copy;
 
   const part1 = `${checkboxLabels.length} ${
-    numberOfOptions === 1 ? "option" : "options"
-  } selected: `;
+    numberOfOptions === 0
+      ? "options selected"
+      : numberOfOptions === 1
+      ? "option selected: "
+      : "options selected: "
+  }`;
   const part2 = `${rest.length ? rest.join(", ") + " and " : ""}${
     last ? last : ""
   }. `;
-  const part3 = "Click to unselect all.";
+  const part3 = numberOfOptions === 0 ? "" : "Click to unselect all.";
 
   return part1 + part2 + part3;
 }
