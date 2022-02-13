@@ -11,15 +11,25 @@ elems.hobbyItemInputs = document.querySelectorAll(".hobby-item input");
 elems.filterButton = document.querySelector(".filter__button");
 elems.selectedList = document.querySelector(".selected__list");
 elems.selectedLegend = document.querySelector(".selected__legend");
+elems.availableHobbiesCounter = document.querySelector(
+  ".available-hobbies__counter"
+);
 
 elems.input.addEventListener("input", onInputChange);
 
 function onInputChange(event) {
   filterTerm = event.target.value.toLowerCase();
 
+  let numberOfShownHobbies = 0;
   for (hobbyItem of elems.hobbyItems) {
     hobbyItem.hidden = !hobbyItem.innerText.toLowerCase().includes(filterTerm);
+    if (!hobbyItem.hidden) numberOfShownHobbies += 1;
   }
+
+  elems.availableHobbiesCounter.innerText =
+    numberOfShownHobbies === 1
+      ? "1 option available."
+      : `${numberOfShownHobbies} options available.`;
 }
 
 let lastSelected = 0;
