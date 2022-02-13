@@ -50,6 +50,7 @@ function modulo(a, n) {
 }
 
 elems.hobbyItemInputs = document.querySelectorAll(".hobby-item input");
+elems.filterButton = document.querySelector(".filter__button");
 
 for (checkboxInput of elems.hobbyItemInputs) {
   checkboxInput.addEventListener("input", onCheckboxInput);
@@ -60,5 +61,27 @@ function onCheckboxInput() {
     (elem) => elem.querySelector("input").checked
   );
 
+  const checkedItemTexts = checkedItems.map((item) =>
+    item.querySelector("label").innerText.trim()
+  );
+
   elems.availableHobbiesLegend.innerHTML = `Available hobbies (${checkedItems.length} selected})`;
+  elems.filterButton.innerHTML = composeFilteringButtonText(checkedItemTexts);
+}
+
+function composeFilteringButtonText(checkboxLabels) {
+  const numberOfOptions = checkboxLabels.length;
+  const copy = JSON.parse(JSON.stringify(checkboxLabels));
+  const last = copy.pop();
+  const rest = copy;
+
+  const part1 = `${checkboxLabels.length} ${
+    numberOfOptions === 1 ? "option" : "options"
+  } selected: `;
+  const part2 = `${rest.length ? rest.join(", ") + " and " : ""}${
+    last ? last : ""
+  }. `;
+  const part3 = "Click to clear.";
+
+  return part1 + part2 + part3;
 }
