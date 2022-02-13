@@ -10,6 +10,7 @@ elems.availableHobbiesLegend = document.querySelector(
 elems.hobbyItemInputs = document.querySelectorAll(".hobby-item input");
 elems.filterButton = document.querySelector(".filter__button");
 elems.selectedList = document.querySelector(".selected__list");
+elems.selectedLegend = document.querySelector(".selected__legend");
 
 elems.input.addEventListener("input", onInputChange);
 
@@ -68,6 +69,7 @@ function onCheckboxInput() {
   elems.availableHobbiesLegend.innerHTML = `Available hobbies (${checkedItems.length} selected})`;
   elems.filterButton.innerHTML = composeFilteringButtonText(checkedItemTexts);
   updateSelectedList(checkedItemTexts);
+  elems.selectedLegend.innerText = `Selected hobbies (${checkedItemTexts.length} in total)`;
 }
 
 function composeFilteringButtonText(checkboxLabels) {
