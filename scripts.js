@@ -9,6 +9,7 @@ elems.availableHobbiesLegend = document.querySelector(
 );
 elems.hobbyItemInputs = document.querySelectorAll(".hobby-item input");
 elems.filterButton = document.querySelector(".filter__button");
+elems.selectedList = document.querySelector(".selected__list");
 
 elems.input.addEventListener("input", onInputChange);
 
@@ -66,6 +67,7 @@ function onCheckboxInput() {
 
   elems.availableHobbiesLegend.innerHTML = `Available hobbies (${checkedItems.length} selected})`;
   elems.filterButton.innerHTML = composeFilteringButtonText(checkedItemTexts);
+  updateSelectedList(checkedItemTexts);
 }
 
 function composeFilteringButtonText(checkboxLabels) {
@@ -83,4 +85,11 @@ function composeFilteringButtonText(checkboxLabels) {
   const part3 = "Click to clear.";
 
   return part1 + part2 + part3;
+}
+
+function updateSelectedList(checkedItemTexts) {
+  const allEntries = checkedItemTexts
+    .map((text) => `<li><button>${text} (X)</button></li>`)
+    .join("");
+  elems.selectedList.innerHTML = allEntries;
 }
