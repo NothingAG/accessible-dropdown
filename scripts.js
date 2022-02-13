@@ -3,6 +3,12 @@ let filterTerm = "";
 
 elems.input = document.querySelector("input");
 elems.hobbyItems = document.querySelectorAll(".hobby-item");
+elems.arrowSelectableElems = [elems.input, ...elems.hobbyItems];
+elems.availableHobbiesLegend = document.querySelector(
+  ".available-hobbies__legend"
+);
+elems.hobbyItemInputs = document.querySelectorAll(".hobby-item input");
+elems.filterButton = document.querySelector(".filter__button");
 
 elems.input.addEventListener("input", onInputChange);
 
@@ -14,7 +20,6 @@ function onInputChange(event) {
   }
 }
 
-elems.arrowSelectableElems = [elems.input, ...elems.hobbyItems];
 let lastSelected = 0;
 let numberOfElems = elems.arrowSelectableElems.length;
 
@@ -41,16 +46,10 @@ function onKeyup(event) {
 }
 
 elems.input.addEventListener("focus", () => (lastSelected = 0));
-elems.availableHobbiesLegend = document.querySelector(
-  ".available-hobbies__legend"
-);
 
 function modulo(a, n) {
   return ((a % n) + n) % n;
 }
-
-elems.hobbyItemInputs = document.querySelectorAll(".hobby-item input");
-elems.filterButton = document.querySelector(".filter__button");
 
 for (checkboxInput of elems.hobbyItemInputs) {
   checkboxInput.addEventListener("input", onCheckboxInput);
