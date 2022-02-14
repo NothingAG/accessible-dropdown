@@ -1,7 +1,3 @@
-label {
-  display: block;
-}
-
 .selected {
   margin-bottom: 1em;
 }
@@ -17,8 +13,12 @@ label {
   margin-left: 1.5em;
 }
 
+.options:focus-within {
+  background-color: rgb(179, 255, 129);
+}
+
 .options__list li:focus-within {
-  background-color: yellow;
+  background-color: rgb(255, 167, 167);
 }
 
 .options__list input:checked + span {
