@@ -13,11 +13,13 @@
   margin-left: 1.5em;
 }
 
-.options:focus-within {
+.options:focus-within,
+.options:hover {
   background-color: rgb(179, 255, 129);
 }
 
-.options__list li:focus-within {
+.options__list li:focus-within,
+.options__list li:hover {
   background-color: rgb(255, 167, 167);
 }
 
