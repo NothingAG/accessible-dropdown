@@ -50,6 +50,7 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
     - NVDA announces changes to `<label>` of the currently focused input (this would allow to just put announcements into `<label>`, instead of using `role="alert"`)
     - When moving focus to an element, NVDA announces a lot of info that is related to this element, like a surrounding `<fieldset>` with `<legend>`, an `<ol>` with its number of items, etc.
     - _General question: is this expected behaviour? Why is JAWS so conservative in announcing this useful associated info? Maybe we can ask Quentin about this._
+- Having the options' `<label>`s with `display: inline` has the nice effect that NVDA reads the number of the `<li>` and all of its contents (checkbox with label) in one go, but for some reason we cannot activate it anymore with `Space`/`Enter` in NVDA. Only if we use `display: block` it works, but then it splits the announcement into 1) the number of the `<li>`, and 2) its contents.
 
 ## Resources
 

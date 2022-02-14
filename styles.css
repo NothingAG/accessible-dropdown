@@ -23,6 +23,10 @@
   background-color: rgb(255, 167, 167);
 }
 
+.options__list label {
+  display: block;
+}
+
 .options__list input:checked + span {
   font-weight: bold;
 }
