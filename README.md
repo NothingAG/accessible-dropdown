@@ -25,6 +25,7 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 - ✅ When a checkbox is checked, following elements are updated accordingly: the "Selected hobbies" fieldset's legend and contained buttons, the "X options selected" button, and the "Available hobbies" fieldset's legend.
 - ✅ When `Esc` is pressed while a checkbox is focused, the focus is put to the "X options selected" button.
 - ✅ When the "X options selected" button is pressed, then all checkboxes are unchecked, and the focus is set to the filter text field (and obviously, all other dependent elements are updated accordingly).
+    - Please select all text (so the user can replace a filter term right away)
 - When a button inside "Selected hobbies" is pressed, uncheck the respective checkbox, then:
     - Focus the next button, if available.
     - Or focus the previous button, if available.
@@ -33,6 +34,9 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 - When `Enter` is pressed on a checkbox, toggle it (same functionality like `Space`).
 - When a checkbox is focused and a character key is pressed, then move focus back to the filter input and append the typed character.
     - There are probably some "special keys" we need to implement, for example `Backspace` - any other that come to your mind?
+- The first time a filter is entered, add `role="alert"` to `.available-hobbies__counter` (this will make screen readers announce it).
+- Set `hidden` to `fieldset.selected` when there is no option selected.
+- I added `3 selected` to "X options available", please update accordingly.
 
 ## @josua: some notes to keep in mind
 
