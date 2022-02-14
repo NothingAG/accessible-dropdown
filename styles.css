@@ -1,3 +1,26 @@
 label {
   display: block;
 }
+
+.selected {
+  margin-bottom: 1em;
+}
+
+.selected__list {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.selected__list li {
+  float: left; /* TODO: Rather use flexbox here? */
+  margin-left: 1.5em;
+}
+
+.options__list li:focus-within {
+  background-color: yellow;
+}
+
+.options__list input:checked + span {
+  font-weight: bold;
+}

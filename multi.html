@@ -4,8 +4,8 @@
     <link rel="stylesheet" href="styles.css">
 
     <!-- Taken from https://github.com/NothingAG/a11y-semantics-css -->
-    <link rel="stylesheet" href="a11y-semantics.css">
-    <link rel="stylesheet" href="a11y-semantics-visible.css">
+    <!-- <link rel="stylesheet" href="a11y-semantics.css"> -->
+    <!-- <link rel="stylesheet" href="a11y-semantics-visible.css"> -->
   </head>
   <body>
     <p>
@@ -13,41 +13,60 @@
     </p>
 
     <form>
-      <fieldset>
-        <legend class="selected__legend">Selected hobbies (3 in total)</legend>
+      <fieldset class="selected">
+        <legend class="selected__legend" data-visually-hidden>Selected hobbies (3 in total)</legend>
 
         <ol class="selected__list">
-          <li><button type="button">Soccer (X)</button></li>
-          <li><button type="button">Hiking (X)</button></li>
-          <li><button type="button">Cooking (X)</button></li>
+          <li>
+            <button type="button">
+              Soccer
+              <img src="clear.svg" alt="Uncheck" />
+            </button>
+          </li>
+          <li>
+            <button type="button">
+              Hiking
+              <img src="clear.svg" alt="Uncheck" />
+            </button>
+          </li>
+          <li>
+            <button type="button">
+              Cooking
+              <img src="clear.svg" alt="Uncheck" />
+            </button>
+          </li>
         </ol>
       </fieldset>
 
-      <label>
+      <label data-block>
         My hobbies:
-        <input type="text" aria-expanded="false" type="text" autocomplete="off"><button class="filter__button" type="button">3 options selected: Soccer, Hiking, and Cooking. Click to unselect all.</button>
-        <p class="available-hobbies__counter">12 options available.</p>
-        <p>
+        <input type="text" aria-expanded="false" type="text" autocomplete="off" placeholder="Type to filter options"><button class="filter__button" type="button">
+          <span data-visually-hidden>3 options selected: Soccer, Hiking, and Cooking.</span>
+          <img src="clear.svg" alt="Click to unselect all" />
+        </button>
+        <p class="available-hobbies__counter" aria-live="polite" role="alert">12 options available.</p>
+        <p data-visually-hidden>
           Enter text to filter.
           Keyboard: press up or down to walk through options, then space to toggle, escape to close.
           Mobile: click option below.
         </p>
       </label>
       <fieldset>
-        <legend class="available-hobbies__legend">Available hobbies (3 selected)</legend>
-        <ol>
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="soccer" checked> Soccer</label></li>
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="badminton" id="y"> Badminton</label></li>
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="movies"> Movies</label></li>
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="gardening"> Gardening</label></li>
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="kickboxing"> Kickboxing</label></li>
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="hiking" checked> Hiking</label></li>
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="dancing"> Dancing</label></li>
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="painting"> Painting</label></li>
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="cooking" checked> Cooking</label></li>
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="reading"> Reading</label></li>
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="sleeping"> Sleeping</label></li>
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="programming"> Programming</label></li>
+        <legend class="available-hobbies__legend" data-visually-hidden>Available hobbies (3 selected)</legend>
+
+        <ol class="options__list">
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="soccer" checked data-visually-hidden><span> Soccer</span></label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="badminton" data-visually-hidden><span> Badminton</span></label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="movies" data-visually-hidden><span> Movies</span></label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="gardening" data-visually-hidden><span> Gardening</span></label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="kickboxing" data-visually-hidden><span> Kickboxing</span></label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="hiking" checked data-visually-hidden><span> Hiking</span></label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="dancing" data-visually-hidden><span> Dancing</span></label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="painting" data-visually-hidden><span> Painting</span></label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="cooking" checked data-visually-hidden><span> Cooking</span></label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="reading" data-visually-hidden><span> Reading</span></label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="sleeping" data-visually-hidden><span> Sleeping</span></label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="programming" data-visually-hidden><span> Programming</span></label></li>
         </ol>
       </fieldset>
     </form>
