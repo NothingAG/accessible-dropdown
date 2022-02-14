@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <title>Proof of Concept: Accessible Single/Multi-Select Dropdown</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <p>
+      <button>Focusable element before</button>
+    </p>
+
+    <form>
+      <fieldset>
+        <legend class="selected__legend">Selected hobbies (3 in total)</legend>
+
+        <ol class="selected__list">
+          <li><button type="button">Soccer (X)</button></li>
+          <li><button type="button">Hiking (X)</button></li>
+          <li><button type="button">Cooking (X)</button></li>
+        </ol>
+      </fieldset>
+
+      <label>
+        My hobbies:
+        <input type="text" aria-expanded="false" type="text" autocomplete="off"><button class="filter__button" type="button">3 options selected: Soccer, Hiking, and Cooking. Click to unselect all.</button>
+        <p class="available-hobbies__counter">12 options available.</p>
+        <p>
+          Enter text to filter.
+          Keyboard: press up or down to walk through options, then space to toggle, escape to close.
+          Mobile: click option below.
+        </p>
+      </label>
+      <fieldset>
+        <legend class="available-hobbies__legend">Available hobbies (3 selected)</legend>
+        <ol>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="soccer" checked> Soccer</label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="badminton" id="y"> Badminton</label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="movies"> Movies</label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="gardening"> Gardening</label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="kickboxing"> Kickboxing</label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="hiking" checked> Hiking</label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="dancing"> Dancing</label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="painting"> Painting</label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="cooking" checked> Cooking</label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="reading"> Reading</label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="sleeping"> Sleeping</label></li>
+          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="programming"> Programming</label></li>
+        </ol>
+      </fieldset>
+    </form>
+
+    <p>
+      <button>Focusable element after</button>
+    </p>
+  </body>
+  <script src="scripts.js"></script>
+</html>
