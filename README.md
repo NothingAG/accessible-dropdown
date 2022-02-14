@@ -31,6 +31,8 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
     - Or focus the text field.
 - When `Page Up`/`Page Down` is pressed (regardless whether inside the text field or when an option is focused), move focus to the very first/last option.
 - When `Enter` is pressed on a checkbox, toggle it (same functionality like `Space`).
+- When a checkbox is focused and a character key is pressed, then move focus back to the filter input and append the typed character.
+    - There are probably some "special keys" we need to implement, for example `Backspace` - any other that come to your mind?
 
 ## @josua: some notes to keep in mind
 
