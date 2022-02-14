@@ -21,7 +21,7 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 - ✅ When entering a filter term into the text field, the checkboxes should be filtered (set HTML `hidden` attribute).
     - ✅ Update "X options available" accordingly.
 - ✅ When pressing `Up`/`Down` keys, the keyboard focus jumps between the filter text field and the checkboxes back and forth.
-    - ❓ I'm unsure whether the focus should jump back to the text field when reaching the bottom, or just back to the first option.
+    - ❓ I'm unsure whether the focus should jump back to the text field when reaching the bottom, or just back to the first option. UPDATE: Thinking about it, we probably keep it like that, as it gives screen reader users an important hint (search wrapped).
 - ✅ When a checkbox is checked, following elements are updated accordingly: the "Selected hobbies" fieldset's legend and contained buttons, the "X options selected" button, and the "Available hobbies" fieldset's legend.
 - ✅ When `Esc` is pressed while a checkbox is focused, the focus is put to the "X options selected" button.
 - ✅ When the "X options selected" button is pressed, then all checkboxes are unchecked, and the focus is set to the filter text field (and obviously, all other dependent elements are updated accordingly).
@@ -51,6 +51,7 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
     - When moving focus to an element, NVDA announces a lot of info that is related to this element, like a surrounding `<fieldset>` with `<legend>`, an `<ol>` with its number of items, etc.
     - _General question: is this expected behaviour? Why is JAWS so conservative in announcing this useful associated info? Maybe we can ask Quentin about this._
 - Having the options' `<label>`s with `display: inline` has the nice effect that NVDA reads the number of the `<li>` and all of its contents (checkbox with label) in one go, but for some reason we cannot activate it anymore with `Space`/`Enter` in NVDA. Only if we use `display: block` it works, but then it splits the announcement into 1) the number of the `<li>`, and 2) its contents.
+    - UPDATE: I set `list-style: none` to "defuse" this situation completely. It is enough that screen readers can announce the total number of options, and the "search wrapped" info is given by placing the focus in the text field again.
 
 ## Resources
 
