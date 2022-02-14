@@ -1,0 +1,422 @@
+/*
+ * Debug styles, not to be used in final project.
+ *
+ * Provides some visual hints about the underlying implementation. Don't demo using a screen reader, as the experience will be different (ie. hidden elements are not hidden anymore).
+ *
+ * To activate, let `<link rel="stylesheet" href="assets/styles.css">` point to `assets/styles.css`.
+ */
+
+[data-visually-hidden] {
+  background: repeating-conic-gradient(#0000002b 0% 25%, #ffffff4D 0% 50%) 50%/8px 8px;
+}
+
+[aria-hidden] {
+  background-color: #ffffff4D;
+  opacity: 0.8;
+  background-image:  linear-gradient(135deg, #0000002b 25%, transparent 25%), linear-gradient(225deg, #0000002b 25%, transparent 25%), linear-gradient(45deg, #0000002b 25%, transparent 25%), linear-gradient(315deg, #0000002b 25%, #ffffff4D 25%);
+  background-position: 4px 0, 4px 0, 0 0, 0 0;
+  background-size: 8px 8px;
+  background-repeat: repeat;
+}
+
+a[href],
+a[href] * {
+  text-decoration: underline; /* Not really sure why this is needed - links should be underlined by default, right? (This related to elements within links that have `[data-full-inline]` applied.) */
+}
+
+a[href] {
+  background-color: #0000ff21;
+}
+
+a[href]:hover,
+a[href]:hover * {
+  text-decoration: none;
+}
+
+img {
+  border: 1px solid #749dbf;
+  padding: 1px;
+}
+
+img[alt=""]::after {
+  content: "decorative image";
+  font-style: italic;
+}
+
+[hidden] {
+  display: inherit;
+    background: repeating-conic-gradient(#ff000038 0% 25%, #ffffff4D 0% 50%) 50%/8px 8px;
+  position: relative;
+  outline: 1px dotted red;
+}
+
+[hidden]::before {
+  position: absolute;
+  right: 0;
+  top: 0;
+  content: "[hidden=true]";
+  background-color: red;
+  color: white;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  border: 1px solid #00bcd4;
+  background-color: #00bcd433;
+  position: relative;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  padding: 4px;
+}
+
+h1:hover,
+h2:hover,
+h3:hover,
+h4:hover,
+h5:hover,
+h6:hover {
+  background-color: #00bcd44D;
+}
+
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+h6:first-child {
+  margin-top: 0;
+}
+
+h1:only-child,
+h2:only-child,
+h3:only-child,
+h4:only-child,
+h5:only-child,
+h6:only-child {
+  margin-bottom: 0;
+}
+
+h1::after,
+h2::after,
+h3::after,
+h4::after,
+h5::after,
+h6::after {
+  background-color: #00bcd4;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #000; /* To prevent them from becoming a surrounding link's color */
+}
+
+h1::after {
+  content: "<h1>";
+}
+
+h2::after {
+  content: "<h2>";
+}
+
+h3::after {
+  content: "<h3>";
+}
+
+h4::after {
+  content: "<h4>";
+}
+
+h5::after {
+  content: "<h5>";
+}
+
+h6::after {
+  content: "<h6>";
+}
+
+[aria-expanded]::after,
+[aria-current]::after,
+[data-full-inline]::after {
+  color: red;
+  background-color: yellow;
+  padding: 0 3px;
+  border-radius: 10px;
+  border: 1px solid red;
+}
+
+[aria-expanded=true]::after {
+  content: "↧";
+}
+
+[aria-expanded=false]::after {
+  content: "↥";
+}
+
+[aria-current=true]::after {
+  content: "↞";
+}
+
+[data-block] {
+  display: block;
+  margin-top: .5em;
+}
+
+[data-full-inline] {
+  display: inline-block;
+  width: 100%;
+}
+
+[data-full-inline]::after {
+  content: "↔";
+  font-size: 80%; /* On 100%, it adds some vertical spacing, which is unnecessary. */
+  color: red;
+}
+
+/* Wouldn't work (would be overwritten) when putting data-full-inline on it! Let's just keep it with only a background color. */
+/*time::after {
+  content: "<time>";
+}*/
+
+p {
+  border: 1px solid #800080;
+  background-color: #80008033;
+  position: relative;
+  padding: 4px;
+  margin: 10px 0 0 0;
+}
+
+p:hover {
+  background-color: #8000804D;
+}
+
+p::before {
+  position: absolute;
+  content: "<p>";
+  background-color: #800080;
+  right: 0;
+  top: 0;
+  color: #fff;
+}
+
+ul, ol {
+  margin: 10px 0 0 0;
+}
+
+strong,
+em,
+time {
+  outline: 1px dotted #000;
+}
+
+strong:hover,
+em:hover,
+time:hover {
+  background-color: #00000033;
+}
+
+strong::before,
+em::before,
+time::before {
+  background-color: #00000066;
+  color: #fff;
+  font-weight: normal;
+}
+
+strong::before {
+  content: "<strong>";
+}
+
+em::before {
+  content: "<em>";
+}
+
+time::before {
+  content: "<time>";
+}
+
+section,
+article,
+nav,
+aside,
+form {
+  border: 2px solid;
+  padding: 20px 6px 10px 6px;
+  position: relative;
+  margin: 0;
+}
+
+section::before,
+article::before,
+nav::before,
+aside::before,
+form::before {
+  position: absolute;
+  right: -2px;
+  top: -2px;
+  padding: 0 2px;
+}
+
+section {
+  border-color: #efef0f;
+  background-color: #efef0f33;
+}
+
+section:hover {
+  background-color: #efef0f4D;
+}
+
+section::before {
+  background-color: #efef0f;
+  content: "<section>";
+}
+
+article {
+  border-color: #ff9800;
+  background-color: #ff980033;
+}
+
+article:hover {
+  background-color: #ff98004D;
+}
+
+article::before {
+  background-color: #ff9800;
+  content: "<article>";
+}
+
+nav {
+  border-color: #008000;
+  background-color: #00800033;
+}
+
+nav:hover {
+  background-color: #0080004D;
+}
+
+nav::before {
+  background-color: #008000;
+  content: "<nav>";
+  color: #fff;
+}
+
+aside {
+  border-color: #607d8b;
+  background-color: #607d8b33;
+}
+
+aside:hover {
+  background-color: #607d8b4D;
+}
+
+aside::before {
+  background-color: #607d8b;
+  content: "<aside>";
+  color: #fff;
+}
+
+form {
+  border-color: #795548;
+  background-color: #79554833;
+  margin-top: 10px;
+}
+
+form:hover {
+  background-color: #7955484D;
+}
+
+form::before {
+  background-color: #795548;
+  content: "<form>";
+  color: #fff;
+}
+
+label[data-block] {
+  border: 1px solid #a7b715;
+  background-color: #a7b71533;
+  position: relative;
+  padding: 4px;
+  margin: 10px 0 0 0;
+}
+
+label[data-block]:hover {
+  background-color: #a7b7154D;
+}
+
+label[data-block]::before {
+  position: absolute;
+  content: "<label>";
+  background-color: #a7b715;
+  right: 0;
+  top: 0;
+}
+
+article + article,
+section + section,
+article + section,
+article + aside,
+section + article,
+section + aside,
+nav + section,
+nav + article,
+section + nav,
+aside + section,
+aside + article,
+aside + nav {
+  margin-top: 15px;
+}
+
+input[required],
+textarea[required] {
+  border-color: red;
+}
+
+label[data-block] + button {
+  margin-top: 0.5em;
+}
+
+ul, ol {
+  border: 1px solid #1cd691;
+  background-color: #1cd69133;
+  margin-top: 10px;
+  position: relative;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-right: 4px;
+}
+
+ul:hover,
+ol:hover {
+  background-color: #1cd6914D;
+}
+
+ul::before,
+ol::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #1cd691;
+  color: #fff;
+}
+
+ul::before {
+  content: "<ul>";
+}
+
+ol::before {
+  content: "<ol>";
+}
+
+li {
+  border: 1px dotted #1cd691;
+}
+
+li + li {
+  border-top: 0;
+}
+
+li:hover {
+  background-color: #1cd6914D;
+}

@@ -1,0 +1,86 @@
+/*
+ * Accessibility Semantics CSS
+ * ===========================
+ *
+ * A collection of styles that will take care of some general accessibility concerns.
+ *
+ * ♥️ [github.com/NothingAG/a11y-semantics-css](https://github.com/NothingAG/a11y-semantics-css) / [https://www.nothing.ch](nothing.ch) 🚀
+ *
+ * All styles are applied to `data-*` attributes, for example `data-visually-hidden`. This allows easy separation of concerns, as the accessibility styles will never be confused with purely visual styles (which are applied to traditional class names).
+ *
+ * To make these styles "visible" (for debugging during development), also load `a11y-semantics-visible.css` into your project, or use the bookmarklet from [nothingag.github.io/a11y-semantics-css](https://nothingag.github.io/a11y-semantics-css).
+ */
+
+/* data-visually-hidden
+ * --------------------
+ *
+ * Hides an item visually (so that it is still perceivable by screen readers, and also through text search). If the item is focused, then un-hide, as this is useful for "Skip to content" links or similar (in general, focused elements should not be hidden visually).
+ *
+ * The implementation from https://css-tricks.com/inclusively-hidden/ is used. It seems to work better with touch devices than the traditional solution from https://webaim.org/techniques/css/invisiblecontent/.
+ *
+ * Notice: I like separating accessibility-related CSS code from purely visual styles (decorative aesthetics). As such I vote for applying such accessibility-related CSS code not using a traditional CSS class, but using `data-...` attributes.
+*/
+[data-visually-hidden],
+[data-skip-to-content-link]:not(:focus) { /* The "Skip to content" link is a special case: it must be visible on focus! */
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+/* data-skip-to-content-link
+ * -------------------------
+ *
+ * Link to bypass blocks and move the focus directly to the content (WCAG 2.4.1 - Skip blocks).
+ *
+ * See https://webaim.org/techniques/skipnav/ and https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks.
+ */
+[data-skip-to-content-link] {
+  position: absolute;
+  z-index: 1; /* TOASK: Why is this needed? */
+}
+
+/* data-full-inline-block
+ * ----------------------
+ *
+ * Makes an inline element take up the full visual width.
+ *
+ * Often people would use `display: block` for this, but this makes screen readers split announcements into separate chunks (lines), which is not unwanted in certain situations. For example, when the content of a heading is separated into a date, a text, and an author, you want the screen reader to announce all this information "in one go".
+ */
+[data-full-inline-block] {
+  display: inline-block;
+  width: 100%;
+}
+
+/* data-block
+ * ----------
+ *
+ * Converts an inline element into a block element.
+ *
+ * This is useful to make screen readers split several elements (which by default are inline) into separated announcements, for example `<label>` elements containing an input. 
+ */
+[data-block] {
+  display: block;
+}
+
+/* data-toggle-visibility
+ * ----------------------
+ *
+ * Toggle the visibility of the element with the ID passed as value of the attribute: `<button type="button" data-toggle-visibility="main-menu">...</button>`.
+ *
+ * See https://galaxy.nothing.ch/woz/relaunch/-/issues/5#note_1117176.
+ */
+[data-visibility-collapsed],
+[data-visibility-expanded] {
+  display: none;
+}
+
+/* Inside the visibility toggler's button, use `data-visibility-collapsed` on an element to show in collapsed state only; use `data-visibility-expanded` to show in expanded state only.
+ */
+[data-toggle-visibility][aria-expanded="false"] [data-visibility-collapsed],
+[data-toggle-visibility][aria-expanded="true"]  [data-visibility-expanded] {
+  display: inherit;
+}
