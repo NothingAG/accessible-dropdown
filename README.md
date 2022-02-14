@@ -56,6 +56,7 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
     - _General question: is this expected behaviour? Why is JAWS so conservative in announcing this useful associated info? Maybe we can ask Quentin about this._
 - Having the options' `<label>`s with `display: inline` has the nice effect that NVDA reads the number of the `<li>` and all of its contents (checkbox with label) in one go, but for some reason we cannot activate it anymore with `Space`/`Enter` in NVDA. Only if we use `display: block` it works, but then it splits the announcement into 1) the number of the `<li>`, and 2) its contents.
     - UPDATE: I set `list-style: none` to "defuse" this situation completely. It is enough that screen readers can announce the total number of options, and the "search wrapped" info is given by placing the focus in the text field again.
+- Is "uncheck" or "unselect" the right word when talking about checkboxes??
 
 ## Resources
 
