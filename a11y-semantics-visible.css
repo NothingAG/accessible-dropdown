@@ -6,7 +6,8 @@
  * To activate, let `<link rel="stylesheet" href="assets/styles.css">` point to `assets/styles.css`.
  */
 
-[data-visually-hidden] {
+[data-visually-hidden],
+[data-visually-hidden] legend {
   background: repeating-conic-gradient(#0000002b 0% 25%, #ffffff4D 0% 50%) 50%/8px 8px;
 }
 
@@ -159,6 +160,14 @@ h6::after {
   content: "↞";
 }
 
+[role="alert"] {
+  color: red;
+}
+
+[role="alert"]::after {
+  content: "⚠️";
+}
+
 [data-block] {
   display: block;
   margin-top: .5em;
@@ -196,6 +205,27 @@ p::before {
   position: absolute;
   content: "<p>";
   background-color: #800080;
+  right: 0;
+  top: 0;
+  color: #fff;
+}
+
+legend {
+  border: 1px solid #4d4879;
+  background-color: #4d487933;
+  position: relative;
+  padding: 4px 66px 4px 4px;
+  margin: 10px 0 0 0;
+}
+
+legend:hover {
+  background-color: #4d48794D;
+}
+
+legend::before {
+  position: absolute;
+  content: "<legend>";
+  background-color: #4d4879;
   right: 0;
   top: 0;
   color: #fff;
@@ -241,7 +271,8 @@ section,
 article,
 nav,
 aside,
-form {
+form,
+fieldset {
   border: 2px solid;
   padding: 20px 6px 10px 6px;
   position: relative;
@@ -252,7 +283,8 @@ section::before,
 article::before,
 nav::before,
 aside::before,
-form::before {
+form::before,
+fieldset::before {
   position: absolute;
   right: -2px;
   top: -2px;
@@ -333,6 +365,24 @@ form::before {
   color: #fff;
 }
 
+
+fieldset {
+  border-color: #69adaf;
+  background-color: #69adaf33;
+  margin-top: 10px;
+}
+
+fieldset:hover {
+  background-color: #69adaf4D;
+}
+
+fieldset::before {
+  background-color: #69adaf;
+  content: "<fieldset>";
+  color: #fff;
+  top: -15px;
+}
+
 label[data-block] {
   border: 1px solid #a7b715;
   background-color: #a7b71533;
@@ -378,8 +428,8 @@ label[data-block] + button {
 }
 
 ul, ol {
-  border: 1px solid #1cd691;
-  background-color: #1cd69133;
+  border: 1px solid #1c73d6;
+  background-color: #1c73d633;
   margin-top: 10px;
   position: relative;
   padding-top: 4px;
@@ -389,7 +439,7 @@ ul, ol {
 
 ul:hover,
 ol:hover {
-  background-color: #1cd6914D;
+  background-color: #1c73d64D;
 }
 
 ul::before,
@@ -397,7 +447,7 @@ ol::before {
   position: absolute;
   top: 0;
   right: 0;
-  background-color: #1cd691;
+  background-color: #1c73d6;
   color: #fff;
 }
 
@@ -410,7 +460,7 @@ ol::before {
 }
 
 li {
-  border: 1px dotted #1cd691;
+  border: 1px dotted #1c73d6;
 }
 
 li + li {
@@ -418,5 +468,5 @@ li + li {
 }
 
 li:hover {
-  background-color: #1cd6914D;
+  background-color: #1c73d64D;
 }
