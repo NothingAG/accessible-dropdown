@@ -136,6 +136,33 @@ function onSelectedButtonClick(event) {
     );
     hobbyItem.querySelector("input").checked = false;
 
+    const selectedButtons = Array.from(
+      document.querySelectorAll(".selected__button")
+    );
+    const clickedIndex = selectedButtons.reduce((acc, curr, index) => {
+      if (curr.innerText.trim() === optionText) return index;
+      else {
+        return acc;
+      }
+    }, -1);
+
+    if (clickedIndex !== -1) {
+      const nextIndex =
+        selectedButtons.length === 1
+          ? -1
+          : clickedIndex < selectedButtons.length - 1
+          ? clickedIndex
+          : clickedIndex - 1;
+      if (nextIndex >= 0) {
+        setTimeout(() => {
+          debugger;
+          Array.from(document.querySelectorAll(".selected__button"))[
+            nextIndex
+          ].focus();
+        });
+      }
+    }
+
     onCheckboxChange();
   }
 }
