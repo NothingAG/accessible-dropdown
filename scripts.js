@@ -9,6 +9,7 @@ elems.availableHobbiesLegend = document.querySelector(
 );
 elems.hobbyItemInputs = document.querySelectorAll(".hobby-item input");
 elems.filterButton = document.querySelector(".filter__button");
+elems.filterText = document.querySelector(".filter__text");
 elems.selectedList = document.querySelector(".selected__list");
 elems.selectedLegend = document.querySelector(".selected__legend");
 elems.availableHobbiesCounter = document.querySelector(
@@ -77,30 +78,21 @@ function onCheckboxChange() {
   );
 
   elems.availableHobbiesLegend.innerHTML = `Available hobbies (${checkedItems.length} selected})`;
-  elems.filterButton.innerHTML = composeFilteringButtonText(checkedItemTexts);
+  elems.filterText.innerHTML = composeFilteringButtonText(checkedItemTexts);
   updateSelectedList(checkedItemTexts);
   elems.selectedLegend.innerText = `Selected hobbies (${checkedItemTexts.length} in total)`;
 }
 
 function composeFilteringButtonText(checkboxLabels) {
   const numberOfOptions = checkboxLabels.length;
-  const copy = JSON.parse(JSON.stringify(checkboxLabels));
-  const last = copy.pop();
-  const rest = copy;
 
-  const part1 = `${checkboxLabels.length} ${
+  return `${numberOfOptions} ${
     numberOfOptions === 0
-      ? "options selected"
+      ? "options selected."
       : numberOfOptions === 1
-      ? "option selected: "
-      : "options selected: "
+      ? "option selected."
+      : "options selected."
   }`;
-  const part2 = `${rest.length ? rest.join(", ") + " and " : ""}${
-    last ? last : ""
-  }. `;
-  const part3 = numberOfOptions === 0 ? "" : "Click to unselect all.";
-
-  return part1 + part2 + part3;
 }
 
 function updateSelectedList(checkedItemTexts) {
