@@ -97,7 +97,12 @@ function composeFilteringButtonText(checkboxLabels) {
 
 function updateSelectedList(checkedItemTexts) {
   const allEntries = checkedItemTexts
-    .map((text) => `<li><button type="button">${text} (X)</button></li>`)
+    .map(
+      (
+        text
+      ) => `<li><button type="button">${text} <img src="clear.svg" alt="unselect">
+  </button></li>`
+    )
     .join("");
   elems.selectedList.innerHTML = allEntries;
 }
