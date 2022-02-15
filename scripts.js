@@ -100,7 +100,7 @@ function updateSelectedList(checkedItemTexts) {
     .map(
       (
         text
-      ) => `<li><button type="button">${text} <img src="clear.svg" alt="unselect">
+      ) => `<li><button class="selected__button" type="button">${text} <img src="clear.svg" alt="unselect">
   </button></li>`
     )
     .join("");
@@ -123,4 +123,19 @@ function resetCheckboxes(event) {
   }
   onCheckboxChange();
   elems.filterField.select();
+}
+
+elems.selectedList.addEventListener("click", onSelectedButtonClick);
+
+function onSelectedButtonClick(event) {
+  const { target } = event;
+  if (target.classList.contains("selected__button")) {
+    const optionText = target.innerText.trim();
+    const hobbyItem = Array.from(document.querySelectorAll(".hobby-item")).find(
+      (item) => item.innerText.trim() === optionText
+    );
+    hobbyItem.querySelector("input").checked = false;
+
+    onCheckboxChange();
+  }
 }
