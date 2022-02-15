@@ -160,7 +160,7 @@ function onSelectedButtonClick(event) {
             nextIndex
           ].focus();
         });
-      }
+      } else elems.filterField.select();
     }
 
     onCheckboxChange();
