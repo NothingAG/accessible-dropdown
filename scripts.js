@@ -46,7 +46,6 @@ function onKeyup(event) {
       let currentElem = elems.arrowSelectableElems[j];
       if (!currentElem.hidden) {
         lastSelected = j;
-        console.log(lastSelected);
         if (currentElem === elems.filterField) {
           currentElem.select();
         } else {
@@ -55,6 +54,16 @@ function onKeyup(event) {
         break;
       }
     }
+  }
+
+  if (event.key === "PageDown" || event.key === "PageUp") {
+    const shownElems = [...elems.hobbyItems].filter((elem) => !elem.hidden);
+    const elemToFocus = shownElems
+      .at(event.key === "PageDown" ? -1 : 0)
+      .querySelector("input");
+    elemToFocus.focus();
+
+    lastSelected = event.key === "PageDown" ? -1 : 1;
   }
 }
 
@@ -155,7 +164,6 @@ function onSelectedButtonClick(event) {
           : clickedIndex - 1;
       if (nextIndex >= 0) {
         setTimeout(() => {
-          debugger;
           Array.from(document.querySelectorAll(".selected__button"))[
             nextIndex
           ].focus();
