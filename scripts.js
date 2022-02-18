@@ -17,14 +17,15 @@ elems.availableHobbiesCounter = document.querySelector(
 );
 
 elems.arrowSelectableElems = [elems.filterField, ...elems.hobbyItems];
-elems.filterField.addEventListener("input", onInputChange);
+elems.filterField.addEventListener("input", onFilterfieldChange);
+elems.filterField.addEventListener("input", onFilterFieldChangeOnce);
 
 let filterTerm = "";
 let lastSelected = 0;
 let numberOfElems = elems.arrowSelectableElems.length;
 const textInputRegexp = /(^[a-zA-Z]$)|(Backspace)/;
 
-function onInputChange(event) {
+function onFilterfieldChange(event) {
   filterTerm = event.target.value.toLowerCase();
 
   let numberOfShownHobbies = 0;
@@ -37,6 +38,11 @@ function onInputChange(event) {
     numberOfShownHobbies === 1
       ? "1 option available."
       : `${numberOfShownHobbies} options available.`;
+}
+
+function onFilterFieldChangeOnce() {
+  elems.availableHobbiesCounter.setAttribute("role", "alert");
+  elems.filterField.removeEventListener("input", onFilterFieldChangeOnce);
 }
 
 document.addEventListener("keyup", onKeyup);
