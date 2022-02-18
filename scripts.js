@@ -2,6 +2,7 @@
 
 const elems = {};
 
+elems.multi = document.querySelector(".multi");
 elems.hobbyItems = document.querySelectorAll(".hobby-item");
 elems.availableHobbiesLegend = document.querySelector(
   ".available-hobbies__legend"
@@ -46,7 +47,7 @@ function onFilterFieldChangeOnce() {
   elems.filterField.removeEventListener("input", onFilterFieldChangeOnce);
 }
 
-document.addEventListener("keyup", onKeyup);
+elems.multi.addEventListener("keyup", onKeyup);
 
 function onKeyup(event) {
   if (event.key === "ArrowDown" || event.key === "ArrowUp") {
