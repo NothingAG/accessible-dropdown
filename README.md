@@ -31,13 +31,13 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
     - ✅ Focus the next button, if available.
     - ✅ Or focus the previous button, if available.Or focus the previous button, if available.
     - ✅ Or focus the text field.
-- When `Page Up`/`Page Down` is pressed (regardless whether inside the text field or when an option is focused), move focus to the very first/last option.
-- When `Enter` is pressed on a checkbox, toggle it (same functionality like `Space`).
-- When a checkbox is focused and a character key is pressed, then move focus back to the filter input and append the typed character.
-    - There are probably some "special keys" we need to implement, for example `Backspace` - any other that come to your mind?
-- The first time a filter is entered, add `role="alert"` to `.available-hobbies__counter` (this will make screen readers announce it).
-- Set `hidden` to `fieldset.selected` when there is no option selected.
-- I added `3 selected` to "X options available", please update accordingly.
+- ✅ When `Page Up`/`Page Down` is pressed (regardless whether inside the text field or when an option is focused), move focus to the very first/last option.
+- ✅ When `Enter` is pressed on a checkbox, toggle it (same functionality like `Space`).
+- ✅ When a checkbox is focused and a character key is pressed, then move focus back to the filter input and append the typed character.
+    - ✅ There are probably some "special keys" we need to implement, for example `Backspace` - any other that come to your mind?
+- ✅ The first time a filter is entered, add `role="alert"` to `.available-hobbies__counter` (this will make screen readers announce it).
+- ✅ Set `hidden` to `fieldset.selected` when there is no option selected.
+- ✅ I added `3 selected` to "X options available", please update accordingly.
 
 ## @josua: some notes to keep in mind
 
