@@ -25,11 +25,12 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 - ✅ When a checkbox is checked, following elements are updated accordingly: the "Selected hobbies" fieldset's legend and contained buttons, the "X options selected" button, and the "Available hobbies" fieldset's legend.
 - ✅ When `Esc` is pressed while a checkbox is focused, the focus is put to the "X options selected" button.
 - ✅ When the "X options selected" button is pressed, then all checkboxes are unchecked, and the focus is set to the filter text field (and obviously, all other dependent elements are updated accordingly).
-    - Please select all text (so the user can replace a filter term right away)
-- When a button inside "Selected hobbies" is pressed, uncheck the respective checkbox, then:
-    - Focus the next button, if available.
-    - Or focus the previous button, if available.
-    - Or focus the text field.
+    - ✅ Please select all text (so the user can replace a filter term right away)
+- ✅ When a button inside "Selected hobbies" is pressed, uncheck the respective checkbox, then:
+    - ✅ Focus the next button, if available.
+    - ✅ Focus the next button, if available.
+    - ✅ Or focus the previous button, if available.Or focus the previous button, if available.
+    - ✅ Or focus the text field.
 - When `Page Up`/`Page Down` is pressed (regardless whether inside the text field or when an option is focused), move focus to the very first/last option.
 - When `Enter` is pressed on a checkbox, toggle it (same functionality like `Space`).
 - When a checkbox is focused and a character key is pressed, then move focus back to the filter input and append the typed character.

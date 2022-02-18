@@ -1,3 +1,5 @@
+"use strict";
+
 const elems = {};
 
 elems.hobbyItems = document.querySelectorAll(".hobby-item");
@@ -25,7 +27,7 @@ function onInputChange(event) {
   filterTerm = event.target.value.toLowerCase();
 
   let numberOfShownHobbies = 0;
-  for (hobbyItem of elems.hobbyItems) {
+  for (let hobbyItem of elems.hobbyItems) {
     hobbyItem.hidden = !hobbyItem.innerText.toLowerCase().includes(filterTerm);
     if (!hobbyItem.hidden) numberOfShownHobbies += 1;
   }
@@ -134,8 +136,8 @@ function onCheckboxKeyup(event) {
 
 elems.filterButton.addEventListener("click", resetCheckboxes);
 
-function resetCheckboxes(event) {
-  for (checkbox of elems.hobbyItemInputs) {
+function resetCheckboxes() {
+  for (let checkbox of elems.hobbyItemInputs) {
     checkbox.checked = false;
   }
   onCheckboxChange();
@@ -146,8 +148,14 @@ elems.selectedList.addEventListener("click", onSelectedButtonClick);
 
 function onSelectedButtonClick(event) {
   const { target } = event;
-  if (target.classList.contains("selected__button")) {
-    const optionText = target.innerText.trim();
+  const button = target.classList.contains("selected__button")
+    ? target
+    : target.parentNode.classList.contains("selected__button")
+    ? target.parentNode
+    : undefined;
+
+  if (button.classList.contains("selected__button")) {
+    const optionText = button.innerText.trim();
     const hobbyItem = Array.from(document.querySelectorAll(".hobby-item")).find(
       (item) => item.innerText.trim() === optionText
     );
@@ -180,5 +188,7 @@ function onSelectedButtonClick(event) {
     }
 
     onCheckboxChange();
+  } else {
+    return true;
   }
 }
