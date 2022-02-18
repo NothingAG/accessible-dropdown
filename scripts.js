@@ -1,5 +1,4 @@
 const elems = {};
-let filterTerm = "";
 
 elems.hobbyItems = document.querySelectorAll(".hobby-item");
 elems.availableHobbiesLegend = document.querySelector(
@@ -18,6 +17,10 @@ elems.availableHobbiesCounter = document.querySelector(
 elems.arrowSelectableElems = [elems.filterField, ...elems.hobbyItems];
 elems.filterField.addEventListener("input", onInputChange);
 
+let filterTerm = "";
+let lastSelected = 0;
+let numberOfElems = elems.arrowSelectableElems.length;
+
 function onInputChange(event) {
   filterTerm = event.target.value.toLowerCase();
 
@@ -33,9 +36,6 @@ function onInputChange(event) {
       : `${numberOfShownHobbies} options available.`;
 }
 
-let lastSelected = 0;
-let numberOfElems = elems.arrowSelectableElems.length;
-
 document.addEventListener("keyup", onKeyup);
 
 function onKeyup(event) {
@@ -45,7 +45,6 @@ function onKeyup(event) {
       let j = modulo(direction * (i + 1) + lastSelected, numberOfElems);
       let currentElem = elems.arrowSelectableElems[j];
       if (!currentElem.hidden) {
-        lastSelected = j;
         if (currentElem === elems.filterField) {
           currentElem.select();
         } else {
@@ -62,8 +61,6 @@ function onKeyup(event) {
       .at(event.key === "PageDown" ? -1 : 0)
       .querySelector("input");
     elemToFocus.focus();
-
-    lastSelected = event.key === "PageDown" ? -1 : 1;
   }
 }
 
@@ -73,8 +70,19 @@ function modulo(a, n) {
   return ((a % n) + n) % n;
 }
 
-for (checkboxInput of elems.hobbyItemInputs) {
+for (let i = 0; i < elems.hobbyItemInputs.length; i++) {
+  const checkboxInput = elems.hobbyItemInputs[i];
+
   checkboxInput.addEventListener("input", onCheckboxChange);
+  checkboxInput.addEventListener("focus", () => {
+    lastSelected = i + 1;
+  });
+  checkboxInput.addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+      const isChecked = checkboxInput.checked;
+      checkboxInput.checked = !isChecked;
+    }
+  });
 }
 
 function onCheckboxChange() {
