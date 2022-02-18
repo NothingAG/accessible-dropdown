@@ -125,6 +125,7 @@ function onCheckboxChange() {
   elems.filterText.innerHTML = composeFilteringButtonText(checkedItemTexts);
   updateSelectedList(checkedItemTexts);
   elems.selectedLegend.innerText = `Selected hobbies (${checkedItemTexts.length} in total)`;
+  elems.availableHobbiesCounter.innerText = `${elems.hobbyItemInputs.length} options available, ${checkedItems.length} selected.`;
 }
 
 function composeFilteringButtonText(checkboxLabels) {
