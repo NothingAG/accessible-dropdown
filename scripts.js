@@ -10,6 +10,7 @@ elems.hobbyItemInputs = document.querySelectorAll(".hobby-item input");
 elems.filterField = document.querySelector(".filter__field");
 elems.filterButton = document.querySelector(".filter__button");
 elems.filterText = document.querySelector(".filter__text");
+elems.selected = document.querySelector(".selected");
 elems.selectedList = document.querySelector(".selected__list");
 elems.selectedLegend = document.querySelector(".selected__legend");
 elems.availableHobbiesCounter = document.querySelector(
@@ -17,7 +18,7 @@ elems.availableHobbiesCounter = document.querySelector(
 );
 
 elems.arrowSelectableElems = [elems.filterField, ...elems.hobbyItems];
-elems.filterField.addEventListener("input", onFilterfieldChange);
+elems.filterField.addEventListener("input", onFilterFieldChange);
 elems.filterField.addEventListener("input", onFilterFieldChangeOnce);
 
 let filterTerm = "";
@@ -25,7 +26,7 @@ let lastSelected = 0;
 let numberOfElems = elems.arrowSelectableElems.length;
 const textInputRegexp = /(^[a-zA-Z]$)|(Backspace)/;
 
-function onFilterfieldChange(event) {
+function onFilterFieldChange(event) {
   filterTerm = event.target.value.toLowerCase();
 
   let numberOfShownHobbies = 0;
@@ -148,6 +149,7 @@ function updateSelectedList(checkedItemTexts) {
     )
     .join("");
   elems.selectedList.innerHTML = allEntries;
+  elems.selected.hidden = checkedItemTexts.length === 0;
 }
 
 elems.hobbyItemInputs.forEach((checkbox) =>
