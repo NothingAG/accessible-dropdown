@@ -22,6 +22,7 @@ elems.filterField.addEventListener("input", onInputChange);
 let filterTerm = "";
 let lastSelected = 0;
 let numberOfElems = elems.arrowSelectableElems.length;
+const textInputRegexp = /(^[a-zA-Z]$)|(Backspace)/;
 
 function onInputChange(event) {
   filterTerm = event.target.value.toLowerCase();
@@ -63,6 +64,23 @@ function onKeyup(event) {
       .at(event.key === "PageDown" ? -1 : 0)
       .querySelector("input");
     elemToFocus.focus();
+  }
+
+  {
+    const { target } = event;
+    const { filterField } = elems;
+
+    if (event.key.match(textInputRegexp)) {
+      if (target !== filterField) {
+        if (event.key.match(/^Backspace$/)) {
+          filterField.value = filterField.value.slice(0, -1);
+        } else {
+          filterField.value += event.key;
+        }
+        filterField.focus();
+        filterField.dispatchEvent(new Event("input"));
+      }
+    }
   }
 }
 
