@@ -3,6 +3,8 @@
 const elems = {};
 
 elems.multi = document.querySelector(".multi");
+elems.filter = document.querySelector(".filter");
+elems.options = document.querySelector(".options");
 elems.hobbyItems = document.querySelectorAll(".hobby-item");
 elems.availableHobbiesLegend = document.querySelector(
   ".available-hobbies__legend"
@@ -26,6 +28,18 @@ let filterTerm = "";
 let lastSelected = 0;
 let numberOfElems = elems.arrowSelectableElems.length;
 const textInputRegexp = /^(([a-zA-Z])|(Backspace)|(Delete))$/;
+
+for (let elem of [elems.filter, elems.options]) {
+  elem.addEventListener("keyup", function () {
+    if (event.key === "PageDown" || event.key === "PageUp") {
+      const shownElems = [...elems.hobbyItems].filter((elem) => !elem.hidden);
+      const elemToFocus = shownElems
+        .at(event.key === "PageDown" ? -1 : 0)
+        .querySelector("input");
+      elemToFocus.focus();
+    }
+  });
+}
 
 function onFilterFieldChange(event) {
   filterTerm = event.target.value.toLowerCase();
@@ -64,14 +78,6 @@ function onKeyup(event) {
         break;
       }
     }
-  }
-
-  if (event.key === "PageDown" || event.key === "PageUp") {
-    const shownElems = [...elems.hobbyItems].filter((elem) => !elem.hidden);
-    const elemToFocus = shownElems
-      .at(event.key === "PageDown" ? -1 : 0)
-      .querySelector("input");
-    elemToFocus.focus();
   }
 
   {
