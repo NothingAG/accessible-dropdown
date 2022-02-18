@@ -25,7 +25,7 @@ elems.filterField.addEventListener("input", onFilterFieldChangeOnce);
 let filterTerm = "";
 let lastSelected = 0;
 let numberOfElems = elems.arrowSelectableElems.length;
-const textInputRegexp = /(^[a-zA-Z]$)|(Backspace)/;
+const textInputRegexp = /^(([a-zA-Z])|(Backspace)|(Delete))$/;
 
 function onFilterFieldChange(event) {
   filterTerm = event.target.value.toLowerCase();
@@ -82,6 +82,8 @@ function onKeyup(event) {
       if (target !== filterField) {
         if (event.key.match(/^Backspace$/)) {
           filterField.value = filterField.value.slice(0, -1);
+        } else if (event.key.match(/^Delete$/)) {
+          filterField.value = "";
         } else {
           filterField.value += event.key;
         }
