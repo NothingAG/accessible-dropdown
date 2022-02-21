@@ -19,6 +19,9 @@ elems.selectedLegend = document.querySelector(".selected__legend");
 elems.availableHobbiesCounter = document.querySelector(
   ".available-hobbies__counter"
 );
+elems.availableHobbiesSelectedCounter = document.querySelector(
+  ".available-hobbies__selected-counter"
+);
 
 elems.arrowSelectableElems = [elems.filterField, ...elems.hobbyItems];
 elems.filterField.addEventListener("input", onFilterFieldChange);
@@ -134,7 +137,8 @@ function onCheckboxChange() {
   elems.filterText.innerHTML = composeFilteringButtonText(checkedItemTexts);
   updateSelectedList(checkedItemTexts);
   elems.selectedLegend.innerText = `Selected hobbies (${checkedItemTexts.length} in total)`;
-  elems.availableHobbiesCounter.innerText = `${elems.hobbyItemInputs.length} options available, ${checkedItems.length} selected.`;
+  elems.availableHobbiesCounter.innerText = `${elems.hobbyItemInputs.length} options available, `;
+  elems.availableHobbiesSelectedCounter.innerText = `${checkedItems.length} selected.`;
 }
 
 function composeFilteringButtonText(checkboxLabels) {
