@@ -1,3 +1,44 @@
-label {
+.selected {
+  margin-bottom: 1em;
+}
+
+.selected__list {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  list-style: none;
+}
+
+.selected__list li {
+  float: left; /* TODO: Rather use flexbox here? */
+  margin-left: 0.5em;
+}
+
+.options {
+  margin-top: 1em;
+}
+
+.options:focus-within,
+.options:hover {
+  background-color: rgb(179, 255, 129);
+}
+
+.options__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.options__list label:focus-within,
+.options__list label:hover {
+  background-color: rgb(255, 167, 167);
+  cursor: pointer;
+}
+
+.options__list label {
   display: block;
+}
+
+.options__list input:checked + span {
+  font-weight: bold;
 }
