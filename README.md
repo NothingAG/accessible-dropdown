@@ -29,12 +29,14 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 - ✅ When a button inside "Selected hobbies" is pressed, uncheck the respective checkbox, then:
     - ✅ Focus the next button, if available.
     - ✅ Focus the next button, if available.
-    - ✅ Or focus the previous button, if available.Or focus the previous button, if available.
+    - ✅ Or focus the previous button, if available.
     - ✅ Or focus the text field.
 - ✅ When `Page Up`/`Page Down` is pressed (regardless whether inside the text field or when an option is focused), move focus to the very first/last option.
 - ✅ When `Enter` is pressed on a checkbox, toggle it (same functionality like `Space`).
+    - BUG: While the checkbox indeed is checked, the rest of the widget does not react (ie. the newly selected item is not added to the "Selected hobbies", etc.)
 - ✅ When a checkbox is focused and a character key is pressed, then move focus back to the filter input and append the typed character.
     - ✅ There are probably some "special keys" we need to implement, for example `Backspace` - any other that come to your mind?
+        - ✅ `Delete` will remove the filter text
 - ✅ The first time a filter is entered, add `role="alert"` to `.available-hobbies__counter` (this will make screen readers announce it).
 - ✅ Set `hidden` to `fieldset.selected` when there is no option selected.
 - ✅ I added `3 selected` to "X options available", please update accordingly.
