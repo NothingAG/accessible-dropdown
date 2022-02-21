@@ -50,8 +50,16 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
     - Although `aria-live` would be a much better replacement for `role="alert"`, JAWS seems to not support it, at least when just updating its contents! Maybe removing the whole element and then adding it back would trigger JAWS as expected?
     - Putting `role="alert"` seems to have some quirky effects:
         - While Chrome announces an alert immediately when loading the page, FF does not.
+            - UPDATE: We fix this by adding the attribute not at document load, but on first its update.
         - While FF announces "alert" plus the actual content of the element, Chrome does only announce its content.
     - _Conclusion: We could try to adapt to different browsers to optimise the user experience for screen readers, e.g. we could use `aria-live` in FF and `role="alert"` in Chrome? If everything else fails, we just use `role="alert"` everywhere (it's not the most beautiful option, but it works)._
+- The interplay between `aria-describedby`, putting "everything" into a `<label>`, and having even `role="alert"` mingled into one or the other, seems to have quite a variety of behaviours, depending on the combos of browsers and screen readers.
+    - I vote for putting all relevant info (ie. "X options available, X selected") into the `<label>`. Some combos seem to announce changes inside those elements, others do not.
+    - I tinkered around with `aria-describedby` instead, but this did not lead to better results. I vote not to use it, as it requires us to throw IDs into the code.
+    - Having `role="alert"` inside those elements results in redundant announcements in some combos, as first the content of the alert is announced, and then also the whole `<label>`/`aria-describedby` (incl. the alert).
+        - I think in general this is alright, as it just adds more context to the widget's current state.
+        - I'm not completely sure whether `aria-live` has the same effect.
+    - _Conclusion:_ In the end, we will have to play around a bit with different solutions and see which one works best across all targeted browsers and screen readers. There might be no perfect solution, but in the end: as long as it's working as expected (and in a robust, predictable way), all screen reader users will be more than happy, even if there's a bit of redundancy in the announcements (which they can simply skip by further interacting with the element).
 - In Chrome, JAWS jumps to the 2nd option when pressing `Down` inside the filter text field. This is unfortunate. Neither `stopPropagation` nor `preventDefault` seems to change this. In general I'd say: if a screen reader obviously causes some simple standard HTML functionality to produce a bug, then it is their problem, not ours (in contrast to using heavy ARIA stuff, where WE would need to make sure that the functionality works as expected).
 - In general, NVDA is much more verbose than JAWS:
     - NVDA announces changes to `<label>` of the currently focused input (this would allow to just put announcements into `<label>`, instead of using `role="alert"`)
