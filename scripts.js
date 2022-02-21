@@ -55,8 +55,8 @@ function onFilterFieldChange(event) {
 
   elems.availableHobbiesCounter.innerText =
     numberOfShownHobbies === 1
-      ? "1 option available, "
-      : `${numberOfShownHobbies} options available, `;
+      ? "1 option available"
+      : `${numberOfShownHobbies} options available`;
 }
 
 function onFilterFieldChangeOnce() {
