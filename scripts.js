@@ -55,8 +55,8 @@ function onFilterFieldChange(event) {
 
   elems.availableHobbiesCounter.innerText =
     numberOfShownHobbies === 1
-      ? "1 option available."
-      : `${numberOfShownHobbies} options available.`;
+      ? "1 option available"
+      : `${numberOfShownHobbies} options available`;
 }
 
 function onFilterFieldChangeOnce() {
@@ -137,7 +137,7 @@ function onCheckboxChange() {
   elems.filterText.innerHTML = composeFilteringButtonText(checkedItemTexts);
   updateSelectedList(checkedItemTexts);
   elems.selectedLegend.innerText = `Selected hobbies (${checkedItemTexts.length} in total)`;
-  elems.availableHobbiesCounter.innerText = `${elems.hobbyItemInputs.length} options available, `;
+  elems.availableHobbiesCounter.innerText = `${elems.hobbyItemInputs.length} options available`;
   elems.availableHobbiesSelectedCounter.innerText = `${checkedItems.length} selected.`;
 }
 
