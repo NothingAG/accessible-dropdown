@@ -19,11 +19,11 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 ## @xaver: basic interactive functionality
 
 - ✅ When entering a filter term into the text field, the checkboxes should be filtered (set HTML `hidden` attribute).
-    - ✅ Update "X options available" accordingly.
+    - ✅ Update "X options available" to "X options available for XYZ" (where XYZ is the filter term).
 - ✅ When pressing `Up`/`Down` keys, the keyboard focus jumps between the filter text field and the checkboxes back and forth.
     - ❓ I'm unsure whether the focus should jump back to the text field when reaching the bottom, or just back to the first option. UPDATE: Thinking about it, we probably keep it like that, as it gives screen reader users an important hint (search wrapped).
 - ✅ When a checkbox is checked, following elements are updated accordingly: the "Selected hobbies" fieldset's legend and contained buttons, the "X options selected" button, and the "Available hobbies" fieldset's legend.
-- ✅ When `Esc` is pressed while a checkbox is focused, the focus is put to the "X options selected" button.
+- ✅ When `Esc` is pressed while a checkbox is focused, the focus is put to the "X options selected" button, and the dropdown is closed.
 - ✅ When the "X options selected" button is pressed, then all checkboxes are unchecked, and the focus is set to the filter text field (and obviously, all other dependent elements are updated accordingly).
     - ✅ Please select all text (so the user can replace a filter term right away)
 - ✅ When a button inside "Selected hobbies" is pressed, uncheck the respective checkbox, then:
@@ -40,6 +40,15 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 - ✅ The first time a filter is entered, add `role="alert"` to `.available-hobbies__counter` (this will make screen readers announce it).
 - ✅ Set `hidden` to `fieldset.selected` when there is no option selected.
 - ✅ I added `3 selected` to "X options available", please update accordingly.
+- When `Esc` is pressed while the "X options selected" button is focused, then move focus back to the filter input (and select all text).
+- When `Esc` is pressed while filter input is focused, close dropdown (if opened).
+- When clicking into the filter input, open dropdown (if closed).
+    - Simply add/remove its `hidden` attribute to toggle visibility.
+- When clicking into the filter input, and the filter already has focus, close dropdown (if opened).
+- When focusing the filter input by keyboard, keep dropdown as is.
+    - When pressing `Up`/`Down` while the dropdown is closed, open it (and keep focus inside filter input).
+    - When pressing `Up`/`Down` while the dropdown is open, move focus to last/first checkbox.
+- Keep `aria-expanded` in sync with the dropdown: set it to `true` when it is open, and to `false` when it is closed.
 
 ## @josua: some notes to keep in mind
 
