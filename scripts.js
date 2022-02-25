@@ -27,6 +27,13 @@ elems.arrowSelectableElems = [elems.filterField, ...elems.hobbyItems];
 elems.filterField.addEventListener("input", onFilterFieldChange);
 elems.filterField.addEventListener("input", onFilterFieldChangeOnce);
 elems.filterField.addEventListener("keyup", onFilterFieldKeyup);
+elems.filterField.addEventListener("click", onFilterFieldClick);
+
+function onFilterFieldClick(event) {
+  if (filterFieldHasFocus) {
+    elems.options.setAttribute("hidden", "");
+  }
+}
 
 function onFilterFieldKeyup(event) {
   if (event.key === "Escape") {
@@ -35,6 +42,7 @@ function onFilterFieldKeyup(event) {
 }
 
 let filterTerm = "";
+let filterFieldHasFocus;
 let lastSelected = 0;
 let numberOfElems = elems.arrowSelectableElems.length;
 const textInputRegexp = /^(([a-zA-Z])|(Backspace)|(Delete))$/;
@@ -113,7 +121,10 @@ function onKeyup(event) {
 elems.filterField.addEventListener("focus", () => {
   lastSelected = 0;
   elems.options.removeAttribute("hidden");
+  setTimeout(() => (filterFieldHasFocus = true));
 });
+
+elems.filterField.addEventListener("blur", () => (filterFieldHasFocus = false));
 
 function modulo(a, n) {
   return ((a % n) + n) % n;
