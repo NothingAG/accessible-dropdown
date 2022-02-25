@@ -40,7 +40,7 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 - ✅ The first time a filter is entered, add `role="alert"` to `.available-hobbies__counter` (this will make screen readers announce it).
 - ✅ Set `hidden` to `fieldset.selected` when there is no option selected.
 - ✅ I added `3 selected` to "X options available", please update accordingly.
-- When `Esc` is pressed while the "X options selected" button is focused, then move focus back to the filter input (and select all text).
+- ✅ When `Esc` is pressed while the "X options selected" button is focused, then move focus back to the filter input (and select all text).
 - When `Esc` is pressed while filter input is focused, close dropdown (if opened).
 - When clicking into the filter input, open dropdown (if closed).
     - Simply add/remove its `hidden` attribute to toggle visibility.

@@ -175,6 +175,12 @@ function onCheckboxKeyup(event) {
 
 elems.filterButton.addEventListener("click", resetCheckboxes);
 
+elems.filterButton.addEventListener("keyup", onFilterButtonKeyup);
+
+function onFilterButtonKeyup(event) {
+  if (event.key === "Escape") elems.filterField.select();
+}
+
 function resetCheckboxes() {
   for (let checkbox of elems.hobbyItemInputs) {
     checkbox.checked = false;
