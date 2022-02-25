@@ -26,6 +26,13 @@ elems.availableHobbiesSelectedCounter = document.querySelector(
 elems.arrowSelectableElems = [elems.filterField, ...elems.hobbyItems];
 elems.filterField.addEventListener("input", onFilterFieldChange);
 elems.filterField.addEventListener("input", onFilterFieldChangeOnce);
+elems.filterField.addEventListener("keyup", onFilterFieldKeyup);
+
+function onFilterFieldKeyup(event) {
+  if (event.key === "Escape") {
+    elems.options.setAttribute("hidden", "");
+  }
+}
 
 let filterTerm = "";
 let lastSelected = 0;
@@ -103,7 +110,10 @@ function onKeyup(event) {
   }
 }
 
-elems.filterField.addEventListener("focus", () => (lastSelected = 0));
+elems.filterField.addEventListener("focus", () => {
+  lastSelected = 0;
+  elems.options.removeAttribute("hidden");
+});
 
 function modulo(a, n) {
   return ((a % n) + n) % n;

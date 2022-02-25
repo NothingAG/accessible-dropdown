@@ -41,9 +41,9 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 - ✅ Set `hidden` to `fieldset.selected` when there is no option selected.
 - ✅ I added `3 selected` to "X options available", please update accordingly.
 - ✅ When `Esc` is pressed while the "X options selected" button is focused, then move focus back to the filter input (and select all text).
-- When `Esc` is pressed while filter input is focused, close dropdown (if opened).
-- When clicking into the filter input, open dropdown (if closed).
-    - Simply add/remove its `hidden` attribute to toggle visibility.
+- ✅ When `Esc` is pressed while filter input is focused, close dropdown (if opened).
+- ✅ When clicking into the filter input, open dropdown (if closed).
+    - ✅ Simply add/remove its `hidden` attribute to toggle visibility.
 - When clicking into the filter input, and the filter already has focus, close dropdown (if opened).
 - When focusing the filter input by keyboard, keep dropdown as is.
     - When pressing `Up`/`Down` while the dropdown is closed, open it (and keep focus inside filter input).
