@@ -44,11 +44,11 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 - ✅ When `Esc` is pressed while filter input is focused, close dropdown (if opened).
 - ✅ When clicking into the filter input, open dropdown (if closed).
     - ✅ Simply add/remove its `hidden` attribute to toggle visibility.
-- +/- When clicking into the filter input, and the filter already has focus, close dropdown (if opened).
+- ⚠️ When clicking into the filter input, and the filter already has focus, close dropdown (if opened).
 - ✅ When focusing the filter input by keyboard, keep dropdown as is.
     - ✅ When pressing `Up`/`Down` while the dropdown is closed, open it (and keep focus inside filter input).
     - ✅ When pressing `Up`/`Down` while the dropdown is open, move focus to last/first checkbox.
-- Keep `aria-expanded` in sync with the dropdown: set it to `true` when it is open, and to `false` when it is closed.
+- ✅ Keep `aria-expanded` in sync with the dropdown: set it to `true` when it is open, and to `false` when it is closed.
 
 ## @josua: some notes to keep in mind
 

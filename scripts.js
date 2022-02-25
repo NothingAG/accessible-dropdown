@@ -30,16 +30,12 @@ elems.filterField.addEventListener("keyup", onFilterFieldKeyup);
 elems.filterField.addEventListener("click", onFilterFieldClick);
 
 function onFilterFieldClick(event) {
-  elems.options.removeAttribute("hidden");
-  if (filterFieldHasFocus) {
-    elems.options.setAttribute("hidden", "");
-  }
+  if (filterFieldHasFocus) closeOptions();
+  else openOptions();
 }
 
 function onFilterFieldKeyup(event) {
-  if (event.key === "Escape") {
-    elems.options.setAttribute("hidden", "");
-  }
+  if (event.key === "Escape") closeOptions();
 }
 
 let filterTerm = "";
@@ -84,7 +80,7 @@ elems.multi.addEventListener("keyup", onKeyup);
 
 function onKeyup(event) {
   if (event.key === "ArrowDown" || event.key === "ArrowUp") {
-    if (elems.options.getAttribute("hidden") === null) {
+    if (isOptionsOpen()) {
       const direction = event.key === "ArrowDown" ? 1 : -1;
       for (let i = 0; i < elems.arrowSelectableElems.length; i++) {
         let j = modulo(direction * (i + 1) + lastSelected, numberOfElems);
@@ -99,7 +95,7 @@ function onKeyup(event) {
         }
       }
     } else {
-      elems.options.removeAttribute("hidden");
+      openOptions();
     }
   }
 
@@ -261,4 +257,18 @@ function onSelectedButtonClick(event) {
   } else {
     return true;
   }
+}
+
+function openOptions() {
+  elems.options.removeAttribute("hidden");
+  elems.filterField.setAttribute("aria-expanded", true);
+}
+
+function closeOptions() {
+  elems.options.setAttribute("hidden", "");
+  elems.filterField.setAttribute("aria-expanded", false);
+}
+
+function isOptionsOpen() {
+  return elems.options.getAttribute("hidden") === null;
 }
