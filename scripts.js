@@ -30,6 +30,7 @@ elems.filterField.addEventListener("keyup", onFilterFieldKeyup);
 elems.filterField.addEventListener("click", onFilterFieldClick);
 
 function onFilterFieldClick(event) {
+  elems.options.removeAttribute("hidden");
   if (filterFieldHasFocus) {
     elems.options.setAttribute("hidden", "");
   }
@@ -83,18 +84,22 @@ elems.multi.addEventListener("keyup", onKeyup);
 
 function onKeyup(event) {
   if (event.key === "ArrowDown" || event.key === "ArrowUp") {
-    const direction = event.key === "ArrowDown" ? 1 : -1;
-    for (let i = 0; i < elems.arrowSelectableElems.length; i++) {
-      let j = modulo(direction * (i + 1) + lastSelected, numberOfElems);
-      let currentElem = elems.arrowSelectableElems[j];
-      if (!currentElem.hidden) {
-        if (currentElem === elems.filterField) {
-          currentElem.select();
-        } else {
-          currentElem.querySelector("input").focus();
+    if (elems.options.getAttribute("hidden") === null) {
+      const direction = event.key === "ArrowDown" ? 1 : -1;
+      for (let i = 0; i < elems.arrowSelectableElems.length; i++) {
+        let j = modulo(direction * (i + 1) + lastSelected, numberOfElems);
+        let currentElem = elems.arrowSelectableElems[j];
+        if (!currentElem.hidden) {
+          if (currentElem === elems.filterField) {
+            currentElem.select();
+          } else {
+            currentElem.querySelector("input").focus();
+          }
+          break;
         }
-        break;
       }
+    } else {
+      elems.options.removeAttribute("hidden");
     }
   }
 
@@ -120,7 +125,6 @@ function onKeyup(event) {
 
 elems.filterField.addEventListener("focus", () => {
   lastSelected = 0;
-  elems.options.removeAttribute("hidden");
   setTimeout(() => (filterFieldHasFocus = true));
 });
 
@@ -220,7 +224,7 @@ function onSelectedButtonClick(event) {
     ? target.parentNode
     : undefined;
 
-  if (button.classList.contains("selected__button")) {
+  if (button?.classList.contains("selected__button")) {
     const optionText = button.innerText.trim();
     const hobbyItem = Array.from(document.querySelectorAll(".hobby-item")).find(
       (item) => item.innerText.trim() === optionText
