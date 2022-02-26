@@ -6,7 +6,7 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
-  list-style: none;
+  color: transparent; /* To hide the bullet point numbers (1., 2., etc.) visually, but let screen readers announce them. */
 }
 
 .selected__list li {
@@ -24,9 +24,13 @@
 }
 
 .options__list {
-  list-style: none;
+  color: transparent; /* To hide the bullet point numbers (1., 2., etc.) visually, but let screen readers announce them. */
   padding: 0;
   margin: 0;
+}
+
+.options__list label {
+  color: #000;
 }
 
 .options__list label:focus-within,
