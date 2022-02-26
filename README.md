@@ -50,6 +50,7 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
     - ✅ When pressing `Up`/`Down` while the dropdown is open, move focus to last/first checkbox.
 - ✅ Keep `aria-expanded` in sync with the dropdown: set it to `true` when it is open, and to `false` when it is closed.
 - When clicking `.filter__close-options` button, close `fieldset.selected`, set focus to filter text field, and select all text (if there is any).
+- When typing a filter and the dropdown is closed, open it.
 
 ### Nice to have / open questions
 
@@ -85,6 +86,10 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 - Having the options' `<label>`s with `display: inline` has the nice effect that NVDA reads the number of the `<li>` and all of its contents (checkbox with label) in one go, but for some reason we cannot activate it anymore with `Space`/`Enter` in NVDA. Only if we use `display: block` it works, but then it splits the announcement into 1) the number of the `<li>`, and 2) its contents.
     - UPDATE: I set `list-style: none` to "defuse" this situation completely. It is enough that screen readers can announce the total number of options, and the "search wrapped" info is given by placing the focus in the text field again.
 - Is "uncheck" or "unselect" the right word when talking about checkboxes??
+- Our old beloved friend `aria-expanded` does **not** seem to work anymore on plain `<input type="text">` elements (at least in Chrome it does not), see https://a11ysupport.io/tech/aria/aria-expanded_attribute and https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-expanded.
+    - When adding `role="combobox"`, it seems to work again. While I try to avoid any `role` (they often used to f*ck up JAWS in earlier days), it seems to be safe here.
+        - Should we care about additional ARIA attributes here, like `aria-controls` or `aria-autocomplete`? I think rather not, because in fact we do not offer a "real" ARIA control, but just "misuse" ARIA to announce it as such, while the rest of the interaction is plain HTML and JavaScript.
+    - Another option could be to only display "X options available" when expanding the list of options (instead of announcing it when focusing the filter text input), together with `role="alert"`.
 
 ## Resources
 
