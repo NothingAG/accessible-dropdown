@@ -1,3 +1,7 @@
+form {
+  margin: 0;
+}
+
 .filter__label {
   width: 100px;
 }
@@ -40,7 +44,7 @@
 }
 
 .selected {
-  margin-bottom: 1em;
+  margin-top: 1em;
   border: 0;
   padding: 0;
 }
