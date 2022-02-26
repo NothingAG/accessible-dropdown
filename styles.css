@@ -1,5 +1,48 @@
+.filter__label {
+  width: 100px;
+}
+
+.filter__label::after {
+  content: ":";
+}
+
+.filter__field {
+  width: 160px;
+  border: 1px solid #000;
+  height: 24px;
+}
+
+.filter__field:focus,
+.fitler-and-options:focus-within .filter__field {
+  outline: 1px solid red;
+  position: relative;
+  z-index: 1;
+}
+
+.filter__button {
+  height: 24px;
+  margin-left: -1px;
+  border: 1px solid #000;
+  vertical-align: bottom; /* Not totally sure what value is best here */
+}
+
+.filter__button:hover,
+.filter__close-options {
+  cursor: pointer;
+}
+
+.filter__close-options {
+  height: 24px;
+  border: 1px solid #000;
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+}
+
 .selected {
   margin-bottom: 1em;
+  border: 0;
+  padding: 0;
 }
 
 .selected__list {
@@ -11,16 +54,27 @@
 
 .selected__list li {
   float: left; /* TODO: Rather use flexbox here? */
-  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+
+.selected__button:hover {
+  cursor: pointer;
 }
 
 .options {
-  margin-top: 1em;
+  margin-left: 100px;
+  border: 1px solid #000;
+  padding: 0;
+  position: absolute;
+  margin-top: -1px;
+  background-color: #fff;
+  width: 189px;
+  box-sizing: border-box;
 }
 
 .options:focus-within,
 .options:hover {
-  background-color: rgb(179, 255, 129);
+  /* background-color: rgb(179, 255, 129); */
 }
 
 .options__list {
@@ -31,6 +85,7 @@
 
 .options__list label {
   color: #000;
+  padding: 2 4px;
 }
 
 .options__list label:focus-within,
@@ -43,6 +98,8 @@
   display: block;
 }
 
-.options__list input:checked + span {
-  font-weight: bold;
+.options__list input:checked + span::after {
+  content: "✓";
+  position: absolute;
+  padding-left: .25em;
 }

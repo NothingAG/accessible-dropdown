@@ -166,10 +166,10 @@ function composeFilteringButtonText(checkboxLabels) {
 
   return `${numberOfOptions} ${
     numberOfOptions === 0
-      ? "options selected "
+      ? "options selected, "
       : numberOfOptions === 1
       ? "option selected "
-      : "options selected "
+      : "options selected, "
   }`;
 }
 

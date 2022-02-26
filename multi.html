@@ -38,49 +38,51 @@
         </ol>
       </fieldset>
 
-      <label class="filter">
-        My hobbies:
-        <input class="filter__field" type="text" role="combobox" aria-expanded="false" type="text" autocomplete="off" placeholder="Filter term">
+      <div class="fitler-and-options">
+        <label class="filter">
+          <span class="filter__label" data-inline-block>My hobbies</span
+          ><input class="filter__field" type="text" role="combobox" aria-expanded="false" type="text" autocomplete="off" placeholder="Filter term"
+          
+          ><span data-visually-hidden>
+            <span class="available-hobbies__counter">12 options available</span>,
+            <span class="available-hobbies__selected-counter">3 selected.</span>
+          </span
+          ></label
         
-        <span data-visually-hidden>
-          <span class="available-hobbies__counter" data-visually-hidden>12 options available</span>,
-          <span class="available-hobbies__selected-counter" data-visually-hidden>3 selected.</span>
-        </span>
-      </label>
-
-      <button class="filter__button" type="button">
-        <span class="filter__text"data-visually-hidden>3 options selected </span>
-        <img src="clear.svg" alt="unselect all" />
-      </button>
-
-      <!-- <p data-visually-hidden>
-        Enter text to filter.
-        Keyboard: press up or down to walk through options, then space to toggle, escape to close.
-        Mobile: click option below.
-      </p> -->
-
-      <fieldset class="options" hidden>
-        <legend class="available-hobbies__legend" data-visually-hidden>Available hobbies (3 selected)</legend>
-
-        <ol class="options__list">
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="soccer" checked data-visually-hidden><span> Soccer</span></label></li>
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="badminton" data-visually-hidden><span> Badminton</span></label></li>
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="movies" data-visually-hidden><span> Movies</span></label></li>
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="gardening" data-visually-hidden><span> Gardening</span></label></li>
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="kickboxing" data-visually-hidden><span> Kickboxing</span></label></li>
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="hiking" checked data-visually-hidden><span> Hiking</span></label></li>
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="dancing" data-visually-hidden><span> Dancing</span></label></li>
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="painting" data-visually-hidden><span> Painting</span></label></li>
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="cooking" checked data-visually-hidden><span> Cooking</span></label></li>
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="reading" data-visually-hidden><span> Reading</span></label></li>
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="sleeping" data-visually-hidden><span> Sleeping</span></label></li>
-          <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="programming" data-visually-hidden><span> Programming</span></label></li>
-        </ol>
-
-        <button class="filter__close-options" type="button">
-          <img src="close.svg" alt="Close options" />
+        ><button class="filter__button" type="button">
+          <span class="filter__text" data-visually-hidden>3 options selected,</span>
+          <img src="clear.svg" alt="unselect all" />
         </button>
-      </fieldset>
+
+        <!-- <p data-visually-hidden>
+          Enter text to filter.
+          Keyboard: press up or down to walk through options, then space to toggle, escape to close.
+          Mobile: click option below.
+        </p> -->
+
+        <fieldset class="options" hidden>
+          <legend class="available-hobbies__legend" data-visually-hidden>Available hobbies (3 selected)</legend>
+
+          <ol class="options__list">
+            <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="soccer" checked data-visually-hidden><span> Soccer</span></label></li>
+            <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="badminton" data-visually-hidden><span> Badminton</span></label></li>
+            <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="movies" data-visually-hidden><span> Movies</span></label></li>
+            <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="gardening" data-visually-hidden><span> Gardening</span></label></li>
+            <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="kickboxing" data-visually-hidden><span> Kickboxing</span></label></li>
+            <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="hiking" checked data-visually-hidden><span> Hiking</span></label></li>
+            <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="dancing" data-visually-hidden><span> Dancing</span></label></li>
+            <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="painting" data-visually-hidden><span> Painting</span></label></li>
+            <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="cooking" checked data-visually-hidden><span> Cooking</span></label></li>
+            <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="reading" data-visually-hidden><span> Reading</span></label></li>
+            <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="sleeping" data-visually-hidden><span> Sleeping</span></label></li>
+            <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="programming" data-visually-hidden><span> Programming</span></label></li>
+          </ol>
+
+          <button class="filter__close-options" type="button">
+            <img src="close.svg" alt="Close options" />
+          </button>
+        </fieldset>
+      </div>
     </form>
 
     <p>
