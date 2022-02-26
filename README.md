@@ -21,7 +21,7 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 - ✅ When entering a filter term into the text field, the checkboxes should be filtered (set HTML `hidden` attribute).
     - ✅ Update "X options available" to "X options available for XYZ" (where XYZ is the filter term).
 - ✅ When pressing `Up`/`Down` keys, the keyboard focus jumps between the filter text field and the checkboxes back and forth.
-    - ❓ I'm unsure whether the focus should jump back to the text field when reaching the bottom, or just back to the first option. UPDATE: Thinking about it, we probably keep it like that, as it gives screen reader users an important hint (search wrapped).
+    - ✅ I'm unsure whether the focus should jump back to the text field when reaching the bottom, or just back to the first option. UPDATE: Thinking about it, we probably keep it like that, as it gives screen reader users an important hint (search wrapped).
 - ✅ When a checkbox is checked, following elements are updated accordingly: the "Selected hobbies" fieldset's legend and contained buttons, the "X options selected" button, and the "Available hobbies" fieldset's legend.
 - ✅ When `Esc` is pressed while a checkbox is focused, the focus is put to the "X options selected" button, and the dropdown is closed.
 - ✅ When the "X options selected" button is pressed, then all checkboxes are unchecked, and the focus is set to the filter text field (and obviously, all other dependent elements are updated accordingly).
@@ -49,6 +49,14 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
     - ✅ When pressing `Up`/`Down` while the dropdown is closed, open it (and keep focus inside filter input).
     - ✅ When pressing `Up`/`Down` while the dropdown is open, move focus to last/first checkbox.
 - ✅ Keep `aria-expanded` in sync with the dropdown: set it to `true` when it is open, and to `false` when it is closed.
+- When clicking `.filter__close-options` button, close `fieldset.selected`, set focus to filter text field, and select all text (if there is any).
+
+### Nice to have / open questions
+
+- I would find it cool to be able to press `Space` to toggle options and `Enter` to close (confirm) an opened dropdown.
+    - This might result in confusion for some people, if they think that `Enter` would toggle options, too. We might leverage this by displaying a small hint "Press Space to toggle options" when somebody hits `Enter` while no option is checked yet.
+- Another cool thing would be the ability to reset the whole element by pressing `Esc` inside the filter text field: if there is a filter text, it is removed, and when pressing `Esc` another time, the whole element is reset (uncheck all checkboxes).
+    - It might be good to show a confirmation "Do you really want to reset the element?" before doing that.
 
 ## @josua: some notes to keep in mind
 
