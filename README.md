@@ -91,6 +91,8 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
     - When adding `role="combobox"`, it seems to work again. While I try to avoid any `role` (they often used to f*ck up JAWS in earlier days), it seems to be safe here.
         - Should we care about additional ARIA attributes here, like `aria-controls` or `aria-autocomplete`? I think rather not, because in fact we do not offer a "real" ARIA control, but just "misuse" ARIA to announce it as such, while the rest of the interaction is plain HTML and JavaScript.
     - Another option could be to only display "X options available" when expanding the list of options (instead of announcing it when focusing the filter text input), together with `role="alert"`.
+- The use of "advanced" CSS still seems to be dangerous: toggling some content inside `::after` when toggling a checkbox breaks the announcement of checked / not checked in Chrome! We better work around this with toggling an additional `<span>` or similar...
+- In JAWS + FF, focus mode seems to be on when focusing a checkbox (test by hitting a character => it will be appended to filter)! This is very surprising, as all other combos don't do this!
 
 ## Resources
 

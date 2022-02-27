@@ -102,8 +102,18 @@ form {
   display: block;
 }
 
-.options__list input:checked + span::after {
-  content: "✓";
-  position: absolute;
-  padding-left: .25em;
+.options__list input:checked + span {
+  font-weight: bold;
+}
+
+/* Seems to break checked / not checked announcements in Chrome (for both NVDA and JAWS) => an alternative could be to simply toggle the display of a <span> with an SVG as background. */
+.options__list input:checked + span .check {
+  content: ' ';
+  display: inline-block;
+  margin-left: 0.25em;
+  background-color: red;
+  width: 14px;
+  height: 14px;
+  background: url(check.svg);
+}
 }
