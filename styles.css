@@ -65,6 +65,10 @@ form {
   cursor: pointer;
 }
 
+.selected__button img {
+  vertical-align: bottom;
+}
+
 .options {
   margin-left: 100px;
   border: 1px solid #000;
@@ -116,4 +120,16 @@ form {
   height: 14px;
   background: url(check.svg);
 }
+
+.available-hobbies__legend {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #000;
+  margin: 0 -1px;
+  border-bottom: 0;
+  width: 100%;
+  padding: 4px 0;
+  font-size: .75em;
+  font-style: italic;
+  text-align: center;
 }
