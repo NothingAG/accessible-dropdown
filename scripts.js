@@ -197,7 +197,10 @@ elems.hobbyItemInputs.forEach((checkbox) =>
 );
 
 function onCheckboxKeyup(event) {
-  if (event.key === "Escape") elems.filterButton.focus();
+  if (event.key === "Escape") {
+    elems.filterButton.focus();
+    closeOptions();
+  }
 }
 
 elems.filterButton.addEventListener("click", resetCheckboxes);
