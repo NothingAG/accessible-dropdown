@@ -54,6 +54,7 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 - ✅ Hide the "Unselect all" button when there is no option selected.
 - ✅ When keyboard focus leaves the widget, close the dropdown.
 - ✅ Make the "Close" button a "Toggle" (open/close) button.
+    - ⛔️ When clicking the "Open" button, open the dropdown.
 
 ### To demonstrate
 
