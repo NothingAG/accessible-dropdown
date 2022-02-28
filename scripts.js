@@ -77,6 +77,8 @@ function onFilterFieldChange(event) {
     numberOfShownHobbies === 1
       ? "1 option available"
       : `${numberOfShownHobbies} options available`;
+
+  openOptions();
 }
 
 function onFilterFieldChangeOnce() {
