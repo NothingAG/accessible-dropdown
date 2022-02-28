@@ -53,6 +53,11 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 - ✅ When clicking `.filter__close-options` button, close `fieldset.selected`, set focus to filter text field, and select all text (if there is any).
 - ✅ When typing a filter and the dropdown is closed, open it.
 
+### To demonstrate
+
+- Checkboxes visible (remove `data-visually-hidden`)
+- Bullet list numbers visible (remove `color: transparent`)
+
 ### Nice to have / open questions
 
 - I would find it cool to be able to press `Space` to toggle options and `Enter` to close (confirm) an opened dropdown.
