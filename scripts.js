@@ -276,11 +276,13 @@ function onSelectedButtonClick(event) {
 function openOptions() {
   elems.options.removeAttribute("hidden");
   elems.filterField.setAttribute("aria-expanded", true);
+  elems.filterCloseOptions.classList.add("filter__close-options--open");
 }
 
 function closeOptions() {
   elems.options.setAttribute("hidden", "");
   elems.filterField.setAttribute("aria-expanded", false);
+  elems.filterCloseOptions.classList.remove("filter__close-options--open");
 }
 
 function isOptionsOpen() {

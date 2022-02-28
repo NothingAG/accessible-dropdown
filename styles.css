@@ -55,6 +55,10 @@ form {
   vertical-align: bottom; /* Not totally sure what value is best here */
 }
 
+.filter__close-options--open {
+  transform: rotate(180deg);
+}
+
 .selected {
   margin-top: 1em;
   border: 0;
@@ -127,7 +131,7 @@ form {
 
 /* Seems to break checked / not checked announcements in Chrome (for both NVDA and JAWS) => an alternative could be to simply toggle the display of a <span> with an SVG as background. */
 .options__list input:checked + span .check {
-  content: ' ';
+  content: " ";
   display: inline-block;
   margin-left: 0.25em;
   background-color: red;
@@ -144,7 +148,7 @@ form {
   border-bottom: 0;
   width: 100%;
   padding: 4px 0;
-  font-size: .75em;
+  font-size: 0.75em;
   font-style: italic;
   text-align: center;
 }

@@ -52,8 +52,8 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 - ✅ When clicking `.filter__close-options` button, close `fieldset.selected`, set focus to filter text field, and select all text (if there is any).
 - ✅ When typing a filter and the dropdown is closed, open it.
 - ✅ Hide the "Unselect all" button when there is no option selected.
-- When keyboard focus leaves the widget, close the dropdown.
-- Make the "Close" button a "Toggle" (open/close) button.
+- ✅ When keyboard focus leaves the widget, close the dropdown.
+- ✅ Make the "Close" button a "Toggle" (open/close) button.
 
 ### To demonstrate
 
