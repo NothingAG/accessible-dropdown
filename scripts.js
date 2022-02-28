@@ -3,6 +3,7 @@
 const elems = {};
 
 elems.multi = document.querySelector(".multi");
+elems.filterAndOptions = document.querySelector(".filter-and-options");
 elems.filter = document.querySelector(".filter");
 elems.options = document.querySelector(".options");
 elems.hobbyItems = document.querySelectorAll(".hobby-item");
@@ -287,15 +288,36 @@ function isOptionsOpen() {
 }
 
 document.body.addEventListener("click", (event) => {
-  let elem = event.target;
-  while (elem) {
-    if (elem !== elems.filterField && elem !== elems.options) {
-      if (elem.parentNode) elem = elem.parentNode;
-      else {
-        closeOptions();
-        event.stopPropagation();
-        return;
-      }
-    } else return;
+  if (
+    !isTargetElementInDirectTree({
+      event,
+      targetElement: elems.filterAndOptions,
+    })
+  ) {
+    closeOptions();
   }
 });
+
+document.body.addEventListener("keyup", (event) => {
+  if (
+    event.key === "Tab" &&
+    !isTargetElementInDirectTree({
+      event,
+      targetElement: elems.filterAndOptions,
+    })
+  ) {
+    closeOptions();
+  }
+});
+
+function isTargetElementInDirectTree({ event, targetElement }) {
+  let elem = event.target;
+  while (elem) {
+    if (elem !== targetElement) {
+      if (elem.parentNode) elem = elem.parentNode;
+      else {
+        return false;
+      }
+    } else return true;
+  }
+}
