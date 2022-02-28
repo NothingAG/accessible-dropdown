@@ -49,7 +49,7 @@ const textInputRegexp = /^(([a-zA-Z])|(Backspace)|(Delete))$/;
 elems.filterCloseOptions.addEventListener("click", onFilterCloseOptionsClicked);
 
 function onFilterCloseOptionsClicked() {
-  closeOptions();
+  isOptionsOpen() ? closeOptions() : openOptions();
   elems.filterField.select();
 }
 

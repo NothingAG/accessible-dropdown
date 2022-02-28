@@ -53,8 +53,7 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 - ✅ When typing a filter and the dropdown is closed, open it.
 - ✅ Hide the "Unselect all" button when there is no option selected.
 - ✅ When keyboard focus leaves the widget, close the dropdown.
-- ✅ Make the "Close" button a "Toggle" (open/close) button.
-    - ⛔️ When clicking the "Open" button, open the dropdown.
+- ✅ Make the "Open/Close" button toggle the dropdown.
 
 ### To demonstrate
 
