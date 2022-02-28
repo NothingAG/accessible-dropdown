@@ -11,7 +11,7 @@ elems.availableHobbiesLegend = document.querySelector(
 );
 elems.hobbyItemInputs = document.querySelectorAll(".hobby-item input");
 elems.filterField = document.querySelector(".filter__field");
-elems.filterButton = document.querySelector(".filter__reset-options");
+elems.filterResetOptions = document.querySelector(".filter__reset-options");
 elems.filterText = document.querySelector(".filter__text");
 elems.filterCloseOptions = document.querySelector(".filter__close-options");
 elems.selected = document.querySelector(".selected");
@@ -165,6 +165,10 @@ function onCheckboxChange() {
   updateSelectedList(checkedItemTexts);
   elems.selectedLegend.innerText = `Selected hobbies (${checkedItemTexts.length} in total)`;
   elems.availableHobbiesSelectedCounter.innerText = `${checkedItems.length} selected.`;
+
+  if (checkedItems.length === 0)
+    elems.filterResetOptions.setAttribute("hidden", "");
+  else elems.filterResetOptions.removeAttribute("hidden");
 }
 
 function composeFilteringButtonText(checkboxLabels) {
@@ -198,14 +202,14 @@ elems.hobbyItemInputs.forEach((checkbox) =>
 
 function onCheckboxKeyup(event) {
   if (event.key === "Escape") {
-    elems.filterButton.focus();
+    elems.filterResetOptions.focus();
     closeOptions();
   }
 }
 
-elems.filterButton.addEventListener("click", resetCheckboxes);
+elems.filterResetOptions.addEventListener("click", resetCheckboxes);
 
-elems.filterButton.addEventListener("keyup", onFilterButtonKeyup);
+elems.filterResetOptions.addEventListener("keyup", onFilterButtonKeyup);
 
 function onFilterButtonKeyup(event) {
   if (event.key === "Escape") elems.filterField.select();
