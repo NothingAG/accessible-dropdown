@@ -11,7 +11,7 @@ elems.availableHobbiesLegend = document.querySelector(
 );
 elems.hobbyItemInputs = document.querySelectorAll(".hobby-item input");
 elems.filterField = document.querySelector(".filter__field");
-elems.filterButton = document.querySelector(".filter__button");
+elems.filterButton = document.querySelector(".filter__reset-options");
 elems.filterText = document.querySelector(".filter__text");
 elems.filterCloseOptions = document.querySelector(".filter__close-options");
 elems.selected = document.querySelector(".selected");

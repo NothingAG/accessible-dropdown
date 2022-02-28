@@ -28,7 +28,7 @@ form {
   z-index: 1;
 }
 
-.filter__button {
+.filter__reset-options {
   position: absolute;
   border: 0;
   background-color: transparent;
@@ -39,11 +39,11 @@ form {
   border-radius: 100%;
 }
 
-.filter__button:focus {
+.filter__reset-options:focus {
   outline: 1px solid red;
 }
 
-.filter__button:hover,
+.filter__reset-options:hover,
 .filter__close-options {
   cursor: pointer;
 }
