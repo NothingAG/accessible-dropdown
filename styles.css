@@ -16,6 +16,10 @@ form {
   height: 24px;
 }
 
+.filter__field:focus {
+  background-color: rgb(255, 235, 235);
+}
+
 .filter__field:focus,
 .fitler-and-options:focus-within .filter__field {
   outline: 1px solid red;
