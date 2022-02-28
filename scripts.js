@@ -73,10 +73,9 @@ function onFilterFieldChange(event) {
     if (!hobbyItem.hidden) numberOfShownHobbies += 1;
   }
 
-  elems.availableHobbiesCounter.innerText =
-    numberOfShownHobbies === 1
-      ? "1 option available"
-      : `${numberOfShownHobbies} options available`;
+  elems.availableHobbiesCounter.innerText = `${numberOfShownHobbies} option${
+    numberOfShownHobbies === 1 ? "" : "s"
+  } available for ${filterTerm}`;
 
   openOptions();
 }

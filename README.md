@@ -19,7 +19,7 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 ## @xaver: basic interactive functionality
 
 - ✅ When entering a filter term into the text field, the checkboxes should be filtered (set HTML `hidden` attribute).
-    - ⛔️ Update "X options available" to "X options available for XYZ" (where XYZ is the filter term). UPDATE: the part "for XYZ" is missing!
+    - ✅ Update "X options available" to "X options available for XYZ" (where XYZ is the filter term). 
 - ✅ When pressing `Up`/`Down` keys, the keyboard focus jumps between the filter text field and the checkboxes back and forth.
     - ✅ I'm unsure whether the focus should jump back to the text field when reaching the bottom, or just back to the first option. UPDATE: Thinking about it, we probably keep it like that, as it gives screen reader users an important hint (search wrapped).
 - ✅ When a checkbox is checked, following elements are updated accordingly: the "Selected hobbies" fieldset's legend and contained buttons, the "X options selected" button, and the "Available hobbies" fieldset's legend.
