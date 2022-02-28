@@ -21,17 +21,26 @@ form {
 }
 
 .filter__field:focus,
-.filter-and-options:focus-within .filter__field {
+.filter-and-options:focus-within .filter__field,
+.filter__close-options:focus {
   outline: 1px solid red;
   position: relative;
   z-index: 1;
 }
 
 .filter__button {
-  height: 24px;
-  margin-left: -1px;
-  border: 1px solid #000;
-  vertical-align: bottom; /* Not totally sure what value is best here */
+  position: absolute;
+  border: 0;
+  background-color: transparent;
+  margin-left: -20px;
+  margin-top: 4px;
+  z-index: 2;
+  padding: 0;
+  border-radius: 100%;
+}
+
+.filter__button:focus {
+  outline: 1px solid red;
 }
 
 .filter__button:hover,
@@ -42,9 +51,8 @@ form {
 .filter__close-options {
   height: 24px;
   border: 1px solid #000;
-  position: absolute;
-  bottom: -1px;
-  right: -1px;
+  margin-left: -1px;
+  vertical-align: bottom; /* Not totally sure what value is best here */
 }
 
 .selected {
