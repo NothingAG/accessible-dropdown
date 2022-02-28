@@ -13,6 +13,7 @@ elems.hobbyItemInputs = document.querySelectorAll(".hobby-item input");
 elems.filterField = document.querySelector(".filter__field");
 elems.filterButton = document.querySelector(".filter__button");
 elems.filterText = document.querySelector(".filter__text");
+elems.filterCloseOptions = document.querySelector(".filter__close-options");
 elems.selected = document.querySelector(".selected");
 elems.selectedList = document.querySelector(".selected__list");
 elems.selectedLegend = document.querySelector(".selected__legend");
@@ -43,6 +44,13 @@ let filterFieldHasFocus;
 let lastSelected = 0;
 let numberOfElems = elems.arrowSelectableElems.length;
 const textInputRegexp = /^(([a-zA-Z])|(Backspace)|(Delete))$/;
+
+elems.filterCloseOptions.addEventListener("click", onFilterCloseOptionsClicked);
+
+function onFilterCloseOptionsClicked() {
+  closeOptions();
+  elems.filterField.select();
+}
 
 for (let elem of [elems.filter, elems.options]) {
   elem.addEventListener("keyup", function () {
