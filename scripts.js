@@ -131,10 +131,7 @@ function onKeyup(event) {
 
 elems.filterField.addEventListener("focus", () => {
   lastSelected = 0;
-  setTimeout(() => (filterFieldHasFocus = true));
 });
-
-elems.filterField.addEventListener("blur", () => (filterFieldHasFocus = false));
 
 function modulo(a, n) {
   return ((a % n) + n) % n;
@@ -282,3 +279,17 @@ function closeOptions() {
 function isOptionsOpen() {
   return elems.options.getAttribute("hidden") === null;
 }
+
+document.body.addEventListener("click", (event) => {
+  let elem = event.target;
+  while (elem) {
+    if (elem !== elems.filterField && elem !== elems.options) {
+      if (elem.parentNode) elem = elem.parentNode;
+      else {
+        closeOptions();
+        event.stopPropagation();
+        return;
+      }
+    } else return;
+  }
+});

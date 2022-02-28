@@ -21,7 +21,7 @@ form {
 }
 
 .filter__field:focus,
-.fitler-and-options:focus-within .filter__field {
+.filter-and-options:focus-within .filter__field {
   outline: 1px solid red;
   position: relative;
   z-index: 1;
