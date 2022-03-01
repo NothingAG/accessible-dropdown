@@ -66,6 +66,8 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
     - This might result in confusion for some people, if they think that `Enter` would toggle options, too. We might leverage this by displaying a small hint "Press Space to toggle options" when somebody hits `Enter` while no option is checked yet.
 - Another cool thing would be the ability to reset the whole element by pressing `Esc` inside the filter text field: if there is a filter text, it is removed, and when pressing `Esc` another time, the whole element is reset (uncheck all checkboxes).
     - It might be good to show a confirmation "Do you really want to reset the element?" before doing that.
+- ~~When there is no filter term, set `X options selected` as `placeholder`~~
+    - Would be kinda cool for a quick visual info, but goes against the advise that a placeholder should always show an example of some data to input.
 
 ## @josua: some notes to keep in mind
 
