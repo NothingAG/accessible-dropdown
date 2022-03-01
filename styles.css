@@ -88,9 +88,20 @@ form {
   margin-right: 0.5em;
 }
 
+.selected__button {
+  border-radius: 6px;
+  border: 1px solid #000;
+  padding: 2px 4px;
+}
+
+.selected__button img {
+  vertical-align: bottom;
+}
+
 .selected__button:hover {
   cursor: pointer;
 }
+  border-radius: 6px;
 
 .selected__button img {
   vertical-align: bottom;
