@@ -14,6 +14,12 @@ form {
   width: 160px;
   border: 1px solid #000;
   height: 24px;
+  border-top-left-radius: 6px;
+  padding: 2px 4px;
+}
+
+.filter-and-options:not(.open) .filter__field {
+  border-bottom-left-radius: 6px;
 }
 
 .filter__field:focus {
@@ -53,9 +59,14 @@ form {
   border: 1px solid #000;
   margin-left: -1px;
   vertical-align: bottom; /* Not totally sure what value is best here */
+  border-top-right-radius: 6px;
 }
 
-.filter__close-options--open {
+.filter-and-options:not(.open) .filter__close-options {
+  border-bottom-right-radius: 6px;
+}
+
+.filter-and-options:not(.open) .filter__close-options img {
   transform: rotate(180deg);
 }
 
@@ -94,6 +105,10 @@ form {
   background-color: #fff;
   width: 189px;
   box-sizing: border-box;
+  box-shadow: 0px 0px 24px #0000007a;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  overflow: hidden;
 }
 
 .options:focus-within,
