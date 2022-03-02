@@ -24,6 +24,7 @@ elems.availableHobbiesCounter = document.querySelector(
 elems.availableHobbiesSelectedCounter = document.querySelector(
   ".available-hobbies__selected-counter"
 );
+elems.eventLogger = document.querySelector(".event-logger");
 
 elems.arrowSelectableElems = [elems.filterField, ...elems.hobbyItems];
 elems.filterField.addEventListener("input", onFilterFieldChange);
@@ -45,6 +46,10 @@ let filterFieldHasFocus;
 let lastSelected = 0;
 let numberOfElems = elems.arrowSelectableElems.length;
 const textInputRegexp = /^(([a-zA-Z])|(Backspace)|(Delete))$/;
+const events = {
+  optionSelected: new CustomEvent("option-selected"),
+  optionUnselected: new CustomEvent("option-unselected"),
+};
 
 elems.filterCloseOptions.addEventListener("click", onFilterCloseOptionsClicked);
 
@@ -54,7 +59,7 @@ function onFilterCloseOptionsClicked() {
 }
 
 for (let elem of [elems.filter, elems.options]) {
-  elem.addEventListener("keyup", function () {
+  elem.addEventListener("keyup", function (event) {
     if (event.key === "PageDown" || event.key === "PageUp") {
       const shownElems = [...elems.hobbyItems].filter((elem) => !elem.hidden);
       const elemToFocus = shownElems
@@ -152,7 +157,7 @@ for (let i = 0; i < elems.hobbyItemInputs.length; i++) {
   });
 }
 
-function onCheckboxChange() {
+function onCheckboxChange(event) {
   const checkedItems = Array.from(elems.hobbyItems).filter(
     (elem) => elem.querySelector("input").checked
   );
@@ -170,6 +175,14 @@ function onCheckboxChange() {
   if (checkedItems.length === 0)
     elems.filterResetOptions.setAttribute("hidden", "");
   else elems.filterResetOptions.removeAttribute("hidden");
+
+  if (event?.target) {
+    elems.multi.dispatchEvent(
+      new CustomEvent(`option-${event.target.checked ? "" : "un"}selected`, {
+        detail: event.target.value,
+      })
+    );
+  }
 }
 
 function composeFilteringButtonText(checkboxLabels) {
@@ -220,7 +233,7 @@ function resetCheckboxes() {
   for (let checkbox of elems.hobbyItemInputs) {
     checkbox.checked = false;
   }
-  onCheckboxChange();
+  onCheckboxChange({ target: { checked: false, value: "all checkboxes" } });
   elems.filterField.select();
 }
 
@@ -235,9 +248,9 @@ function onSelectedButtonClick(event) {
     : undefined;
 
   if (button?.classList.contains("selected__button")) {
-    const optionText = button.innerText.trim();
+    const optionText = button.innerText.trim().toLowerCase();
     const hobbyItem = Array.from(document.querySelectorAll(".hobby-item")).find(
-      (item) => item.innerText.trim() === optionText
+      (item) => item.querySelector("input").value === optionText
     );
     hobbyItem.querySelector("input").checked = false;
 
@@ -267,7 +280,7 @@ function onSelectedButtonClick(event) {
       } else elems.filterField.select();
     }
 
-    onCheckboxChange();
+    onCheckboxChange({ target: { checked: false, value: optionText } });
   } else {
     return true;
   }
@@ -323,3 +336,17 @@ function isTargetElementInDirectTree({ event, targetElement }) {
     } else return true;
   }
 }
+
+elems.multi.addEventListener(`option-selected`, (event) => {
+  elems.eventLogger.innerText =
+    event.detail === `all checkboxes`
+      ? `Event: All checkboxes were unselected`
+      : `Event: Option ${event.detail} was ${event.type.split("-")[1]}`;
+});
+
+elems.multi.addEventListener(`option-unselected`, (event) => {
+  elems.eventLogger.innerText =
+    event.detail === `all checkboxes`
+      ? `Event: All checkboxes were unselected`
+      : `Event: Option ${event.detail} was ${event.type.split("-")[1]}`;
+});

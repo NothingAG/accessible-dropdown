@@ -178,3 +178,8 @@ form {
   font-style: italic;
   text-align: center;
 }
+
+.event-logger {
+  position: fixed;
+  bottom: 1em;
+}
