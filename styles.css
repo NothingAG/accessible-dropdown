@@ -139,6 +139,7 @@ form {
   display: inline-block;
   width: 100%;
   box-sizing: border-box;
+  border-left: 4px solid transparent; /* For high contrast mode */
 }
 
 .options__list input:hover {
@@ -149,6 +150,7 @@ form {
 .options__list label:hover {
   background-color: rgb(255, 167, 167);
   cursor: pointer;
+  border-left-color: #000;
 }
 
 .options__list input:checked + span {
