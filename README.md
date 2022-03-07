@@ -31,6 +31,7 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
     - ✅ Focus the next button, if available.
     - ✅ Or focus the previous button, if available.
     - ✅ Or focus the text field.
+    - ⛔️ This used to be working, but now the focus seems to be "lost" (not set to a button)
 - ✅ When `Page Up`/`Page Down` is pressed (regardless whether inside the text field or when an option is focused), move focus to the very first/last option.
 - ✅ When `Enter` is pressed on a checkbox, toggle it (same functionality like `Space`).
     - BUG: While the checkbox indeed is checked, the rest of the widget does not react (ie. the newly selected item is not added to the "Selected hobbies", etc.)
