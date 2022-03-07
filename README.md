@@ -54,9 +54,9 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 - ✅ Hide the "Unselect all" button when there is no option selected.
 - ✅ When keyboard focus leaves the widget, close the dropdown.
 - ✅ Make the "Open/Close" button toggle the dropdown.
-- Throw a custom event `option-selected`/`option-unselected` when an element is toggled
-    - If possible with a reference to the checkbox object, so someone can catch the event and act upon the toggled element.
-        - Maybe just catch it somewhere below in the page and display something like "Option XYZ was selected/unselected"
+- ✅ Throw a custom event `option-selected`/`option-unselected` when an element is toggled
+    - ✅ If possible with a reference to the checkbox object, so someone can catch the event and act upon the toggled element.
+        - ✅ Maybe just catch it somewhere below in the page and display something like "Option XYZ was selected/unselected"
 
 ### To demonstrate
 
