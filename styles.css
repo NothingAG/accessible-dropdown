@@ -1,44 +1,187 @@
+form {
+  margin: 0;
+}
+
+.filter__label {
+  width: 100px;
+}
+
+.filter__label::after {
+  content: ":";
+}
+
+.filter__field {
+  width: 160px;
+  border: 1px solid #000;
+  height: 24px;
+  border-top-left-radius: 6px;
+  padding: 2px 4px;
+}
+
+.filter-and-options:not(.open) .filter__field {
+  border-bottom-left-radius: 6px;
+}
+
+.filter__field:focus {
+  background-color: rgb(255, 235, 235);
+}
+
+.filter__field:focus,
+.filter-and-options:focus-within .filter__field,
+.filter__close-options:focus {
+  outline: 1px solid red;
+  position: relative;
+  z-index: 1;
+}
+
+.filter__reset-options {
+  position: absolute;
+  border: 0;
+  background-color: transparent;
+  margin-left: -20px;
+  margin-top: 4px;
+  z-index: 2;
+  padding: 0;
+  border-radius: 100%;
+}
+
+.filter__reset-options:focus {
+  outline: 1px solid red;
+}
+
+.filter__reset-options:hover,
+.filter__close-options {
+  cursor: pointer;
+}
+
+.filter__close-options {
+  height: 24px;
+  border: 1px solid #000;
+  margin-left: -1px;
+  vertical-align: bottom; /* Not totally sure what value is best here */
+  border-top-right-radius: 6px;
+}
+
+.filter-and-options:not(.open) .filter__close-options {
+  border-bottom-right-radius: 6px;
+}
+
+.filter-and-options:not(.open) .filter__close-options img {
+  transform: rotate(180deg);
+}
+
 .selected {
-  margin-bottom: 1em;
+  margin-top: 1em;
+  border: 0;
+  padding: 0;
 }
 
 .selected__list {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  list-style: none;
+  color: transparent; /* To hide the bullet point numbers (1., 2., etc.) visually, but let screen readers announce them. */
 }
 
 .selected__list li {
   float: left; /* TODO: Rather use flexbox here? */
-  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+
+.selected__button {
+  border-radius: 6px;
+  border: 1px solid #000;
+  padding: 2px 4px;
+}
+
+.selected__button img {
+  vertical-align: bottom;
+}
+
+.selected__button:hover {
+  cursor: pointer;
+}
+  border-radius: 6px;
+
+.selected__button img {
+  vertical-align: bottom;
 }
 
 .options {
-  margin-top: 1em;
+  margin-left: 100px;
+  border: 1px solid #000;
+  padding: 0;
+  position: absolute;
+  margin-top: -1px;
+  background-color: #fff;
+  width: 189px;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 24px #0000007a;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  overflow: hidden;
 }
 
 .options:focus-within,
 .options:hover {
-  background-color: rgb(179, 255, 129);
+  /* background-color: rgb(179, 255, 129); */
 }
 
 .options__list {
-  list-style: none;
+  color: transparent; /* To hide the bullet point numbers (1., 2., etc.) visually, but let screen readers announce them. */
   padding: 0;
   margin: 0;
+}
+
+.options__list label {
+  color: #000;
+  padding: 2 4px;
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+  border-left: 4px solid transparent; /* For high contrast mode */
+}
+
+.options__list input:hover {
+  cursor: pointer;
 }
 
 .options__list label:focus-within,
 .options__list label:hover {
   background-color: rgb(255, 167, 167);
   cursor: pointer;
-}
-
-.options__list label {
-  display: block;
+  border-left-color: #000;
 }
 
 .options__list input:checked + span {
   font-weight: bold;
+}
+
+/* Seems to break checked / not checked announcements in Chrome (for both NVDA and JAWS) => an alternative could be to simply toggle the display of a <span> with an SVG as background. */
+.options__list input:checked + span .check {
+  content: " ";
+  display: inline-block;
+  margin-left: 0.25em;
+  background-color: red;
+  width: 14px;
+  height: 14px;
+  background: url(check.svg);
+}
+
+.available-hobbies__legend {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #000;
+  margin: 0 -1px;
+  border-bottom: 0;
+  width: 100%;
+  padding: 4px 0;
+  font-size: 0.75em;
+  font-style: italic;
+  text-align: center;
+}
+
+.event-logger {
+  position: fixed;
+  bottom: 1em;
 }

@@ -3,6 +3,7 @@
 const elems = {};
 
 elems.multi = document.querySelector(".multi");
+elems.filterAndOptions = document.querySelector(".filter-and-options");
 elems.filter = document.querySelector(".filter");
 elems.options = document.querySelector(".options");
 elems.hobbyItems = document.querySelectorAll(".hobby-item");
@@ -11,8 +12,9 @@ elems.availableHobbiesLegend = document.querySelector(
 );
 elems.hobbyItemInputs = document.querySelectorAll(".hobby-item input");
 elems.filterField = document.querySelector(".filter__field");
-elems.filterButton = document.querySelector(".filter__button");
+elems.filterResetOptions = document.querySelector(".filter__reset-options");
 elems.filterText = document.querySelector(".filter__text");
+elems.filterCloseOptions = document.querySelector(".filter__close-options");
 elems.selected = document.querySelector(".selected");
 elems.selectedList = document.querySelector(".selected__list");
 elems.selectedLegend = document.querySelector(".selected__legend");
@@ -22,18 +24,42 @@ elems.availableHobbiesCounter = document.querySelector(
 elems.availableHobbiesSelectedCounter = document.querySelector(
   ".available-hobbies__selected-counter"
 );
+elems.eventLogger = document.querySelector(".event-logger");
 
 elems.arrowSelectableElems = [elems.filterField, ...elems.hobbyItems];
 elems.filterField.addEventListener("input", onFilterFieldChange);
 elems.filterField.addEventListener("input", onFilterFieldChangeOnce);
+elems.filterField.addEventListener("keyup", onFilterFieldKeyup);
+elems.filterField.addEventListener("click", onFilterFieldClick);
+
+function onFilterFieldClick(event) {
+  if (filterFieldHasFocus) closeOptions();
+  else openOptions();
+}
+
+function onFilterFieldKeyup(event) {
+  if (event.key === "Escape") closeOptions();
+}
 
 let filterTerm = "";
+let filterFieldHasFocus;
 let lastSelected = 0;
 let numberOfElems = elems.arrowSelectableElems.length;
 const textInputRegexp = /^(([a-zA-Z])|(Backspace)|(Delete))$/;
+const events = {
+  optionSelected: new CustomEvent("option-selected"),
+  optionUnselected: new CustomEvent("option-unselected"),
+};
+
+elems.filterCloseOptions.addEventListener("click", onFilterCloseOptionsClicked);
+
+function onFilterCloseOptionsClicked() {
+  isOptionsOpen() ? closeOptions() : openOptions();
+  elems.filterField.select();
+}
 
 for (let elem of [elems.filter, elems.options]) {
-  elem.addEventListener("keyup", function () {
+  elem.addEventListener("keyup", function (event) {
     if (event.key === "PageDown" || event.key === "PageUp") {
       const shownElems = [...elems.hobbyItems].filter((elem) => !elem.hidden);
       const elemToFocus = shownElems
@@ -53,10 +79,11 @@ function onFilterFieldChange(event) {
     if (!hobbyItem.hidden) numberOfShownHobbies += 1;
   }
 
-  elems.availableHobbiesCounter.innerText =
-    numberOfShownHobbies === 1
-      ? "1 option available"
-      : `${numberOfShownHobbies} options available`;
+  elems.availableHobbiesCounter.innerText = `${numberOfShownHobbies} option${
+    numberOfShownHobbies === 1 ? "" : "s"
+  } available for ${filterTerm}`;
+
+  openOptions();
 }
 
 function onFilterFieldChangeOnce() {
@@ -68,18 +95,22 @@ elems.multi.addEventListener("keyup", onKeyup);
 
 function onKeyup(event) {
   if (event.key === "ArrowDown" || event.key === "ArrowUp") {
-    const direction = event.key === "ArrowDown" ? 1 : -1;
-    for (let i = 0; i < elems.arrowSelectableElems.length; i++) {
-      let j = modulo(direction * (i + 1) + lastSelected, numberOfElems);
-      let currentElem = elems.arrowSelectableElems[j];
-      if (!currentElem.hidden) {
-        if (currentElem === elems.filterField) {
-          currentElem.select();
-        } else {
-          currentElem.querySelector("input").focus();
+    if (isOptionsOpen()) {
+      const direction = event.key === "ArrowDown" ? 1 : -1;
+      for (let i = 0; i < elems.arrowSelectableElems.length; i++) {
+        let j = modulo(direction * (i + 1) + lastSelected, numberOfElems);
+        let currentElem = elems.arrowSelectableElems[j];
+        if (!currentElem.hidden) {
+          if (currentElem === elems.filterField) {
+            currentElem.select();
+          } else {
+            currentElem.querySelector("input").focus();
+          }
+          break;
         }
-        break;
       }
+    } else {
+      openOptions();
     }
   }
 
@@ -103,7 +134,9 @@ function onKeyup(event) {
   }
 }
 
-elems.filterField.addEventListener("focus", () => (lastSelected = 0));
+elems.filterField.addEventListener("focus", () => {
+  lastSelected = 0;
+});
 
 function modulo(a, n) {
   return ((a % n) + n) % n;
@@ -124,7 +157,7 @@ for (let i = 0; i < elems.hobbyItemInputs.length; i++) {
   });
 }
 
-function onCheckboxChange() {
+function onCheckboxChange(event) {
   const checkedItems = Array.from(elems.hobbyItems).filter(
     (elem) => elem.querySelector("input").checked
   );
@@ -138,6 +171,18 @@ function onCheckboxChange() {
   updateSelectedList(checkedItemTexts);
   elems.selectedLegend.innerText = `Selected hobbies (${checkedItemTexts.length} in total)`;
   elems.availableHobbiesSelectedCounter.innerText = `${checkedItems.length} selected.`;
+
+  if (checkedItems.length === 0)
+    elems.filterResetOptions.setAttribute("hidden", "");
+  else elems.filterResetOptions.removeAttribute("hidden");
+
+  if (event?.target) {
+    elems.multi.dispatchEvent(
+      new CustomEvent(`option-${event.target.checked ? "" : "un"}selected`, {
+        detail: event.target.value,
+      })
+    );
+  }
 }
 
 function composeFilteringButtonText(checkboxLabels) {
@@ -145,10 +190,10 @@ function composeFilteringButtonText(checkboxLabels) {
 
   return `${numberOfOptions} ${
     numberOfOptions === 0
-      ? "options selected "
+      ? "options selected, "
       : numberOfOptions === 1
       ? "option selected "
-      : "options selected "
+      : "options selected, "
   }`;
 }
 
@@ -170,16 +215,25 @@ elems.hobbyItemInputs.forEach((checkbox) =>
 );
 
 function onCheckboxKeyup(event) {
-  if (event.key === "Escape") elems.filterButton.focus();
+  if (event.key === "Escape") {
+    elems.filterResetOptions.focus();
+    closeOptions();
+  }
 }
 
-elems.filterButton.addEventListener("click", resetCheckboxes);
+elems.filterResetOptions.addEventListener("click", resetCheckboxes);
+
+elems.filterResetOptions.addEventListener("keyup", onFilterButtonKeyup);
+
+function onFilterButtonKeyup(event) {
+  if (event.key === "Escape") elems.filterField.select();
+}
 
 function resetCheckboxes() {
   for (let checkbox of elems.hobbyItemInputs) {
     checkbox.checked = false;
   }
-  onCheckboxChange();
+  onCheckboxChange({ target: { checked: false, value: "all checkboxes" } });
   elems.filterField.select();
 }
 
@@ -193,10 +247,10 @@ function onSelectedButtonClick(event) {
     ? target.parentNode
     : undefined;
 
-  if (button.classList.contains("selected__button")) {
-    const optionText = button.innerText.trim();
+  if (button?.classList.contains("selected__button")) {
+    const optionText = button.innerText.trim().toLowerCase();
     const hobbyItem = Array.from(document.querySelectorAll(".hobby-item")).find(
-      (item) => item.innerText.trim() === optionText
+      (item) => item.querySelector("input").value === optionText
     );
     hobbyItem.querySelector("input").checked = false;
 
@@ -226,8 +280,73 @@ function onSelectedButtonClick(event) {
       } else elems.filterField.select();
     }
 
-    onCheckboxChange();
+    onCheckboxChange({ target: { checked: false, value: optionText } });
   } else {
     return true;
   }
 }
+
+function openOptions() {
+  elems.options.removeAttribute("hidden");
+  elems.filterField.setAttribute("aria-expanded", true);
+  elems.filterAndOptions.classList.add("open");
+}
+
+function closeOptions() {
+  elems.options.setAttribute("hidden", "");
+  elems.filterField.setAttribute("aria-expanded", false);
+  elems.filterAndOptions.classList.remove("open");
+}
+
+function isOptionsOpen() {
+  return elems.options.getAttribute("hidden") === null;
+}
+
+document.body.addEventListener("click", (event) => {
+  if (
+    !isTargetElementInDirectTree({
+      event,
+      targetElement: elems.filterAndOptions,
+    })
+  ) {
+    closeOptions();
+  }
+});
+
+document.body.addEventListener("keyup", (event) => {
+  if (
+    event.key === "Tab" &&
+    !isTargetElementInDirectTree({
+      event,
+      targetElement: elems.filterAndOptions,
+    })
+  ) {
+    closeOptions();
+  }
+});
+
+function isTargetElementInDirectTree({ event, targetElement }) {
+  let elem = event.target;
+  while (elem) {
+    if (elem !== targetElement) {
+      if (elem.parentNode) elem = elem.parentNode;
+      else {
+        return false;
+      }
+    } else return true;
+  }
+}
+
+elems.multi.addEventListener(`option-selected`, (event) => {
+  elems.eventLogger.innerText =
+    event.detail === `all checkboxes`
+      ? `Event: All checkboxes were unselected`
+      : `Event: Option ${event.detail} was ${event.type.split("-")[1]}`;
+});
+
+elems.multi.addEventListener(`option-unselected`, (event) => {
+  elems.eventLogger.innerText =
+    event.detail === `all checkboxes`
+      ? `Event: All checkboxes were unselected`
+      : `Event: Option ${event.detail} was ${event.type.split("-")[1]}`;
+});
