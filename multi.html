@@ -18,13 +18,7 @@
       <div class="filter-and-options">
         <label class="filter">
           <span class="filter__label" data-inline-block>My hobbies</span
-          ><input class="filter__field" type="text" role="combobox" aria-expanded="false" type="text" autocomplete="off" placeholder="Filter term"
-          
-          ><span data-visually-hidden>
-            <!-- We might wanna show this info visually so that visual users also have the benefit of seeing it. General rule: try to show all relevant info to all users! If you need some specific help for ie. screen reader users only, you should think about whether you are doing something overly complex. We could place it inside `available-hobbies__legend`, or (if this produces too much noise when jumping inside the `fieldset`), just outside of it (and visually hide the `fieldset`). We could place also other important info there, ie. a spinner when elements are loaded through AJAX ("Loading options, please wait") or additional instructions, ie. "Type at least two characters to display options". -->
-            <span class="available-hobbies__counter">12 options available</span>,
-            <span class="available-hobbies__selected-counter">3 selected.</span>
-          </span
+          ><input class="filter__field" type="text" role="combobox" aria-expanded="false" type="text" autocomplete="off" placeholder="Filter term" aria-describedby="hobbies-description"
 
           ><!--<p data-visually-hidden>
             Enter text to filter.
@@ -34,7 +28,7 @@
         >--></label
         
         ><button class="filter__reset-options" type="button">
-          <span class="filter__text" data-visually-hidden>3 options selected,</span>
+          <span class="filter__text" data-visually-hidden>3 selected,</span>
           <img src="clear.svg" alt="unselect all" />
         </button
 
@@ -43,7 +37,13 @@
         </button>
 
         <fieldset class="options" hidden>
-          <legend class="available-hobbies__legend">Available hobbies (3 selected)</legend>
+          <legend class="available-hobbies__legend" id="hobbies-description">
+            <span data-visually-hidden>Available hobbies:</span>
+            <!-- 12 of 12, 3 selected, enter text to filter -->
+            <!-- We might wanna show this info visually so that visual users also have the benefit of seeing it. General rule: try to show all relevant info to all users! If you need some specific help for ie. screen reader users only, you should think about whether you are doing something overly complex. We could place also other important info there, ie. a spinner when elements are loaded through AJAX ("Loading options, please wait") or additional instructions, ie. "Type at least two characters to display options". -->
+            <span class="available-hobbies__counter">12 of 12 for empty filter</span>,
+            <span class="available-hobbies__selected-counter">3 selected</span>
+          </legend>
 
           <ol class="options__list">
             <li class="hobby-item"><label><input type="checkbox" name="my_hobbies" value="soccer" checked data-visually-hidden><span> Soccer<span class="check"></span></span></label></li>
@@ -63,7 +63,7 @@
       </div>
 
       <fieldset class="selected">
-        <legend class="selected__legend" data-visually-hidden>Selected hobbies (3 of 12)</legend>
+        <legend class="selected__legend" data-visually-hidden>Selected hobbies: 3 of 12</legend>
 
         <ol class="selected__list">
           <li>

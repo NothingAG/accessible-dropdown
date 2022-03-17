@@ -7,9 +7,6 @@ elems.filterAndOptions = document.querySelector(".filter-and-options");
 elems.filter = document.querySelector(".filter");
 elems.options = document.querySelector(".options");
 elems.hobbyItems = document.querySelectorAll(".hobby-item");
-elems.availableHobbiesLegend = document.querySelector(
-  ".available-hobbies__legend"
-);
 elems.hobbyItemInputs = document.querySelectorAll(".hobby-item input");
 elems.filterField = document.querySelector(".filter__field");
 elems.filterResetOptions = document.querySelector(".filter__reset-options");
@@ -43,6 +40,7 @@ function onFilterFieldKeyup(event) {
 }
 
 let filterTerm = "";
+let filterTermText = "";
 let filterFieldHasFocus;
 let lastSelected = 0;
 let numberOfElems = elems.arrowSelectableElems.length;
@@ -73,6 +71,7 @@ for (let elem of [elems.filter, elems.options]) {
 
 function onFilterFieldChange(event) {
   filterTerm = event.target.value.toLowerCase();
+  filterTermText = filterTerm === "" ? "empty filter" : `filter "${filterTerm}"`
 
   let numberOfShownHobbies = 0;
   for (let hobbyItem of elems.hobbyItems) {
@@ -80,9 +79,7 @@ function onFilterFieldChange(event) {
     if (!hobbyItem.hidden) numberOfShownHobbies += 1;
   }
 
-  elems.availableHobbiesCounter.innerText = `${numberOfShownHobbies} option${
-    numberOfShownHobbies === 1 ? "" : "s"
-  } available for ${filterTerm}`;
+  elems.availableHobbiesCounter.innerText = `${numberOfShownHobbies} of ${elems.hobbyItems.length} for ${filterTermText}`;
 
   openOptions();
 }
@@ -169,11 +166,10 @@ function onCheckboxChange(event) {
     item.querySelector("label").innerText.trim()
   );
 
-  elems.availableHobbiesLegend.innerHTML = `Available hobbies (${checkedItems.length} selected)`;
-  elems.filterText.innerHTML = composeFilteringButtonText(checkedItemTexts);
+  elems.filterText.innerHTML = `${checkedItemTexts.length} selected`;
   updateSelectedList(checkedItemTexts);
-  elems.selectedLegend.innerText = `Selected hobbies: ${checkedItemTexts.length} of ${allItems.length})`;
-  elems.availableHobbiesSelectedCounter.innerText = `${checkedItems.length} selected.`;
+  elems.selectedLegend.innerText = `Selected hobbies: ${checkedItemTexts.length} of ${allItems.length}`;
+  elems.availableHobbiesSelectedCounter.innerText = `${checkedItems.length} selected`;
 
   if (checkedItems.length === 0)
     elems.filterResetOptions.setAttribute("hidden", "");
@@ -186,18 +182,6 @@ function onCheckboxChange(event) {
       })
     );
   }
-}
-
-function composeFilteringButtonText(checkboxLabels) {
-  const numberOfOptions = checkboxLabels.length;
-
-  return `${numberOfOptions} ${
-    numberOfOptions === 0
-      ? "options selected, "
-      : numberOfOptions === 1
-      ? "option selected "
-      : "options selected, "
-  }`;
 }
 
 function updateSelectedList(checkedItemTexts) {
