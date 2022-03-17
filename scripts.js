@@ -15,6 +15,7 @@ elems.filterField = document.querySelector(".filter__field");
 elems.filterResetOptions = document.querySelector(".filter__reset-options");
 elems.filterText = document.querySelector(".filter__text");
 elems.filterCloseOptions = document.querySelector(".filter__close-options");
+elems.filterCloseOptionsIcon = document.querySelector(".filter__close-options-image");
 elems.selected = document.querySelector(".selected");
 elems.selectedList = document.querySelector(".selected__list");
 elems.selectedLegend = document.querySelector(".selected__legend");
@@ -290,12 +291,14 @@ function openOptions() {
   elems.options.removeAttribute("hidden");
   elems.filterField.setAttribute("aria-expanded", true);
   elems.filterAndOptions.classList.add("open");
+  elems.filterCloseOptionsIcon.alt = "Close options";
 }
 
 function closeOptions() {
   elems.options.setAttribute("hidden", "");
   elems.filterField.setAttribute("aria-expanded", false);
   elems.filterAndOptions.classList.remove("open");
+  elems.filterCloseOptionsIcon.alt = "Open options";
 }
 
 function isOptionsOpen() {
