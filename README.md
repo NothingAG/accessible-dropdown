@@ -106,6 +106,7 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
     - Another option could be to only display "X options available" when expanding the list of options (instead of announcing it when focusing the filter text input), together with `role="alert"`.
 - The use of "advanced" CSS still seems to be dangerous: toggling some content inside `::after` when toggling a checkbox breaks the announcement of checked / not checked in Chrome! We better work around this with toggling an additional `<span>` or similar...
 - In JAWS + FF, focus mode seems to be on when focusing a checkbox (test by hitting a character => it will be appended to filter)! This is very surprising, as all other combos don't do this!
+- `aria-autocomplete="list"` makes screen readers announce the element as "has auto complete".
 
 ## Resources
 
