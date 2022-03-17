@@ -6,6 +6,7 @@ elems.multi = document.querySelector(".multi");
 elems.filterAndOptions = document.querySelector(".filter-and-options");
 elems.filter = document.querySelector(".filter");
 elems.options = document.querySelector(".options");
+elems.optionsList = document.querySelector(".options__list");
 elems.optionsLegend = document.querySelector(".available-hobbies__legend");
 elems.hobbyItems = document.querySelectorAll(".hobby-item");
 elems.hobbyItemInputs = document.querySelectorAll(".hobby-item input");
@@ -104,6 +105,7 @@ function onKeyup(event) {
       }
     } else {
       openOptions();
+      elems.optionsList.focus(); // Only do this on desktop! On mobile, the keyboard would not be shown and the user would have to tap on the text field a second time.
     }
   }
 
