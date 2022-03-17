@@ -6,6 +6,7 @@ elems.multi = document.querySelector(".multi");
 elems.filterAndOptions = document.querySelector(".filter-and-options");
 elems.filter = document.querySelector(".filter");
 elems.options = document.querySelector(".options");
+elems.optionsLegend = document.querySelector(".available-hobbies__legend");
 elems.hobbyItems = document.querySelectorAll(".hobby-item");
 elems.hobbyItemInputs = document.querySelectorAll(".hobby-item input");
 elems.filterField = document.querySelector(".filter__field");
@@ -26,7 +27,6 @@ elems.eventLogger = document.querySelector(".event-logger");
 
 elems.arrowSelectableElems = [elems.filterField, ...elems.hobbyItems];
 elems.filterField.addEventListener("input", onFilterFieldChange);
-elems.filterField.addEventListener("input", onFilterFieldChangeOnce);
 elems.filterField.addEventListener("keyup", onFilterFieldKeyup);
 elems.filterField.addEventListener("click", onFilterFieldClick);
 
@@ -82,11 +82,6 @@ function onFilterFieldChange(event) {
   elems.availableHobbiesCounter.innerText = `${numberOfShownHobbies} of ${elems.hobbyItems.length} for ${filterTermText}`;
 
   openOptions();
-}
-
-function onFilterFieldChangeOnce() {
-  elems.availableHobbiesCounter.setAttribute("role", "alert");
-  elems.filterField.removeEventListener("input", onFilterFieldChangeOnce);
 }
 
 elems.multi.addEventListener("keyup", onKeyup);
@@ -278,6 +273,7 @@ function openOptions() {
   elems.filterField.setAttribute("aria-expanded", true);
   elems.filterAndOptions.classList.add("open");
   elems.filterCloseOptionsIcon.alt = "Close options";
+  elems.optionsLegend.setAttribute("role", "alert");
 }
 
 function closeOptions() {
