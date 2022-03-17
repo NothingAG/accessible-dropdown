@@ -273,7 +273,10 @@ function openOptions() {
   elems.filterField.setAttribute("aria-expanded", true);
   elems.filterAndOptions.classList.add("open");
   elems.filterCloseOptionsIcon.alt = "Close options";
-  elems.optionsLegend.setAttribute("role", "alert");
+
+  if (!elems.optionsLegend.hasAttribute("role")) {
+    elems.optionsLegend.setAttribute("role", "alert");
+  }
 }
 
 function closeOptions() {
