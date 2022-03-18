@@ -105,7 +105,7 @@ function onKeyup(event) {
       }
     } else {
       openOptions();
-      elems.optionsList.focus(); // Only do this on desktop! On mobile, the keyboard would not be shown and the user would have to tap on the text field a second time.
+      elems.optionsList.focus(); // It is good that this only happens on desktop, and not on mobiles, as those do not have arrow keys! On mobile, the keyboard would not be shown and the user would have to tap on the text field a second time.
     }
   }
 
