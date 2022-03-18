@@ -71,6 +71,10 @@ for (let elem of [elems.filter, elems.options]) {
 }
 
 function onFilterFieldChange(event) {
+  if (!elems.optionsLegend.hasAttribute("role")) {
+    elems.optionsLegend.setAttribute("role", "alert");
+  }
+
   filterTerm = event.target.value.toLowerCase();
   filterTermText = filterTerm === "" ? "empty filter" : `filter "${filterTerm}"`
 
@@ -275,10 +279,6 @@ function openOptions() {
   elems.filterField.setAttribute("aria-expanded", true);
   elems.filterAndOptions.classList.add("open");
   elems.filterCloseOptionsIcon.alt = "Close options";
-
-  if (!elems.optionsLegend.hasAttribute("role")) {
-    elems.optionsLegend.setAttribute("role", "alert");
-  }
 }
 
 function closeOptions() {
