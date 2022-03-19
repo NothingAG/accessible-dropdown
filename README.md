@@ -38,7 +38,7 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 - ✅ When a checkbox is focused and a character key is pressed, then move focus back to the filter input and append the typed character.
     - ✅ There are probably some "special keys" we need to implement, for example `Backspace` - any other that come to your mind?
         - ✅ `Delete` will remove the filter text
-- ✅ The first time a filter is entered, add `role="alert"` to `.available-hobbies__counter` (this will make screen readers announce it).
+- ✅ The first time a filter is entered, add `role="alert"` to `.widget--available-options-counter` (this will make screen readers announce it).
 - ✅ Set `hidden` to `fieldset.selected` when there is no option selected.
 - ✅ I added `3 selected` to "X options available", please update accordingly.
 - ✅ When `Esc` is pressed while the "X options selected" button is focused, then move focus back to the filter input (and select all text).

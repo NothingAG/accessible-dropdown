@@ -6,6 +6,9 @@ elems.widgetContainer = document.querySelector(".widget--container");
 elems.filterAndOptionsContainer = document.querySelector(".widget--filter-and-options-container");
 elems.filterContainer = document.querySelector(".widget--filter-container");
 elems.filterField = document.querySelector(".widget--filter-field");
+elems.availableOptionsCounter = document.querySelector(
+  ".widget--available-options-counter"
+);
 elems.options = document.querySelector(".options");
 elems.hobbyItems = document.querySelectorAll(".hobby-item");
 elems.availableHobbiesLegend = document.querySelector(
@@ -18,9 +21,6 @@ elems.filterCloseOptions = document.querySelector(".filter__close-options");
 elems.selected = document.querySelector(".selected");
 elems.selectedList = document.querySelector(".selected__list");
 elems.selectedLegend = document.querySelector(".selected__legend");
-elems.availableHobbiesCounter = document.querySelector(
-  ".available-hobbies__counter"
-);
 elems.availableHobbiesSelectedCounter = document.querySelector(
   ".available-hobbies__selected-counter"
 );
@@ -79,7 +79,7 @@ function onFilterFieldChange(event) {
     if (!hobbyItem.hidden) numberOfShownHobbies += 1;
   }
 
-  elems.availableHobbiesCounter.innerText = `${numberOfShownHobbies} option${
+  elems.availableOptionsCounter.innerText = `${numberOfShownHobbies} option${
     numberOfShownHobbies === 1 ? "" : "s"
   } available for ${filterTerm}`;
 
@@ -87,7 +87,7 @@ function onFilterFieldChange(event) {
 }
 
 function onFilterFieldChangeOnce() {
-  elems.availableHobbiesCounter.setAttribute("role", "alert");
+  elems.availableOptionsCounter.setAttribute("role", "alert");
   elems.filterField.removeEventListener("input", onFilterFieldChangeOnce);
 }
 
