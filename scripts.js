@@ -34,7 +34,7 @@ elems.filterInput.addEventListener("click", onFilterInputClick);
 
 function onFilterInputClick(event) {
   if (FilterInputHasFocus) closeOptions();
-  else openOptions();
+  else showOptionsContainer();
 }
 
 function onFilterInputKeyup(event) {
@@ -54,7 +54,7 @@ const events = {
 elems.toggleOptionsButton.addEventListener("click", onToggleOptionsButtonClicked);
 
 function onToggleOptionsButtonClicked() {
-  isOptionsOpen() ? closeOptions() : openOptions();
+  isOptionsOpen() ? closeOptions() : showOptionsContainer();
   elems.filterInput.select();
 }
 
@@ -83,7 +83,7 @@ function onFilterInputChange(event) {
     numberOfShownHobbies === 1 ? "" : "s"
   } available for ${filterTerm}`;
 
-  openOptions();
+  showOptionsContainer();
 }
 
 function onFilterInputChangeOnce() {
@@ -110,7 +110,7 @@ function onKeyup(event) {
         }
       }
     } else {
-      openOptions();
+      showOptionsContainer();
     }
   }
 
@@ -286,7 +286,7 @@ function onSelectedButtonClick(event) {
   }
 }
 
-function openOptions() {
+function showOptionsContainer() {
   elems.availableOptionsContainer.removeAttribute("hidden");
   elems.filterInput.setAttribute("aria-expanded", true);
   elems.filterAndOptionsContainer.classList.add("open");
