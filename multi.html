@@ -16,9 +16,9 @@
 
     <form>
     <div class="widget--container">
-      <label for="hobbies" class="widget--filter-label" data-inline-block>My hobbies</label>
-      <div class="widget--filter-and-options-container" data-inline-block>
-        <div class="widget--filter-container" data-inline-block>
+      <label for="hobbies" class="widget--filter-label" data-inline-block>Hobbies</label>
+      <span class="widget--filter-and-options-container" data-inline-block>
+        <span class="widget--filter-container" data-inline-block>
           <input class="widget--filter-input"
                  id="hobbies"
                  type="text"
@@ -27,36 +27,27 @@
                  type="text"
                  autocomplete="off"
                  placeholder="Enter filter term"
-                 aria-describedby="hobbies-available-options-legend"
+                 aria-describedby="hobbies-x-options-selected"
           
-          ><span data-visually-hidden>
-            
-            <span class="widget--available-options-counter">12 options available</span>,
-            <span class="widget--selected-options-counter">3 selected.</span>
-          </span
-
-          ><!--<p data-visually-hidden>
-            Enter text to filter.
-            Keyboard: press up or down to walk through options, then space to toggle, escape to close.
-            Mobile: click option below.
-          </p
-        >--></div
+        ></span
         
         ><button class="widget--unselect-all-button" type="button">
-          <span class="widget--unselect-all-button-text" data-visually-hidden>3 selected,</span>
+          <span id="hobbies-x-options-selected" data-visually-hidden>
+            <span class="widget--x-selected-text">3</span> hobbies selected,
+          </span>
           <img src="clear.svg" alt="unselect all" />
         </button
 
         ><button class="widget--toggle-options-button" type="button">
-          <img src="close.svg" class="widget--toggle-options-button-icon" alt="Open options" />
+          <img src="close.svg" class="widget--toggle-options-button-icon" alt="Open hobbies options" />
         </button>
 
         <fieldset class="widget--available-options-container" hidden>
           <!-- We wanna show all info visually so that visual users also have the benefit of seeing it. If you need some specific help for ie. screen reader users only, you should think about whether you are doing something overly complex. We could place also other important info there, ie. a spinner when elements are loaded through AJAX ("Loading options, please wait") or additional instructions, ie. "Type at least two characters to display options". -->
-          <legend class="widget--available-options-legend" id="hobbies-available-options-legend">
-            <!-- 12 of 12, 3 selected, enter text to filter -->
-            <span class="widget--x-of-y-for-filter">12 of 12 for empty filter</span>,
-            <span class="widget--x-selected">3 selected</span>
+          <legend class="widget--available-options-legend">
+            <span data-visually-hidden>Available hobbies:</span>
+            <span class="widget--x-of-y-for-filter-text">12 of 12 for empty filter</span>,
+            <span class="widget--x-selected-text">3</span> selected
           </legend>
 
           <ol class="widget--available-options-list">
@@ -133,10 +124,12 @@
             </li>
           </ol>
         </fieldset>
-      </div>
+      </span>
 
       <fieldset class="widget--selected-options-container">
-        <legend class="widget--selected-options-legend" data-visually-hidden>Selected hobbies: 3 of 12</legend>
+        <legend data-visually-hidden>
+          Selected hobbies: <span class="widget--x-selected-text">3</span>
+        </legend>
 
         <ol class="widget--selected-options-list">
           <li>

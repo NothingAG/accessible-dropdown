@@ -6,18 +6,16 @@ elems.widgetContainer = document.querySelector(".widget--container");
 elems.filterAndOptionsContainer = document.querySelector(".widget--filter-and-options-container");
 elems.filterContainer = document.querySelector(".widget--filter-container");
 elems.filterInput = document.querySelector(".widget--filter-input");
-elems.availableOptionsCounter = document.querySelector(".widget--available-options-counter");
-elems.selectedOptionsCounter = document.querySelector(".widget--selected-options-counter");
 elems.unselectAllButton = document.querySelector(".widget--unselect-all-button");
 elems.unselectAllButtonText = document.querySelector(".widget--unselect-all-button-text");
 elems.toggleOptionsButton = document.querySelector(".widget--toggle-options-button");
 elems.toggleOptionsButtonIcon = document.querySelector(".widget--toggle-options-button-icon");
 elems.availableOptionsContainer = document.querySelector(".widget--available-options-container");
-elems.availableOptionsLegend = document.querySelector(".widget--available-options-legend");
+elems.xOfYForFilterText = document.querySelector(".widget--x-of-y-for-filter-text");
+elems.xSelectedTexts = document.querySelectorAll(".widget--x-selected-text");
 elems.availableOptionsListItems = document.querySelectorAll(".widget--available-options-list-item");
 elems.availableOptionsListInputs = document.querySelectorAll(".widget--available-options-list-item input");
 elems.selectedOptionsContainer = document.querySelector(".widget--selected-options-container");
-elems.selectedOptionsLegend = document.querySelector(".widget--selected-options-legend");
 elems.selectedOptionsList = document.querySelector(".widget--selected-options-list");
 elems.eventLogger = document.querySelector(".event-logger");
 
@@ -75,7 +73,7 @@ function onFilterInputChange(event) {
     if (!optionItem.hidden) numberOfShownOptions += 1;
   }
 
-  elems.availableOptionsCounter.innerText = `${numberOfShownOptions} of ${elems.availableOptionsListItems.length} for ${filterTermText}`;
+  elems.xOfYForFilterText.innerText = `${numberOfShownOptions} of ${elems.availableOptionsListItems.length} for ${filterTermText}`;
 
   if (!isOptionsOpen()) showOptionsContainer();
 }
@@ -148,8 +146,6 @@ for (let i = 0; i < elems.availableOptionsListInputs.length; i++) {
 }
 
 function onOptionChange(event) {
-  const allItems = Array.from(elems.availableOptionsListItems)
-
   const checkedItems = Array.from(elems.availableOptionsListItems).filter(
     (elem) => elem.querySelector("input").checked
   );
@@ -158,11 +154,11 @@ function onOptionChange(event) {
     item.querySelector("label").innerText.trim()
   );
 
-  elems.unselectAllButtonText.innerHTML = `${checkedItemTexts.length} selected,`;
-  elems.availableOptionsLegend.innerHTML = `Available options (${checkedItems.length} selected)`;
   updateSelectedOptionsList(checkedItemTexts);
-  elems.selectedOptionsLegend.innerText = `Selected hobbies: ${checkedItemTexts.length} of ${allItems.length}`;
-  elems.selectedOptionsCounter.innerText = `${checkedItems.length} selected`;
+
+  elems.xSelectedTexts.forEach(elem => {
+    elem.innerText = `${checkedItems.length}`;
+});
 
   if (checkedItems.length === 0)
     elems.unselectAllButton.setAttribute("hidden", "");
@@ -187,7 +183,7 @@ function updateSelectedOptionsList(checkedItemTexts) {
     )
     .join("");
   elems.selectedOptionsList.innerHTML = allEntries;
-  elems.selectedOptionsCounter.hidden = checkedItemTexts.length === 0;
+  elems.selectedOptionsContainer.hidden = checkedItemTexts.length === 0;
 }
 
 elems.availableOptionsListInputs.forEach((option) =>
@@ -286,7 +282,7 @@ function showOptionsContainer() {
 
   // Some screen readers do not announce the `aria-expanded` change, so we give them some additional fodder here: we let them announce the available option's legend by adding making it a live region. Note: does not seem to work for VoiceOver/iOS, but luckily it announces the expanded state.
   setTimeout(() => { // We need a minimal timeout here so screen readers are aware of the role change; otherwise, when showing the container and adding the attribute at the very same instant, the role change seems to be ignored by some screen readers.
-    elems.availableOptionsLegend.setAttribute("role", "alert");
+    elems.xOfYForFilterText.setAttribute("role", "alert");
   }, 200); // Maybe we do not even need a value here? It seems to work anyway.
 }
 
@@ -296,7 +292,7 @@ function hideOptionsContainer() {
   elems.filterAndOptionsContainer.classList.remove("open");
   elems.toggleOptionsButtonIcon.alt = "Open options";
 
-  elems.availableOptionsLegend.removeAttribute("role", "alert");
+  elems.xOfYForFilterText.removeAttribute("role", "alert");
 }
 
 function isOptionsOpen() {
