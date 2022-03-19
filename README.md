@@ -106,7 +106,15 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
     - Another option could be to only display "X options available" when expanding the list of options (instead of announcing it when focusing the filter text input), together with `role="alert"`.
 - The use of "advanced" CSS still seems to be dangerous: toggling some content inside `::after` when toggling a checkbox breaks the announcement of checked / not checked in Chrome! We better work around this with toggling an additional `<span>` or similar...
 - In JAWS + FF, focus mode seems to be on when focusing a checkbox (test by hitting a character => it will be appended to filter)! This is very surprising, as all other combos don't do this!
-- `aria-autocomplete="list"` makes screen readers announce the element as "has auto complete".
+- `aria-autocomplete="list"` makes some screen readers announce the element as "has auto complete", which is nice.
+- `aria-live` does not work the first time it is un-hidden! Unfortunately, we need a `setTimeout` to make it work.
+
+## Some best practices
+
+- If possible, use same texts for both visual and screen reader users!
+- Apply role=alert (or aria-live) only the first time such an alert is displayed, otherwise some screen readers announce it when loading the page.
+- The live region element must be displayed BEFORE its content is changed, otherwise some screen readers don't get the change.
+- On the top container, always add/remove classes that describe what's going on inside the widget (ie. `filter-focused`, `available-options-open`, `available-options-focused`, `selected-options-focused`)
 
 ## Resources
 

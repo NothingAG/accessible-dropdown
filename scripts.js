@@ -71,8 +71,14 @@ for (let elem of [elems.filter, elems.options]) {
 }
 
 function onFilterFieldChange(event) {
-  if (!elems.optionsLegend.hasAttribute("role")) {
-    elems.optionsLegend.setAttribute("role", "alert");
+  // `aria-live="polite"` is nicer than `role="alert"`, as the latter interrupts the current screen reader output. But only certain browsers support it thoroughly.
+  if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+    // Both JAWS and NVDA seem to work with Firefox.
+    // TODO: What about Talkback and Firefox?
+    elems.availableHobbiesCounter.setAttribute("aria-live", "polite");
+  } else {
+    // Let's use `role="alert"` for all other browsers (at least from Chrome+JAWS we know that `aria-live` does not work).
+    elems.availableHobbiesCounter.setAttribute("role", "alert");
   }
 
   filterTerm = event.target.value.toLowerCase();
@@ -84,9 +90,15 @@ function onFilterFieldChange(event) {
     if (!hobbyItem.hidden) numberOfShownHobbies += 1;
   }
 
-  elems.availableHobbiesCounter.innerText = `${numberOfShownHobbies} of ${elems.hobbyItems.length} for ${filterTermText}`;
+  let timeout = 0;
+  if (elems.options.hasAttribute("hidden")) { // Why can't I use `isOptionsOpen()` here?
+    openOptions();
+    timeout = 200; // Some screen readers need a little moment between displaying a live region element (aria-live/alert) and changing its content, otherwise they will not announce the content.
+  }
 
-  openOptions();
+  setTimeout(() => {
+    elems.availableHobbiesCounter.innerText = `${numberOfShownHobbies} of ${elems.hobbyItems.length} for ${filterTermText}`;
+  }, timeout);
 }
 
 elems.multi.addEventListener("keyup", onKeyup);
@@ -109,7 +121,9 @@ function onKeyup(event) {
       }
     } else {
       openOptions();
-      elems.optionsList.focus(); // It is good that this only happens on desktop, and not on mobiles, as those do not have arrow keys! On mobile, the keyboard would not be shown and the user would have to tap on the text field a second time.
+
+      // Chrome+NVDA does not announce a change to the currently focused element's `aria-expanded`. To still give a feedback to the user, we announce the current number of options (or whatever is written inside the fieldset's legend).
+      // TODO! (Make legend empty whenever element is closed, then make it visible and change content after 200ms!)
     }
   }
 
@@ -167,7 +181,7 @@ function onCheckboxChange(event) {
     item.querySelector("label").innerText.trim()
   );
 
-  elems.filterText.innerHTML = `${checkedItemTexts.length} selected`;
+  elems.filterText.innerHTML = `${checkedItemTexts.length} selected,`;
   updateSelectedList(checkedItemTexts);
   elems.selectedLegend.innerText = `Selected hobbies: ${checkedItemTexts.length} of ${allItems.length}`;
   elems.availableHobbiesSelectedCounter.innerText = `${checkedItems.length} selected`;
