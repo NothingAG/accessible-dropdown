@@ -2,8 +2,8 @@
 
 const elems = {};
 
-elems.widgetContainer = document.querySelector(".widget-container");
-elems.filterAndOptionsContainer = document.querySelector(".widget--filter-and-options");
+elems.widgetContainer = document.querySelector(".widget--container");
+elems.filterAndOptionsContainer = document.querySelector(".widget--filter-and-options-container");
 elems.filter = document.querySelector(".filter");
 elems.options = document.querySelector(".options");
 elems.hobbyItems = document.querySelectorAll(".hobby-item");
