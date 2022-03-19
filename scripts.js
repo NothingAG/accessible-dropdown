@@ -2,7 +2,7 @@
 
 const elems = {};
 
-elems.widget = document.querySelector(".widget");
+elems.widgetContainer = document.querySelector(".widget-container");
 elems.filterAndOptionsContainer = document.querySelector(".widget--filter-and-options");
 elems.filter = document.querySelector(".filter");
 elems.options = document.querySelector(".options");
@@ -91,7 +91,7 @@ function onFilterFieldChangeOnce() {
   elems.filterField.removeEventListener("input", onFilterFieldChangeOnce);
 }
 
-elems.widget.addEventListener("keyup", onKeyup);
+elems.widgetContainer.addEventListener("keyup", onKeyup);
 
 function onKeyup(event) {
   if (event.key === "ArrowDown" || event.key === "ArrowUp") {
@@ -177,7 +177,7 @@ function onCheckboxChange(event) {
   else elems.filterResetOptions.removeAttribute("hidden");
 
   if (event?.target) {
-    elems.widget.dispatchEvent(
+    elems.widgetContainer.dispatchEvent(
       new CustomEvent(`option-${event.target.checked ? "" : "un"}selected`, {
         detail: event.target.value,
       })
@@ -337,14 +337,14 @@ function isTargetElementInDirectTree({ event, targetElement }) {
   }
 }
 
-elems.widget.addEventListener(`option-selected`, (event) => {
+elems.widgetContainer.addEventListener(`option-selected`, (event) => {
   elems.eventLogger.innerText =
     event.detail === `all checkboxes`
       ? `Event: All checkboxes were unselected`
       : `Event: Option ${event.detail} was ${event.type.split("-")[1]}`;
 });
 
-elems.widget.addEventListener(`option-unselected`, (event) => {
+elems.widgetContainer.addEventListener(`option-unselected`, (event) => {
   elems.eventLogger.innerText =
     event.detail === `all checkboxes`
       ? `Event: All checkboxes were unselected`
