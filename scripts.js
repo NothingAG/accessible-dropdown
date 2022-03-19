@@ -15,7 +15,7 @@ elems.selectedOptionsCounter = document.querySelector(
 elems.unselectAllButton = document.querySelector(".widget--unselect-all-button");
 elems.unselectAllButtonText = document.querySelector(".widget--unselect-all-button-text");
 elems.toggleOptionsbutton = document.querySelector(".widget--toggle-options-button");
-elems.optionsContainer = document.querySelector(".widget--options-container");
+elems.availableOptionsContainer = document.querySelector(".widget--available-options-container");
 elems.optionsLegend = document.querySelector(
   ".widget--options-legend"
 );
@@ -58,7 +58,7 @@ function onFilterCloseOptionsClicked() {
   elems.filterInput.select();
 }
 
-for (let elem of [elems.filterContainer, elems.optionsContainer]) {
+for (let elem of [elems.filterContainer, elems.availableOptionsContainer]) {
   elem.addEventListener("keyup", function (event) {
     if (event.key === "PageDown" || event.key === "PageUp") {
       const shownElems = [...elems.optionsListItems].filter((elem) => !elem.hidden);
@@ -287,19 +287,19 @@ function onSelectedButtonClick(event) {
 }
 
 function openOptions() {
-  elems.optionsContainer.removeAttribute("hidden");
+  elems.availableOptionsContainer.removeAttribute("hidden");
   elems.filterInput.setAttribute("aria-expanded", true);
   elems.filterAndOptionsContainer.classList.add("open");
 }
 
 function closeOptions() {
-  elems.optionsContainer.setAttribute("hidden", "");
+  elems.availableOptionsContainer.setAttribute("hidden", "");
   elems.filterInput.setAttribute("aria-expanded", false);
   elems.filterAndOptionsContainer.classList.remove("open");
 }
 
 function isOptionsOpen() {
-  return elems.optionsContainer.getAttribute("hidden") === null;
+  return elems.availableOptionsContainer.getAttribute("hidden") === null;
 }
 
 document.body.addEventListener("click", (event) => {
