@@ -168,7 +168,7 @@ form {
   background: url(check.svg);
 }
 
-.available-hobbies__legend {
+.widget--options-legend {
   background-color: #000;
   color: #fff;
   border: 1px solid #000;

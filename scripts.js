@@ -16,10 +16,10 @@ elems.unselectAllButton = document.querySelector(".widget--unselect-all-button")
 elems.unselectAllButtonText = document.querySelector(".widget--unselect-all-button-text");
 elems.toggleOptionsbutton = document.querySelector(".widget--toggle-options-button");
 elems.optionsContainer = document.querySelector(".widget--options-container");
-elems.hobbyItems = document.querySelectorAll(".hobby-item");
-elems.availableHobbiesLegend = document.querySelector(
-  ".available-hobbies__legend"
+elems.optionsLegend = document.querySelector(
+  ".widget--options-legend"
 );
+elems.hobbyItems = document.querySelectorAll(".hobby-item");
 elems.hobbyItemInputs = document.querySelectorAll(".hobby-item input");
 elems.selected = document.querySelector(".selected");
 elems.selectedList = document.querySelector(".selected__list");
@@ -166,7 +166,7 @@ function onCheckboxChange(event) {
     item.querySelector("label").innerText.trim()
   );
 
-  elems.availableHobbiesLegend.innerHTML = `Available hobbies (${checkedItems.length} selected)`;
+  elems.optionsLegend.innerHTML = `Available hobbies (${checkedItems.length} selected)`;
   elems.unselectAllButtonText.innerHTML = composeFilteringButtonText(checkedItemTexts);
   updateSelectedList(checkedItemTexts);
   elems.selectedLegend.innerText = `Selected hobbies (${checkedItemTexts.length} in total)`;
