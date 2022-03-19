@@ -26,7 +26,7 @@ elems.selectedOptionsLegend = document.querySelector(".widget--selected-options-
 elems.selectedOptionsList = document.querySelector(".widget--selected-options-list");
 elems.eventLogger = document.querySelector(".event-logger");
 
-elems.arrowSelectableElems = [elems.filterInput, ...elems.optionsListItems];
+elems.arrowSelectableElements = [elems.filterInput, ...elems.optionsListItems];
 elems.filterInput.addEventListener("input", onFilterInputChange);
 elems.filterInput.addEventListener("input", onFilterInputChangeOnce);
 elems.filterInput.addEventListener("keyup", onFilterInputKeyup);
@@ -43,10 +43,10 @@ function onFilterInputKeyup(event) {
 
 let filterTerm = "";
 let FilterInputHasFocus;
-let lastSelected = 0;
-let numberOfElems = elems.arrowSelectableElems.length;
+let lastArrowSelectedElement = 0; // TODO: I think we don't really need to manage such a counter, let's just decide on the go which element to select next (which depends on where the focus currently is)!
 const textInputRegexp = /^(([a-zA-Z])|(Backspace)|(Delete))$/;
 const events = {
+  // TODO: Do we need to also prefix them, ie. with `widget--`?
   optionSelected: new CustomEvent("option-selected"),
   optionUnselected: new CustomEvent("option-unselected"),
 };
@@ -97,9 +97,10 @@ function onKeyup(event) {
   if (event.key === "ArrowDown" || event.key === "ArrowUp") {
     if (isOptionsOpen()) {
       const direction = event.key === "ArrowDown" ? 1 : -1;
-      for (let i = 0; i < elems.arrowSelectableElems.length; i++) {
-        let j = modulo(direction * (i + 1) + lastSelected, numberOfElems);
-        let currentElem = elems.arrowSelectableElems[j];
+      for (let i = 0; i < elems.arrowSelectableElements.length; i++) {
+        let numberOfArrowSelectableElements = elems.arrowSelectableElements.length;
+        let j = modulo(direction * (i + 1) + lastArrowSelectedElement, numberOfArrowSelectableElements);
+        let currentElem = elems.arrowSelectableElements[j];
         if (!currentElem.hidden) {
           if (currentElem === elems.filterInput) {
             currentElem.select();
@@ -135,7 +136,7 @@ function onKeyup(event) {
 }
 
 elems.filterInput.addEventListener("focus", () => {
-  lastSelected = 0;
+  lastArrowSelectedElement = 0;
 });
 
 function modulo(a, n) {
@@ -147,7 +148,7 @@ for (let i = 0; i < elems.optionsListInputs.length; i++) {
 
   optionInput.addEventListener("input", onOptionChange);
   optionInput.addEventListener("focus", () => {
-    lastSelected = i + 1;
+    lastArrowSelectedElement = i + 1;
   });
   optionInput.addEventListener("keyup", (event) => {
     if (event.key === "Enter") {
