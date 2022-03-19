@@ -12,13 +12,13 @@ elems.availableOptionsCounter = document.querySelector(
 elems.selectedOptionsCounter = document.querySelector(
   ".widget--selected-options-counter"
 );
+elems.unselectAllButton = document.querySelector(".widget--unselect-all-button");
 elems.options = document.querySelector(".options");
 elems.hobbyItems = document.querySelectorAll(".hobby-item");
 elems.availableHobbiesLegend = document.querySelector(
   ".available-hobbies__legend"
 );
 elems.hobbyItemInputs = document.querySelectorAll(".hobby-item input");
-elems.filterResetOptions = document.querySelector(".filter__reset-options");
 elems.filterText = document.querySelector(".filter__text");
 elems.filterCloseOptions = document.querySelector(".filter__close-options");
 elems.selected = document.querySelector(".selected");
@@ -173,8 +173,8 @@ function onCheckboxChange(event) {
   elems.selectedOptionsCounter.innerText = `${checkedItems.length} selected.`;
 
   if (checkedItems.length === 0)
-    elems.filterResetOptions.setAttribute("hidden", "");
-  else elems.filterResetOptions.removeAttribute("hidden");
+    elems.unselectAllButton.setAttribute("hidden", "");
+  else elems.unselectAllButton.removeAttribute("hidden");
 
   if (event?.target) {
     elems.widgetContainer.dispatchEvent(
@@ -216,14 +216,14 @@ elems.hobbyItemInputs.forEach((checkbox) =>
 
 function onCheckboxKeyup(event) {
   if (event.key === "Escape") {
-    elems.filterResetOptions.focus();
+    elems.unselectAllButton.focus();
     closeOptions();
   }
 }
 
-elems.filterResetOptions.addEventListener("click", resetCheckboxes);
+elems.unselectAllButton.addEventListener("click", resetCheckboxes);
 
-elems.filterResetOptions.addEventListener("keyup", onFilterButtonKeyup);
+elems.unselectAllButton.addEventListener("keyup", onFilterButtonKeyup);
 
 function onFilterButtonKeyup(event) {
   if (event.key === "Escape") elems.filterField.select();

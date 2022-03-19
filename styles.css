@@ -34,7 +34,7 @@ form {
   z-index: 1;
 }
 
-.filter__reset-options {
+.widget--unselect-all-button {
   position: absolute;
   border: 0;
   background-color: transparent;
@@ -45,11 +45,11 @@ form {
   border-radius: 100%;
 }
 
-.filter__reset-options:focus {
+.widget--unselect-all-button:focus {
   outline: 1px solid red;
 }
 
-.filter__reset-options:hover,
+.widget--unselect-all-button:hover,
 .filter__close-options {
   cursor: pointer;
 }
