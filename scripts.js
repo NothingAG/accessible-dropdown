@@ -30,9 +30,13 @@ function onFilterInputClick(event) {
 }
 
 function onFilterInputKeyup(event) {
-  if (event.key === "Escape") hideOptionsContainer();
+  if (event.key === "Escape") {
+    hideOptionsContainer();
+    elems.unselectAllButton.focus();
+  }
 }
 
+let inputName = document.querySelector(".widget--filter-label").innerText.trim();
 let filterTerm = "";
 let filterTermText = "";
 let filterInputHasFocus;
@@ -73,7 +77,7 @@ function onFilterInputChange(event) {
     if (!optionItem.hidden) numberOfShownOptions += 1;
   }
 
-  elems.xOfYForFilterText.innerText = `${numberOfShownOptions} of ${elems.availableOptionsListItems.length} for ${filterTermText}`;
+  elems.xOfYForFilterText.innerText = `${numberOfShownOptions} of ${elems.availableOptionsListItems.length} options for ${filterTermText}`;
 
   if (!isOptionsOpen()) showOptionsContainer();
 }
@@ -278,7 +282,7 @@ function showOptionsContainer() {
   elems.availableOptionsContainer.removeAttribute("hidden");
   elems.filterInput.setAttribute("aria-expanded", true);
   elems.filterAndOptionsContainer.classList.add("widget--open");
-  elems.toggleOptionsButtonIcon.alt = "Close options";
+  elems.toggleOptionsButtonIcon.alt = `Close ${inputName} options`;
 
   // Some screen readers do not announce the `aria-expanded` change, so we give them some additional fodder here: we let them announce the available option's legend by adding making it a live region. Note: does not seem to work for VoiceOver/iOS, but luckily it announces the expanded state.
   setTimeout(() => { // We need a minimal timeout here so screen readers are aware of the role change; otherwise, when showing the container and adding the attribute at the very same instant, the role change seems to be ignored by some screen readers.
@@ -290,7 +294,7 @@ function hideOptionsContainer() {
   elems.availableOptionsContainer.setAttribute("hidden", "");
   elems.filterInput.setAttribute("aria-expanded", false);
   elems.filterAndOptionsContainer.classList.remove("widget--open");
-  elems.toggleOptionsButtonIcon.alt = "Open options";
+  elems.toggleOptionsButtonIcon.alt = `Open ${inputName} options`;
 
   elems.xOfYForFilterText.removeAttribute("role", "alert");
 }
