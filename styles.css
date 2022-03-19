@@ -2,15 +2,15 @@ form {
   margin: 0;
 }
 
-.filter__label {
+.widget--filter-label {
   width: 100px;
 }
 
-.filter__label::after {
+.widget--filter-label::after {
   content: ":";
 }
 
-.filter__field {
+.widget--filter-field {
   width: 160px;
   border: 1px solid #000;
   height: 24px;
@@ -18,16 +18,16 @@ form {
   padding: 2px 4px;
 }
 
-.widget--filter-and-options-container:not(.open) .filter__field {
+.widget--filter-and-options-container:not(.open) .widget--filter-field {
   border-bottom-left-radius: 6px;
 }
 
-.filter__field:focus {
+.widget--filter-field:focus {
   background-color: rgb(255, 235, 235);
 }
 
-.filter__field:focus,
-.widget--filter-and-options-container:focus-within .filter__field,
+.widget--filter-field:focus,
+.widget--filter-and-options-container:focus-within .widget--filter-field,
 .filter__close-options:focus {
   outline: 1px solid red;
   position: relative;

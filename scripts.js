@@ -5,13 +5,13 @@ const elems = {};
 elems.widgetContainer = document.querySelector(".widget--container");
 elems.filterAndOptionsContainer = document.querySelector(".widget--filter-and-options-container");
 elems.filterContainer = document.querySelector(".widget--filter-container");
+elems.filterField = document.querySelector(".widget--filter-field");
 elems.options = document.querySelector(".options");
 elems.hobbyItems = document.querySelectorAll(".hobby-item");
 elems.availableHobbiesLegend = document.querySelector(
   ".available-hobbies__legend"
 );
 elems.hobbyItemInputs = document.querySelectorAll(".hobby-item input");
-elems.filterField = document.querySelector(".filter__field");
 elems.filterResetOptions = document.querySelector(".filter__reset-options");
 elems.filterText = document.querySelector(".filter__text");
 elems.filterCloseOptions = document.querySelector(".filter__close-options");
