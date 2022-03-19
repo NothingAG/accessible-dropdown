@@ -18,6 +18,10 @@ form {
   padding: 2px 4px;
 }
 
+.widget--filter-and-options-container {
+  position: relative;
+}
+
 .widget--filter-and-options-container:not(.open) .widget--filter-input {
   border-bottom-left-radius: 6px;
 }
@@ -38,11 +42,22 @@ form {
   position: absolute;
   border: 0;
   background-color: transparent;
-  margin-left: -20px;
+  right: 34px;
   margin-top: 4px;
   z-index: 2;
   padding: 0;
-  border-radius: 100%;
+  border-radius: 8px;
+}
+
+.widget--x-selected-text {
+  font-size: 75%;
+  font-weight: bold;
+  line-height: 16px;
+  padding: 0 2px 0 4px
+}
+
+.widget--unselect-all-button img {
+  vertical-align: top;
 }
 
 .widget--unselect-all-button:focus {
@@ -129,6 +144,7 @@ form {
 
 .widget--available-options-list {
   color: transparent; /* To hide the bullet point numbers (1., 2., etc.) visually, but let screen readers announce them. */
+  list-style: none;
   padding: 0;
   margin: 0;
 }
