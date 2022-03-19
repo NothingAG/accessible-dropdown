@@ -19,14 +19,14 @@ elems.optionsContainer = document.querySelector(".widget--options-container");
 elems.optionsLegend = document.querySelector(
   ".widget--options-legend"
 );
-elems.hobbyItems = document.querySelectorAll(".hobby-item");
-elems.hobbyItemInputs = document.querySelectorAll(".hobby-item input");
+elems.optionsListItems = document.querySelectorAll(".widget--options-list-item");
+elems.optionsListInputs = document.querySelectorAll(".widget--options-list-item input");
 elems.selected = document.querySelector(".selected");
 elems.selectedList = document.querySelector(".selected__list");
 elems.selectedLegend = document.querySelector(".selected__legend");
 elems.eventLogger = document.querySelector(".event-logger");
 
-elems.arrowSelectableElems = [elems.filterField, ...elems.hobbyItems];
+elems.arrowSelectableElems = [elems.filterField, ...elems.optionsListItems];
 elems.filterField.addEventListener("input", onFilterFieldChange);
 elems.filterField.addEventListener("input", onFilterFieldChangeOnce);
 elems.filterField.addEventListener("keyup", onFilterFieldKeyup);
@@ -61,7 +61,7 @@ function onFilterCloseOptionsClicked() {
 for (let elem of [elems.filterContainer, elems.optionsContainer]) {
   elem.addEventListener("keyup", function (event) {
     if (event.key === "PageDown" || event.key === "PageUp") {
-      const shownElems = [...elems.hobbyItems].filter((elem) => !elem.hidden);
+      const shownElems = [...elems.optionsListItems].filter((elem) => !elem.hidden);
       const elemToFocus = shownElems
         .at(event.key === "PageDown" ? -1 : 0)
         .querySelector("input");
@@ -74,7 +74,7 @@ function onFilterFieldChange(event) {
   filterTerm = event.target.value.toLowerCase();
 
   let numberOfShownHobbies = 0;
-  for (let hobbyItem of elems.hobbyItems) {
+  for (let hobbyItem of elems.optionsListItems) {
     hobbyItem.hidden = !hobbyItem.innerText.toLowerCase().includes(filterTerm);
     if (!hobbyItem.hidden) numberOfShownHobbies += 1;
   }
@@ -142,8 +142,8 @@ function modulo(a, n) {
   return ((a % n) + n) % n;
 }
 
-for (let i = 0; i < elems.hobbyItemInputs.length; i++) {
-  const checkboxInput = elems.hobbyItemInputs[i];
+for (let i = 0; i < elems.optionsListInputs.length; i++) {
+  const checkboxInput = elems.optionsListInputs[i];
 
   checkboxInput.addEventListener("input", onCheckboxChange);
   checkboxInput.addEventListener("focus", () => {
@@ -158,7 +158,7 @@ for (let i = 0; i < elems.hobbyItemInputs.length; i++) {
 }
 
 function onCheckboxChange(event) {
-  const checkedItems = Array.from(elems.hobbyItems).filter(
+  const checkedItems = Array.from(elems.optionsListItems).filter(
     (elem) => elem.querySelector("input").checked
   );
 
@@ -210,7 +210,7 @@ function updateSelectedList(checkedItemTexts) {
   elems.selected.hidden = checkedItemTexts.length === 0;
 }
 
-elems.hobbyItemInputs.forEach((checkbox) =>
+elems.optionsListInputs.forEach((checkbox) =>
   checkbox.addEventListener("keyup", onCheckboxKeyup)
 );
 
@@ -230,7 +230,7 @@ function onFilterButtonKeyup(event) {
 }
 
 function resetCheckboxes() {
-  for (let checkbox of elems.hobbyItemInputs) {
+  for (let checkbox of elems.optionsListInputs) {
     checkbox.checked = false;
   }
   onCheckboxChange({ target: { checked: false, value: "all checkboxes" } });
@@ -249,7 +249,7 @@ function onSelectedButtonClick(event) {
 
   if (button?.classList.contains("selected__button")) {
     const optionText = button.innerText.trim().toLowerCase();
-    const hobbyItem = Array.from(document.querySelectorAll(".hobby-item")).find(
+    const hobbyItem = Array.from(document.querySelectorAll(".widget--options-list-item")).find(
       (item) => item.querySelector("input").value === optionText
     );
     hobbyItem.querySelector("input").checked = false;
