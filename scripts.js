@@ -168,8 +168,8 @@ function onOptionChange(event) {
   );
 
   elems.optionsLegend.innerHTML = `Available options (${checkedItems.length} selected)`;
-  elems.unselectAllButtonText.innerHTML = composeFilteringButtonText(checkedItemTexts);
-  updateSelectedList(checkedItemTexts);
+  elems.unselectAllButtonText.innerHTML = composeUnselectAllButtonText(checkedItemTexts);
+  updateSelectedOptionsList(checkedItemTexts);
   elems.selectedOptionsLegend.innerText = `Selected options (${checkedItemTexts.length} in total)`;
   elems.selectedOptionsCounter.innerText = `${checkedItems.length} selected.`;
 
@@ -186,7 +186,7 @@ function onOptionChange(event) {
   }
 }
 
-function composeFilteringButtonText(optionLabels) {
+function composeUnselectAllButtonText(optionLabels) {
   const numberOfOptions = optionLabels.length;
 
   return `${numberOfOptions} ${
@@ -198,7 +198,7 @@ function composeFilteringButtonText(optionLabels) {
   }`;
 }
 
-function updateSelectedList(checkedItemTexts) {
+function updateSelectedOptionsList(checkedItemTexts) {
   const allEntries = checkedItemTexts
     .map(
       (
