@@ -50,7 +50,7 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
     - ✅ When pressing `Up`/`Down` while the dropdown is closed, open it (and keep focus inside filter input).
     - ✅ When pressing `Up`/`Down` while the dropdown is open, move focus to last/first checkbox.
 - ✅ Keep `aria-expanded` in sync with the dropdown: set it to `true` when it is open, and to `false` when it is closed.
-- ✅ When clicking `.filter__close-options` button, close `fieldset.selected`, set focus to filter text field, and select all text (if there is any).
+- ✅ When clicking `.widget--toggle-options-button` button, close `fieldset.selected`, set focus to filter text field, and select all text (if there is any).
 - ✅ When typing a filter and the dropdown is closed, open it.
 - ✅ Hide the "Unselect all" button when there is no option selected.
 - ✅ When keyboard focus leaves the widget, close the dropdown.

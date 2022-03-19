@@ -13,14 +13,14 @@ elems.selectedOptionsCounter = document.querySelector(
   ".widget--selected-options-counter"
 );
 elems.unselectAllButton = document.querySelector(".widget--unselect-all-button");
-elems.unselectAllbuttonText = document.querySelector(".widget--unselect-all-button-text");
+elems.unselectAllButtonText = document.querySelector(".widget--unselect-all-button-text");
+elems.toggleOptionsbutton = document.querySelector(".widget--toggle-options-button");
 elems.options = document.querySelector(".options");
 elems.hobbyItems = document.querySelectorAll(".hobby-item");
 elems.availableHobbiesLegend = document.querySelector(
   ".available-hobbies__legend"
 );
 elems.hobbyItemInputs = document.querySelectorAll(".hobby-item input");
-elems.filterCloseOptions = document.querySelector(".filter__close-options");
 elems.selected = document.querySelector(".selected");
 elems.selectedList = document.querySelector(".selected__list");
 elems.selectedLegend = document.querySelector(".selected__legend");
@@ -51,7 +51,7 @@ const events = {
   optionUnselected: new CustomEvent("option-unselected"),
 };
 
-elems.filterCloseOptions.addEventListener("click", onFilterCloseOptionsClicked);
+elems.toggleOptionsbutton.addEventListener("click", onFilterCloseOptionsClicked);
 
 function onFilterCloseOptionsClicked() {
   isOptionsOpen() ? closeOptions() : openOptions();
@@ -167,7 +167,7 @@ function onCheckboxChange(event) {
   );
 
   elems.availableHobbiesLegend.innerHTML = `Available hobbies (${checkedItems.length} selected)`;
-  elems.unselectAllbuttonText.innerHTML = composeFilteringButtonText(checkedItemTexts);
+  elems.unselectAllButtonText.innerHTML = composeFilteringButtonText(checkedItemTexts);
   updateSelectedList(checkedItemTexts);
   elems.selectedLegend.innerText = `Selected hobbies (${checkedItemTexts.length} in total)`;
   elems.selectedOptionsCounter.innerText = `${checkedItems.length} selected.`;

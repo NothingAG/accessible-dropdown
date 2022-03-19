@@ -28,7 +28,7 @@ form {
 
 .widget--filter-field:focus,
 .widget--filter-and-options-container:focus-within .widget--filter-field,
-.filter__close-options:focus {
+.widget--toggle-options-button:focus {
   outline: 1px solid red;
   position: relative;
   z-index: 1;
@@ -50,11 +50,11 @@ form {
 }
 
 .widget--unselect-all-button:hover,
-.filter__close-options {
+.widget--toggle-options-button {
   cursor: pointer;
 }
 
-.filter__close-options {
+.widget--toggle-options-button {
   height: 24px;
   border: 1px solid #000;
   margin-left: -1px;
@@ -62,11 +62,11 @@ form {
   border-top-right-radius: 6px;
 }
 
-.widget--filter-and-options-container:not(.open) .filter__close-options {
+.widget--filter-and-options-container:not(.open) .widget--toggle-options-button {
   border-bottom-right-radius: 6px;
 }
 
-.widget--filter-and-options-container:not(.open) .filter__close-options img {
+.widget--filter-and-options-container:not(.open) .widget--toggle-options-button img {
   transform: rotate(180deg);
 }
 
