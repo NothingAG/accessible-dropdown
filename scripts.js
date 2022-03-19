@@ -73,14 +73,14 @@ for (let elem of [elems.filterContainer, elems.availableOptionsContainer]) {
 function onFilterInputChange(event) {
   filterTerm = event.target.value.toLowerCase();
 
-  let numberOfShownHobbies = 0;
+  let numberOfShownOptions = 0;
   for (let optionItem of elems.optionsListItems) {
     optionItem.hidden = !optionItem.innerText.toLowerCase().includes(filterTerm);
-    if (!optionItem.hidden) numberOfShownHobbies += 1;
+    if (!optionItem.hidden) numberOfShownOptions += 1;
   }
 
-  elems.availableOptionsCounter.innerText = `${numberOfShownHobbies} option${
-    numberOfShownHobbies === 1 ? "" : "s"
+  elems.availableOptionsCounter.innerText = `${numberOfShownOptions} option${
+    numberOfShownOptions === 1 ? "" : "s"
   } available for ${filterTerm}`;
 
   showOptionsContainer();
