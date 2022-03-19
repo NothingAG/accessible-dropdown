@@ -143,21 +143,21 @@ function modulo(a, n) {
 }
 
 for (let i = 0; i < elems.optionsListInputs.length; i++) {
-  const checkboxInput = elems.optionsListInputs[i];
+  const optionInput = elems.optionsListInputs[i];
 
-  checkboxInput.addEventListener("input", onCheckboxChange);
-  checkboxInput.addEventListener("focus", () => {
+  optionInput.addEventListener("input", onOptionChange);
+  optionInput.addEventListener("focus", () => {
     lastSelected = i + 1;
   });
-  checkboxInput.addEventListener("keyup", (event) => {
+  optionInput.addEventListener("keyup", (event) => {
     if (event.key === "Enter") {
-      const isChecked = checkboxInput.checked;
-      checkboxInput.checked = !isChecked;
+      const isChecked = optionInput.checked;
+      optionInput.checked = !isChecked;
     }
   });
 }
 
-function onCheckboxChange(event) {
+function onOptionChange(event) {
   const checkedItems = Array.from(elems.optionsListItems).filter(
     (elem) => elem.querySelector("input").checked
   );
@@ -185,8 +185,8 @@ function onCheckboxChange(event) {
   }
 }
 
-function composeFilteringButtonText(checkboxLabels) {
-  const numberOfOptions = checkboxLabels.length;
+function composeFilteringButtonText(optionLabels) {
+  const numberOfOptions = optionLabels.length;
 
   return `${numberOfOptions} ${
     numberOfOptions === 0
@@ -210,18 +210,18 @@ function updateSelectedList(checkedItemTexts) {
   elems.selectedOptionsCounter.hidden = checkedItemTexts.length === 0;
 }
 
-elems.optionsListInputs.forEach((checkbox) =>
-  checkbox.addEventListener("keyup", onCheckboxKeyup)
+elems.optionsListInputs.forEach((option) =>
+  option.addEventListener("keyup", onOptionKeyup)
 );
 
-function onCheckboxKeyup(event) {
+function onOptionKeyup(event) {
   if (event.key === "Escape") {
     elems.unselectAllButton.focus();
     closeOptions();
   }
 }
 
-elems.unselectAllButton.addEventListener("click", resetCheckboxes);
+elems.unselectAllButton.addEventListener("click", resetOptiones);
 
 elems.unselectAllButton.addEventListener("keyup", onFilterButtonKeyup);
 
@@ -229,11 +229,11 @@ function onFilterButtonKeyup(event) {
   if (event.key === "Escape") elems.filterInput.select();
 }
 
-function resetCheckboxes() {
-  for (let checkbox of elems.optionsListInputs) {
-    checkbox.checked = false;
+function resetOptiones() {
+  for (let option of elems.optionsListInputs) {
+    option.checked = false;
   }
-  onCheckboxChange({ target: { checked: false, value: "all checkboxes" } });
+  onOptionChange({ target: { checked: false, value: "all optiones" } });
   elems.filterInput.select();
 }
 
@@ -280,7 +280,7 @@ function onSelectedButtonClick(event) {
       } else elems.filterInput.select();
     }
 
-    onCheckboxChange({ target: { checked: false, value: optionText } });
+    onOptionChange({ target: { checked: false, value: optionText } });
   } else {
     return true;
   }
@@ -339,14 +339,14 @@ function isTargetElementInDirectTree({ event, targetElement }) {
 
 elems.widgetContainer.addEventListener(`option-selected`, (event) => {
   elems.eventLogger.innerText =
-    event.detail === `all checkboxes`
-      ? `Event: All checkboxes were unselected`
+    event.detail === `all optiones`
+      ? `Event: All optiones were unselected`
       : `Event: Option ${event.detail} was ${event.type.split("-")[1]}`;
 });
 
 elems.widgetContainer.addEventListener(`option-unselected`, (event) => {
   elems.eventLogger.innerText =
-    event.detail === `all checkboxes`
-      ? `Event: All checkboxes were unselected`
+    event.detail === `all optiones`
+      ? `Event: All optiones were unselected`
       : `Event: Option ${event.detail} was ${event.type.split("-")[1]}`;
 });
