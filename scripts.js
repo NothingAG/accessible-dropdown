@@ -4,7 +4,7 @@ const elems = {};
 
 elems.widgetContainer = document.querySelector(".widget--container");
 elems.filterAndOptionsContainer = document.querySelector(".widget--filter-and-options-container");
-elems.filter = document.querySelector(".filter");
+elems.filterContainer = document.querySelector(".widget--filter-container");
 elems.options = document.querySelector(".options");
 elems.hobbyItems = document.querySelectorAll(".hobby-item");
 elems.availableHobbiesLegend = document.querySelector(
@@ -58,7 +58,7 @@ function onFilterCloseOptionsClicked() {
   elems.filterField.select();
 }
 
-for (let elem of [elems.filter, elems.options]) {
+for (let elem of [elems.filterContainer, elems.options]) {
   elem.addEventListener("keyup", function (event) {
     if (event.key === "PageDown" || event.key === "PageUp") {
       const shownElems = [...elems.hobbyItems].filter((elem) => !elem.hidden);
