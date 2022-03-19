@@ -70,7 +70,7 @@ form {
   transform: rotate(180deg);
 }
 
-.selected {
+.widget--selected-options-container {
   margin-top: 1em;
   border: 0;
   padding: 0;

@@ -21,7 +21,7 @@ elems.optionsLegend = document.querySelector(
 );
 elems.optionsListItems = document.querySelectorAll(".widget--options-list-item");
 elems.optionsListInputs = document.querySelectorAll(".widget--options-list-item input");
-elems.selected = document.querySelector(".selected");
+elems.selectedOptionsContainer = document.querySelector(".widget--selected-options-container");
 elems.selectedList = document.querySelector(".selected__list");
 elems.selectedLegend = document.querySelector(".selected__legend");
 elems.eventLogger = document.querySelector(".event-logger");
@@ -207,7 +207,7 @@ function updateSelectedList(checkedItemTexts) {
     )
     .join("");
   elems.selectedList.innerHTML = allEntries;
-  elems.selected.hidden = checkedItemTexts.length === 0;
+  elems.selectedOptionsCounter.hidden = checkedItemTexts.length === 0;
 }
 
 elems.optionsListInputs.forEach((checkbox) =>
