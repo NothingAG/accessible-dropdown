@@ -3,7 +3,7 @@
 const elems = {};
 
 elems.widget = document.querySelector(".widget");
-elems.filterAndOptions = document.querySelector(".filter-and-options");
+elems.filterAndOptionsContainer = document.querySelector(".widget--filter-and-options");
 elems.filter = document.querySelector(".filter");
 elems.options = document.querySelector(".options");
 elems.hobbyItems = document.querySelectorAll(".hobby-item");
@@ -289,13 +289,13 @@ function onSelectedButtonClick(event) {
 function openOptions() {
   elems.options.removeAttribute("hidden");
   elems.filterField.setAttribute("aria-expanded", true);
-  elems.filterAndOptions.classList.add("open");
+  elems.filterAndOptionsContainer.classList.add("open");
 }
 
 function closeOptions() {
   elems.options.setAttribute("hidden", "");
   elems.filterField.setAttribute("aria-expanded", false);
-  elems.filterAndOptions.classList.remove("open");
+  elems.filterAndOptionsContainer.classList.remove("open");
 }
 
 function isOptionsOpen() {
@@ -306,7 +306,7 @@ document.body.addEventListener("click", (event) => {
   if (
     !isTargetElementInDirectTree({
       event,
-      targetElement: elems.filterAndOptions,
+      targetElement: elems.filterAndOptionsContainer,
     })
   ) {
     closeOptions();
@@ -318,7 +318,7 @@ document.body.addEventListener("keyup", (event) => {
     event.key === "Tab" &&
     !isTargetElementInDirectTree({
       event,
-      targetElement: elems.filterAndOptions,
+      targetElement: elems.filterAndOptionsContainer,
     })
   ) {
     closeOptions();

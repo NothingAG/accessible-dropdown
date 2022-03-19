@@ -18,7 +18,7 @@ form {
   padding: 2px 4px;
 }
 
-.filter-and-options:not(.open) .filter__field {
+.widget--filter-and-options:not(.open) .filter__field {
   border-bottom-left-radius: 6px;
 }
 
@@ -27,7 +27,7 @@ form {
 }
 
 .filter__field:focus,
-.filter-and-options:focus-within .filter__field,
+.widget--filter-and-options:focus-within .filter__field,
 .filter__close-options:focus {
   outline: 1px solid red;
   position: relative;
@@ -62,11 +62,11 @@ form {
   border-top-right-radius: 6px;
 }
 
-.filter-and-options:not(.open) .filter__close-options {
+.widget--filter-and-options:not(.open) .filter__close-options {
   border-bottom-right-radius: 6px;
 }
 
-.filter-and-options:not(.open) .filter__close-options img {
+.widget--filter-and-options:not(.open) .filter__close-options img {
   transform: rotate(180deg);
 }
 
