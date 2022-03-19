@@ -136,7 +136,6 @@ form {
 .widget--options-list label {
   color: #000;
   padding: 2 4px;
-  display: inline-block;
   width: 100%;
   box-sizing: border-box;
   border-left: 4px solid transparent; /* For high contrast mode */

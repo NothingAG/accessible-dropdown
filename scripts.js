@@ -33,16 +33,16 @@ elems.filterInput.addEventListener("keyup", onFilterInputKeyup);
 elems.filterInput.addEventListener("click", onFilterInputClick);
 
 function onFilterInputClick(event) {
-  if (FilterInputHasFocus) closeOptions();
+  if (filterInputHasFocus) hideOptionsContainer();
   else showOptionsContainer();
 }
 
 function onFilterInputKeyup(event) {
-  if (event.key === "Escape") closeOptions();
+  if (event.key === "Escape") hideOptionsContainer();
 }
 
 let filterTerm = "";
-let FilterInputHasFocus;
+let filterInputHasFocus;
 let lastArrowSelectedElem = 0; // TODO: I think we don't really need to manage such a counter, let's just decide on the go which element to select next (which depends on where the focus currently is)!
 const textInputRegexp = /^(([a-zA-Z])|(Backspace)|(Delete))$/;
 const events = {
@@ -54,7 +54,7 @@ const events = {
 elems.toggleOptionsButton.addEventListener("click", onToggleOptionsButtonClicked);
 
 function onToggleOptionsButtonClicked() {
-  isOptionsOpen() ? closeOptions() : showOptionsContainer();
+  isOptionsOpen() ? hideOptionsContainer() : showOptionsContainer();
   elems.filterInput.select();
 }
 
@@ -83,7 +83,7 @@ function onFilterInputChange(event) {
     numberOfShownOptions === 1 ? "" : "s"
   } available for ${filterTerm}`;
 
-  showOptionsContainer();
+  if (!isOptionsOpen()) showOptionsContainer();
 }
 
 function onFilterInputChangeOnce() {
@@ -117,19 +117,19 @@ function onKeyup(event) {
 
   {
     const { target } = event;
-    const { FilterInput } = elems;
+    const { filterInput } = elems;
 
     if (event.key.match(textInputRegexp)) {
-      if (target !== FilterInput) {
+      if (target !== filterInput) {
         if (event.key.match(/^Backspace$/)) {
-          FilterInput.value = FilterInput.value.slice(0, -1);
+          filterInput.value = filterInput.value.slice(0, -1);
         } else if (event.key.match(/^Delete$/)) {
-          FilterInput.value = "";
+          filterInput.value = "";
         } else {
-          FilterInput.value += event.key;
+          filterInput.value += event.key;
         }
-        FilterInput.focus();
-        FilterInput.dispatchEvent(new Event("input"));
+        filterInput.focus();
+        filterInput.dispatchEvent(new Event("input"));
       }
     }
   }
@@ -218,7 +218,7 @@ elems.optionsListInputs.forEach((option) =>
 function onOptionKeyup(event) {
   if (event.key === "Escape") {
     elems.unselectAllButton.focus();
-    closeOptions();
+    hideOptionsContainer();
   }
 }
 
@@ -291,12 +291,18 @@ function showOptionsContainer() {
   elems.availableOptionsContainer.removeAttribute("hidden");
   elems.filterInput.setAttribute("aria-expanded", true);
   elems.filterAndOptionsContainer.classList.add("open");
+
+  // Some screen readers do not announce the `aria-expanded` change, so we give them some additional fodder here: we let them announce the available option's legend by adding making it a live region. Note: does not seem to work for VoiceOver/iOS, but luckily it announces the expanded state.
+  setTimeout(() => { // We need a minimal timeout here so screen readers are aware of the role change; otherwise, when showing the container and adding the attribute at the very same instant, the role change seems to be ignored by some screen readers.
+    elems.optionsLegend.setAttribute("role", "alert");
+  }, 200); // Maybe we do not even need a value here? It seems to work anyway.
 }
 
-function closeOptions() {
+function hideOptionsContainer() {
   elems.availableOptionsContainer.setAttribute("hidden", "");
   elems.filterInput.setAttribute("aria-expanded", false);
   elems.filterAndOptionsContainer.classList.remove("open");
+  elems.optionsLegend.removeAttribute("role", "alert");
 }
 
 function isOptionsOpen() {
@@ -310,7 +316,7 @@ document.body.addEventListener("click", (event) => {
       targetElem: elems.filterAndOptionsContainer,
     })
   ) {
-    closeOptions();
+    hideOptionsContainer();
   }
 });
 
@@ -322,7 +328,7 @@ document.body.addEventListener("keyup", (event) => {
       targetElem: elems.filterAndOptionsContainer,
     })
   ) {
-    closeOptions();
+    hideOptionsContainer();
   }
 });
 
