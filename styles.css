@@ -127,13 +127,13 @@ form {
   /* background-color: rgb(179, 255, 129); */
 }
 
-.options__list {
+.widget--options-list {
   color: transparent; /* To hide the bullet point numbers (1., 2., etc.) visually, but let screen readers announce them. */
   padding: 0;
   margin: 0;
 }
 
-.options__list label {
+.widget--options-list label {
   color: #000;
   padding: 2 4px;
   display: inline-block;
@@ -142,23 +142,23 @@ form {
   border-left: 4px solid transparent; /* For high contrast mode */
 }
 
-.options__list input:hover {
+.widget--options-list input:hover {
   cursor: pointer;
 }
 
-.options__list label:focus-within,
-.options__list label:hover {
+.widget--options-list label:focus-within,
+.widget--options-list label:hover {
   background-color: rgb(255, 167, 167);
   cursor: pointer;
   border-left-color: #000;
 }
 
-.options__list input:checked + span {
+.widget--options-list input:checked + span {
   font-weight: bold;
 }
 
 /* Seems to break checked / not checked announcements in Chrome (for both NVDA and JAWS) => an alternative could be to simply toggle the display of a <span> with an SVG as background. */
-.options__list input:checked + span .check {
+.widget--options-list input:checked + span .check {
   content: " ";
   display: inline-block;
   margin-left: 0.25em;
