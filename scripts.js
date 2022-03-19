@@ -23,7 +23,7 @@ elems.optionsListItems = document.querySelectorAll(".widget--options-list-item")
 elems.optionsListInputs = document.querySelectorAll(".widget--options-list-item input");
 elems.selectedOptionsContainer = document.querySelector(".widget--selected-options-container");
 elems.selectedOptionsLegend = document.querySelector(".widget--selected-options-legend");
-elems.selectedList = document.querySelector(".selected__list");
+elems.selectedOptionsList = document.querySelector(".widget--selected-options-list");
 elems.eventLogger = document.querySelector(".event-logger");
 
 elems.arrowSelectableElems = [elems.filterInput, ...elems.optionsListItems];
@@ -206,7 +206,7 @@ function updateSelectedList(checkedItemTexts) {
   </button></li>`
     )
     .join("");
-  elems.selectedList.innerHTML = allEntries;
+  elems.selectedOptionsList.innerHTML = allEntries;
   elems.selectedOptionsCounter.hidden = checkedItemTexts.length === 0;
 }
 
@@ -237,7 +237,7 @@ function resetCheckboxes() {
   elems.filterInput.select();
 }
 
-elems.selectedList.addEventListener("click", onSelectedButtonClick);
+elems.selectedOptionsList.addEventListener("click", onSelectedButtonClick);
 
 function onSelectedButtonClick(event) {
   const { target } = event;

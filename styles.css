@@ -76,14 +76,14 @@ form {
   padding: 0;
 }
 
-.selected__list {
+.widget--selected-options-list {
   margin: 0;
   padding: 0;
   overflow: hidden;
   color: transparent; /* To hide the bullet point numbers (1., 2., etc.) visually, but let screen readers announce them. */
 }
 
-.selected__list li {
+.widget--selected-options-list li {
   float: left; /* TODO: Rather use flexbox here? */
   margin-right: 0.5em;
 }
