@@ -277,7 +277,7 @@ function onSelectedButtonClick(event) {
 function showOptionsContainer() {
   elems.availableOptionsContainer.removeAttribute("hidden");
   elems.filterInput.setAttribute("aria-expanded", true);
-  elems.filterAndOptionsContainer.classList.add("open");
+  elems.filterAndOptionsContainer.classList.add("widget--open");
   elems.toggleOptionsButtonIcon.alt = "Close options";
 
   // Some screen readers do not announce the `aria-expanded` change, so we give them some additional fodder here: we let them announce the available option's legend by adding making it a live region. Note: does not seem to work for VoiceOver/iOS, but luckily it announces the expanded state.
@@ -289,7 +289,7 @@ function showOptionsContainer() {
 function hideOptionsContainer() {
   elems.availableOptionsContainer.setAttribute("hidden", "");
   elems.filterInput.setAttribute("aria-expanded", false);
-  elems.filterAndOptionsContainer.classList.remove("open");
+  elems.filterAndOptionsContainer.classList.remove("widget--open");
   elems.toggleOptionsButtonIcon.alt = "Open options";
 
   elems.xOfYForFilterText.removeAttribute("role", "alert");

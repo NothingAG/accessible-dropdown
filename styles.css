@@ -24,7 +24,7 @@ form {
   position: relative;
 }
 
-.widget--filter-and-options-container:not(.open) .widget--filter-input {
+.widget--filter-and-options-container:not(.widget--open) .widget--filter-input {
   border-bottom-left-radius: 6px;
 }
 
@@ -100,11 +100,11 @@ form {
   background-color: rgb(255, 212, 212);
 }
 
-.widget--filter-and-options-container:not(.open) .widget--toggle-options-button {
+.widget--filter-and-options-container:not(.widget--open) .widget--toggle-options-button {
   border-bottom-right-radius: 6px;
 }
 
-.widget--filter-and-options-container:not(.open) .widget--toggle-options-button img {
+.widget--filter-and-options-container:not(.widget--open) .widget--toggle-options-button img {
   transform: rotate(180deg);
 }
 
