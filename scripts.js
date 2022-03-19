@@ -202,7 +202,7 @@ function updateSelectedList(checkedItemTexts) {
     .map(
       (
         text
-      ) => `<li><button class="selected__button" type="button">${text} <img src="clear.svg" alt="unselect">
+      ) => `<li><button class="widget--selected-options-button" type="button">${text} <img src="clear.svg" alt="unselect">
   </button></li>`
     )
     .join("");
@@ -241,13 +241,13 @@ elems.selectedOptionsList.addEventListener("click", onSelectedButtonClick);
 
 function onSelectedButtonClick(event) {
   const { target } = event;
-  const button = target.classList.contains("selected__button")
+  const button = target.classList.contains("widget--selected-options-button")
     ? target
-    : target.parentNode.classList.contains("selected__button")
+    : target.parentNode.classList.contains("widget--selected-options-button")
     ? target.parentNode
     : undefined;
 
-  if (button?.classList.contains("selected__button")) {
+  if (button?.classList.contains("widget--selected-options-button")) {
     const optionText = button.innerText.trim().toLowerCase();
     const hobbyItem = Array.from(document.querySelectorAll(".widget--options-list-item")).find(
       (item) => item.querySelector("input").value === optionText
@@ -255,7 +255,7 @@ function onSelectedButtonClick(event) {
     hobbyItem.querySelector("input").checked = false;
 
     const selectedButtons = Array.from(
-      document.querySelectorAll(".selected__button")
+      document.querySelectorAll(".widget--selected-options-button")
     );
     const clickedIndex = selectedButtons.reduce((acc, curr, index) => {
       if (curr.innerText.trim() === optionText) return index;
@@ -273,7 +273,7 @@ function onSelectedButtonClick(event) {
           : clickedIndex - 1;
       if (nextIndex >= 0) {
         setTimeout(() => {
-          Array.from(document.querySelectorAll(".selected__button"))[
+          Array.from(document.querySelectorAll(".widget--selected-options-button"))[
             nextIndex
           ].focus();
         });

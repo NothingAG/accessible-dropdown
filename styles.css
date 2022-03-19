@@ -88,22 +88,22 @@ form {
   margin-right: 0.5em;
 }
 
-.selected__button {
+.widget--selected-options-button {
   border-radius: 6px;
   border: 1px solid #000;
   padding: 2px 4px;
 }
 
-.selected__button img {
+.widget--selected-options-button img {
   vertical-align: bottom;
 }
 
-.selected__button:hover {
+.widget--selected-options-button:hover {
   cursor: pointer;
 }
   border-radius: 6px;
 
-.selected__button img {
+.widget--selected-options-button img {
   vertical-align: bottom;
 }
 
