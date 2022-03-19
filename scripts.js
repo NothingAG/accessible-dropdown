@@ -26,7 +26,7 @@ elems.selectedOptionsLegend = document.querySelector(".widget--selected-options-
 elems.selectedOptionsList = document.querySelector(".widget--selected-options-list");
 elems.eventLogger = document.querySelector(".event-logger");
 
-elems.arrowSelectableElements = [elems.filterInput, ...elems.optionsListItems];
+elems.arrowSelectableElems = [elems.filterInput, ...elems.optionsListItems];
 elems.filterInput.addEventListener("input", onFilterInputChange);
 elems.filterInput.addEventListener("input", onFilterInputChangeOnce);
 elems.filterInput.addEventListener("keyup", onFilterInputKeyup);
@@ -43,7 +43,7 @@ function onFilterInputKeyup(event) {
 
 let filterTerm = "";
 let FilterInputHasFocus;
-let lastArrowSelectedElement = 0; // TODO: I think we don't really need to manage such a counter, let's just decide on the go which element to select next (which depends on where the focus currently is)!
+let lastArrowSelectedElem = 0; // TODO: I think we don't really need to manage such a counter, let's just decide on the go which element to select next (which depends on where the focus currently is)!
 const textInputRegexp = /^(([a-zA-Z])|(Backspace)|(Delete))$/;
 const events = {
   // TODO: Do we need to also prefix them, ie. with `widget--`?
@@ -97,10 +97,10 @@ function onKeyup(event) {
   if (event.key === "ArrowDown" || event.key === "ArrowUp") {
     if (isOptionsOpen()) {
       const direction = event.key === "ArrowDown" ? 1 : -1;
-      for (let i = 0; i < elems.arrowSelectableElements.length; i++) {
-        let numberOfArrowSelectableElements = elems.arrowSelectableElements.length;
-        let j = modulo(direction * (i + 1) + lastArrowSelectedElement, numberOfArrowSelectableElements);
-        let currentElem = elems.arrowSelectableElements[j];
+      for (let i = 0; i < elems.arrowSelectableElems.length; i++) {
+        let numberOfArrowSelectableElems = elems.arrowSelectableElems.length;
+        let j = modulo(direction * (i + 1) + lastArrowSelectedElem, numberOfArrowSelectableElems);
+        let currentElem = elems.arrowSelectableElems[j];
         if (!currentElem.hidden) {
           if (currentElem === elems.filterInput) {
             currentElem.select();
@@ -136,7 +136,7 @@ function onKeyup(event) {
 }
 
 elems.filterInput.addEventListener("focus", () => {
-  lastArrowSelectedElement = 0;
+  lastArrowSelectedElem = 0;
 });
 
 function modulo(a, n) {
@@ -148,7 +148,7 @@ for (let i = 0; i < elems.optionsListInputs.length; i++) {
 
   optionInput.addEventListener("input", onOptionChange);
   optionInput.addEventListener("focus", () => {
-    lastArrowSelectedElement = i + 1;
+    lastArrowSelectedElem = i + 1;
   });
   optionInput.addEventListener("keyup", (event) => {
     if (event.key === "Enter") {
@@ -305,9 +305,9 @@ function isOptionsOpen() {
 
 document.body.addEventListener("click", (event) => {
   if (
-    !isTargetElementInDirectTree({
+    !isTargetElemInDirectTree({
       event,
-      targetElement: elems.filterAndOptionsContainer,
+      targetElem: elems.filterAndOptionsContainer,
     })
   ) {
     closeOptions();
@@ -317,19 +317,19 @@ document.body.addEventListener("click", (event) => {
 document.body.addEventListener("keyup", (event) => {
   if (
     event.key === "Tab" &&
-    !isTargetElementInDirectTree({
+    !isTargetElemInDirectTree({
       event,
-      targetElement: elems.filterAndOptionsContainer,
+      targetElem: elems.filterAndOptionsContainer,
     })
   ) {
     closeOptions();
   }
 });
 
-function isTargetElementInDirectTree({ event, targetElement }) {
+function isTargetElemInDirectTree({ event, targetElem }) {
   let elem = event.target;
   while (elem) {
-    if (elem !== targetElement) {
+    if (elem !== targetElem) {
       if (elem.parentNode) elem = elem.parentNode;
       else {
         return false;
