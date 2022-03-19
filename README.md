@@ -38,7 +38,7 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 - ✅ When a checkbox is focused and a character key is pressed, then move focus back to the filter input and append the typed character.
     - ✅ There are probably some "special keys" we need to implement, for example `Backspace` - any other that come to your mind?
         - ✅ `Delete` will remove the filter text
-- ✅ The first time a filter is entered, add `role="alert"` to `.available-hobbies__counter` (this will make screen readers announce it).
+- ✅ The first time a filter is entered, add `role="alert"` to `.widget--available-options-counter` (this will make screen readers announce it).
 - ✅ Set `hidden` to `fieldset.selected` when there is no option selected.
 - ✅ I added `3 selected` to "X options available", please update accordingly.
 - ✅ When `Esc` is pressed while the "X options selected" button is focused, then move focus back to the filter input (and select all text).
@@ -50,7 +50,7 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
     - ✅ When pressing `Up`/`Down` while the dropdown is closed, open it (and keep focus inside filter input).
     - ✅ When pressing `Up`/`Down` while the dropdown is open, move focus to last/first checkbox.
 - ✅ Keep `aria-expanded` in sync with the dropdown: set it to `true` when it is open, and to `false` when it is closed.
-- ✅ When clicking `.filter__close-options` button, close `fieldset.selected`, set focus to filter text field, and select all text (if there is any).
+- ✅ When clicking `.widget--toggle-options-button` button, close `fieldset.selected`, set focus to filter text field, and select all text (if there is any).
 - ✅ When typing a filter and the dropdown is closed, open it.
 - ✅ Hide the "Unselect all" button when there is no option selected.
 - ✅ When keyboard focus leaves the widget, close the dropdown.
@@ -106,6 +106,7 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
     - Another option could be to only display "X options available" when expanding the list of options (instead of announcing it when focusing the filter text input), together with `role="alert"`.
 - The use of "advanced" CSS still seems to be dangerous: toggling some content inside `::after` when toggling a checkbox breaks the announcement of checked / not checked in Chrome! We better work around this with toggling an additional `<span>` or similar...
 - In JAWS + FF, focus mode seems to be on when focusing a checkbox (test by hitting a character => it will be appended to filter)! This is very surprising, as all other combos don't do this!
+- Chrome has a strange bug (regardless of NVDA or JAWS): the live region is sometimes not announced when the filter is focused (by keyboard) and then "a" or "d" is typed. Strange enough, when "f" is pressed, it seems to be announced all the time (it might have to do with the number of option displayed, or no options at all).
 
 ## Resources
 

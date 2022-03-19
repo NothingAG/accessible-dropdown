@@ -2,66 +2,66 @@
 
 const elems = {};
 
-elems.multi = document.querySelector(".multi");
-elems.filterAndOptions = document.querySelector(".filter-and-options");
-elems.filter = document.querySelector(".filter");
-elems.options = document.querySelector(".options");
-elems.hobbyItems = document.querySelectorAll(".hobby-item");
-elems.availableHobbiesLegend = document.querySelector(
-  ".available-hobbies__legend"
+elems.widgetContainer = document.querySelector(".widget--container");
+elems.filterAndOptionsContainer = document.querySelector(".widget--filter-and-options-container");
+elems.filterContainer = document.querySelector(".widget--filter-container");
+elems.filterInput = document.querySelector(".widget--filter-input");
+elems.availableOptionsCounter = document.querySelector(
+  ".widget--available-options-counter"
 );
-elems.hobbyItemInputs = document.querySelectorAll(".hobby-item input");
-elems.filterField = document.querySelector(".filter__field");
-elems.filterResetOptions = document.querySelector(".filter__reset-options");
-elems.filterText = document.querySelector(".filter__text");
-elems.filterCloseOptions = document.querySelector(".filter__close-options");
-elems.selected = document.querySelector(".selected");
-elems.selectedList = document.querySelector(".selected__list");
-elems.selectedLegend = document.querySelector(".selected__legend");
-elems.availableHobbiesCounter = document.querySelector(
-  ".available-hobbies__counter"
+elems.selectedOptionsCounter = document.querySelector(
+  ".widget--selected-options-counter"
 );
-elems.availableHobbiesSelectedCounter = document.querySelector(
-  ".available-hobbies__selected-counter"
+elems.unselectAllButton = document.querySelector(".widget--unselect-all-button");
+elems.unselectAllButtonText = document.querySelector(".widget--unselect-all-button-text");
+elems.toggleOptionsButton = document.querySelector(".widget--toggle-options-button");
+elems.availableOptionsContainer = document.querySelector(".widget--available-options-container");
+elems.optionsLegend = document.querySelector(
+  ".widget--options-legend"
 );
+elems.optionsListItems = document.querySelectorAll(".widget--options-list-item");
+elems.optionsListInputs = document.querySelectorAll(".widget--options-list-item input");
+elems.selectedOptionsContainer = document.querySelector(".widget--selected-options-container");
+elems.selectedOptionsLegend = document.querySelector(".widget--selected-options-legend");
+elems.selectedOptionsList = document.querySelector(".widget--selected-options-list");
 elems.eventLogger = document.querySelector(".event-logger");
 
-elems.arrowSelectableElems = [elems.filterField, ...elems.hobbyItems];
-elems.filterField.addEventListener("input", onFilterFieldChange);
-elems.filterField.addEventListener("input", onFilterFieldChangeOnce);
-elems.filterField.addEventListener("keyup", onFilterFieldKeyup);
-elems.filterField.addEventListener("click", onFilterFieldClick);
+elems.arrowSelectableElems = [elems.filterInput, ...elems.optionsListItems];
+elems.filterInput.addEventListener("input", onFilterInputChange);
+elems.filterInput.addEventListener("input", onFilterInputChangeOnce);
+elems.filterInput.addEventListener("keyup", onFilterInputKeyup);
+elems.filterInput.addEventListener("click", onFilterInputClick);
 
-function onFilterFieldClick(event) {
-  if (filterFieldHasFocus) closeOptions();
-  else openOptions();
+function onFilterInputClick(event) {
+  if (FilterInputHasFocus) closeOptions();
+  else showOptionsContainer();
 }
 
-function onFilterFieldKeyup(event) {
+function onFilterInputKeyup(event) {
   if (event.key === "Escape") closeOptions();
 }
 
 let filterTerm = "";
-let filterFieldHasFocus;
-let lastSelected = 0;
-let numberOfElems = elems.arrowSelectableElems.length;
+let FilterInputHasFocus;
+let lastArrowSelectedElem = 0; // TODO: I think we don't really need to manage such a counter, let's just decide on the go which element to select next (which depends on where the focus currently is)!
 const textInputRegexp = /^(([a-zA-Z])|(Backspace)|(Delete))$/;
 const events = {
+  // TODO: Do we need to also prefix them, ie. with `widget--`?
   optionSelected: new CustomEvent("option-selected"),
   optionUnselected: new CustomEvent("option-unselected"),
 };
 
-elems.filterCloseOptions.addEventListener("click", onFilterCloseOptionsClicked);
+elems.toggleOptionsButton.addEventListener("click", onToggleOptionsButtonClicked);
 
-function onFilterCloseOptionsClicked() {
-  isOptionsOpen() ? closeOptions() : openOptions();
-  elems.filterField.select();
+function onToggleOptionsButtonClicked() {
+  isOptionsOpen() ? closeOptions() : showOptionsContainer();
+  elems.filterInput.select();
 }
 
-for (let elem of [elems.filter, elems.options]) {
+for (let elem of [elems.filterContainer, elems.availableOptionsContainer]) {
   elem.addEventListener("keyup", function (event) {
     if (event.key === "PageDown" || event.key === "PageUp") {
-      const shownElems = [...elems.hobbyItems].filter((elem) => !elem.hidden);
+      const shownElems = [...elems.optionsListItems].filter((elem) => !elem.hidden);
       const elemToFocus = shownElems
         .at(event.key === "PageDown" ? -1 : 0)
         .querySelector("input");
@@ -70,38 +70,39 @@ for (let elem of [elems.filter, elems.options]) {
   });
 }
 
-function onFilterFieldChange(event) {
+function onFilterInputChange(event) {
   filterTerm = event.target.value.toLowerCase();
 
-  let numberOfShownHobbies = 0;
-  for (let hobbyItem of elems.hobbyItems) {
-    hobbyItem.hidden = !hobbyItem.innerText.toLowerCase().includes(filterTerm);
-    if (!hobbyItem.hidden) numberOfShownHobbies += 1;
+  let numberOfShownOptions = 0;
+  for (let optionItem of elems.optionsListItems) {
+    optionItem.hidden = !optionItem.innerText.toLowerCase().includes(filterTerm);
+    if (!optionItem.hidden) numberOfShownOptions += 1;
   }
 
-  elems.availableHobbiesCounter.innerText = `${numberOfShownHobbies} option${
-    numberOfShownHobbies === 1 ? "" : "s"
+  elems.availableOptionsCounter.innerText = `${numberOfShownOptions} option${
+    numberOfShownOptions === 1 ? "" : "s"
   } available for ${filterTerm}`;
 
-  openOptions();
+  showOptionsContainer();
 }
 
-function onFilterFieldChangeOnce() {
-  elems.availableHobbiesCounter.setAttribute("role", "alert");
-  elems.filterField.removeEventListener("input", onFilterFieldChangeOnce);
+function onFilterInputChangeOnce() {
+  elems.availableOptionsCounter.setAttribute("role", "alert");
+  elems.filterInput.removeEventListener("input", onFilterInputChangeOnce);
 }
 
-elems.multi.addEventListener("keyup", onKeyup);
+elems.widgetContainer.addEventListener("keyup", onKeyup);
 
 function onKeyup(event) {
   if (event.key === "ArrowDown" || event.key === "ArrowUp") {
     if (isOptionsOpen()) {
       const direction = event.key === "ArrowDown" ? 1 : -1;
       for (let i = 0; i < elems.arrowSelectableElems.length; i++) {
-        let j = modulo(direction * (i + 1) + lastSelected, numberOfElems);
+        let numberOfArrowSelectableElems = elems.arrowSelectableElems.length;
+        let j = modulo(direction * (i + 1) + lastArrowSelectedElem, numberOfArrowSelectableElems);
         let currentElem = elems.arrowSelectableElems[j];
         if (!currentElem.hidden) {
-          if (currentElem === elems.filterField) {
+          if (currentElem === elems.filterInput) {
             currentElem.select();
           } else {
             currentElem.querySelector("input").focus();
@@ -110,55 +111,55 @@ function onKeyup(event) {
         }
       }
     } else {
-      openOptions();
+      showOptionsContainer();
     }
   }
 
   {
     const { target } = event;
-    const { filterField } = elems;
+    const { FilterInput } = elems;
 
     if (event.key.match(textInputRegexp)) {
-      if (target !== filterField) {
+      if (target !== FilterInput) {
         if (event.key.match(/^Backspace$/)) {
-          filterField.value = filterField.value.slice(0, -1);
+          FilterInput.value = FilterInput.value.slice(0, -1);
         } else if (event.key.match(/^Delete$/)) {
-          filterField.value = "";
+          FilterInput.value = "";
         } else {
-          filterField.value += event.key;
+          FilterInput.value += event.key;
         }
-        filterField.focus();
-        filterField.dispatchEvent(new Event("input"));
+        FilterInput.focus();
+        FilterInput.dispatchEvent(new Event("input"));
       }
     }
   }
 }
 
-elems.filterField.addEventListener("focus", () => {
-  lastSelected = 0;
+elems.filterInput.addEventListener("focus", () => {
+  lastArrowSelectedElem = 0;
 });
 
 function modulo(a, n) {
   return ((a % n) + n) % n;
 }
 
-for (let i = 0; i < elems.hobbyItemInputs.length; i++) {
-  const checkboxInput = elems.hobbyItemInputs[i];
+for (let i = 0; i < elems.optionsListInputs.length; i++) {
+  const optionInput = elems.optionsListInputs[i];
 
-  checkboxInput.addEventListener("input", onCheckboxChange);
-  checkboxInput.addEventListener("focus", () => {
-    lastSelected = i + 1;
+  optionInput.addEventListener("input", onOptionChange);
+  optionInput.addEventListener("focus", () => {
+    lastArrowSelectedElem = i + 1;
   });
-  checkboxInput.addEventListener("keyup", (event) => {
+  optionInput.addEventListener("keyup", (event) => {
     if (event.key === "Enter") {
-      const isChecked = checkboxInput.checked;
-      checkboxInput.checked = !isChecked;
+      const isChecked = optionInput.checked;
+      optionInput.checked = !isChecked;
     }
   });
 }
 
-function onCheckboxChange(event) {
-  const checkedItems = Array.from(elems.hobbyItems).filter(
+function onOptionChange(event) {
+  const checkedItems = Array.from(elems.optionsListItems).filter(
     (elem) => elem.querySelector("input").checked
   );
 
@@ -166,18 +167,18 @@ function onCheckboxChange(event) {
     item.querySelector("label").innerText.trim()
   );
 
-  elems.availableHobbiesLegend.innerHTML = `Available hobbies (${checkedItems.length} selected)`;
-  elems.filterText.innerHTML = composeFilteringButtonText(checkedItemTexts);
-  updateSelectedList(checkedItemTexts);
-  elems.selectedLegend.innerText = `Selected hobbies (${checkedItemTexts.length} in total)`;
-  elems.availableHobbiesSelectedCounter.innerText = `${checkedItems.length} selected.`;
+  elems.optionsLegend.innerHTML = `Available options (${checkedItems.length} selected)`;
+  elems.unselectAllButtonText.innerHTML = composeUnselectAllButtonText(checkedItemTexts);
+  updateSelectedOptionsList(checkedItemTexts);
+  elems.selectedOptionsLegend.innerText = `Selected options (${checkedItemTexts.length} in total)`;
+  elems.selectedOptionsCounter.innerText = `${checkedItems.length} selected.`;
 
   if (checkedItems.length === 0)
-    elems.filterResetOptions.setAttribute("hidden", "");
-  else elems.filterResetOptions.removeAttribute("hidden");
+    elems.unselectAllButton.setAttribute("hidden", "");
+  else elems.unselectAllButton.removeAttribute("hidden");
 
   if (event?.target) {
-    elems.multi.dispatchEvent(
+    elems.widgetContainer.dispatchEvent(
       new CustomEvent(`option-${event.target.checked ? "" : "un"}selected`, {
         detail: event.target.value,
       })
@@ -185,8 +186,8 @@ function onCheckboxChange(event) {
   }
 }
 
-function composeFilteringButtonText(checkboxLabels) {
-  const numberOfOptions = checkboxLabels.length;
+function composeUnselectAllButtonText(optionLabels) {
+  const numberOfOptions = optionLabels.length;
 
   return `${numberOfOptions} ${
     numberOfOptions === 0
@@ -197,65 +198,65 @@ function composeFilteringButtonText(checkboxLabels) {
   }`;
 }
 
-function updateSelectedList(checkedItemTexts) {
+function updateSelectedOptionsList(checkedItemTexts) {
   const allEntries = checkedItemTexts
     .map(
       (
         text
-      ) => `<li><button class="selected__button" type="button">${text} <img src="clear.svg" alt="unselect">
+      ) => `<li><button class="widget--selected-options-button" type="button">${text} <img src="clear.svg" alt="unselect">
   </button></li>`
     )
     .join("");
-  elems.selectedList.innerHTML = allEntries;
-  elems.selected.hidden = checkedItemTexts.length === 0;
+  elems.selectedOptionsList.innerHTML = allEntries;
+  elems.selectedOptionsCounter.hidden = checkedItemTexts.length === 0;
 }
 
-elems.hobbyItemInputs.forEach((checkbox) =>
-  checkbox.addEventListener("keyup", onCheckboxKeyup)
+elems.optionsListInputs.forEach((option) =>
+  option.addEventListener("keyup", onOptionKeyup)
 );
 
-function onCheckboxKeyup(event) {
+function onOptionKeyup(event) {
   if (event.key === "Escape") {
-    elems.filterResetOptions.focus();
+    elems.unselectAllButton.focus();
     closeOptions();
   }
 }
 
-elems.filterResetOptions.addEventListener("click", resetCheckboxes);
+elems.unselectAllButton.addEventListener("click", resetOptiones);
 
-elems.filterResetOptions.addEventListener("keyup", onFilterButtonKeyup);
+elems.unselectAllButton.addEventListener("keyup", onFilterButtonKeyup);
 
 function onFilterButtonKeyup(event) {
-  if (event.key === "Escape") elems.filterField.select();
+  if (event.key === "Escape") elems.filterInput.select();
 }
 
-function resetCheckboxes() {
-  for (let checkbox of elems.hobbyItemInputs) {
-    checkbox.checked = false;
+function resetOptiones() {
+  for (let option of elems.optionsListInputs) {
+    option.checked = false;
   }
-  onCheckboxChange({ target: { checked: false, value: "all checkboxes" } });
-  elems.filterField.select();
+  onOptionChange({ target: { checked: false, value: "all optiones" } });
+  elems.filterInput.select();
 }
 
-elems.selectedList.addEventListener("click", onSelectedButtonClick);
+elems.selectedOptionsList.addEventListener("click", onSelectedButtonClick);
 
 function onSelectedButtonClick(event) {
   const { target } = event;
-  const button = target.classList.contains("selected__button")
+  const button = target.classList.contains("widget--selected-options-button")
     ? target
-    : target.parentNode.classList.contains("selected__button")
+    : target.parentNode.classList.contains("widget--selected-options-button")
     ? target.parentNode
     : undefined;
 
-  if (button?.classList.contains("selected__button")) {
+  if (button?.classList.contains("widget--selected-options-button")) {
     const optionText = button.innerText.trim().toLowerCase();
-    const hobbyItem = Array.from(document.querySelectorAll(".hobby-item")).find(
+    const optionItem = Array.from(document.querySelectorAll(".widget--options-list-item")).find(
       (item) => item.querySelector("input").value === optionText
     );
-    hobbyItem.querySelector("input").checked = false;
+    optionItem.querySelector("input").checked = false;
 
     const selectedButtons = Array.from(
-      document.querySelectorAll(".selected__button")
+      document.querySelectorAll(".widget--selected-options-button")
     );
     const clickedIndex = selectedButtons.reduce((acc, curr, index) => {
       if (curr.innerText.trim() === optionText) return index;
@@ -273,40 +274,40 @@ function onSelectedButtonClick(event) {
           : clickedIndex - 1;
       if (nextIndex >= 0) {
         setTimeout(() => {
-          Array.from(document.querySelectorAll(".selected__button"))[
+          Array.from(document.querySelectorAll(".widget--selected-options-button"))[
             nextIndex
           ].focus();
         });
-      } else elems.filterField.select();
+      } else elems.filterInput.select();
     }
 
-    onCheckboxChange({ target: { checked: false, value: optionText } });
+    onOptionChange({ target: { checked: false, value: optionText } });
   } else {
     return true;
   }
 }
 
-function openOptions() {
-  elems.options.removeAttribute("hidden");
-  elems.filterField.setAttribute("aria-expanded", true);
-  elems.filterAndOptions.classList.add("open");
+function showOptionsContainer() {
+  elems.availableOptionsContainer.removeAttribute("hidden");
+  elems.filterInput.setAttribute("aria-expanded", true);
+  elems.filterAndOptionsContainer.classList.add("open");
 }
 
 function closeOptions() {
-  elems.options.setAttribute("hidden", "");
-  elems.filterField.setAttribute("aria-expanded", false);
-  elems.filterAndOptions.classList.remove("open");
+  elems.availableOptionsContainer.setAttribute("hidden", "");
+  elems.filterInput.setAttribute("aria-expanded", false);
+  elems.filterAndOptionsContainer.classList.remove("open");
 }
 
 function isOptionsOpen() {
-  return elems.options.getAttribute("hidden") === null;
+  return elems.availableOptionsContainer.getAttribute("hidden") === null;
 }
 
 document.body.addEventListener("click", (event) => {
   if (
-    !isTargetElementInDirectTree({
+    !isTargetElemInDirectTree({
       event,
-      targetElement: elems.filterAndOptions,
+      targetElem: elems.filterAndOptionsContainer,
     })
   ) {
     closeOptions();
@@ -316,19 +317,19 @@ document.body.addEventListener("click", (event) => {
 document.body.addEventListener("keyup", (event) => {
   if (
     event.key === "Tab" &&
-    !isTargetElementInDirectTree({
+    !isTargetElemInDirectTree({
       event,
-      targetElement: elems.filterAndOptions,
+      targetElem: elems.filterAndOptionsContainer,
     })
   ) {
     closeOptions();
   }
 });
 
-function isTargetElementInDirectTree({ event, targetElement }) {
+function isTargetElemInDirectTree({ event, targetElem }) {
   let elem = event.target;
   while (elem) {
-    if (elem !== targetElement) {
+    if (elem !== targetElem) {
       if (elem.parentNode) elem = elem.parentNode;
       else {
         return false;
@@ -337,16 +338,16 @@ function isTargetElementInDirectTree({ event, targetElement }) {
   }
 }
 
-elems.multi.addEventListener(`option-selected`, (event) => {
+elems.widgetContainer.addEventListener(`option-selected`, (event) => {
   elems.eventLogger.innerText =
-    event.detail === `all checkboxes`
-      ? `Event: All checkboxes were unselected`
+    event.detail === `all optiones`
+      ? `Event: All optiones were unselected`
       : `Event: Option ${event.detail} was ${event.type.split("-")[1]}`;
 });
 
-elems.multi.addEventListener(`option-unselected`, (event) => {
+elems.widgetContainer.addEventListener(`option-unselected`, (event) => {
   elems.eventLogger.innerText =
-    event.detail === `all checkboxes`
-      ? `Event: All checkboxes were unselected`
+    event.detail === `all optiones`
+      ? `Event: All optiones were unselected`
       : `Event: Option ${event.detail} was ${event.type.split("-")[1]}`;
 });
