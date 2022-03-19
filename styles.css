@@ -107,7 +107,7 @@ form {
   vertical-align: bottom;
 }
 
-.options {
+.widget--options-container {
   margin: 0;
   border: 1px solid #000;
   padding: 0;
