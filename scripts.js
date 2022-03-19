@@ -74,9 +74,9 @@ function onFilterInputChange(event) {
   filterTerm = event.target.value.toLowerCase();
 
   let numberOfShownHobbies = 0;
-  for (let hobbyItem of elems.optionsListItems) {
-    hobbyItem.hidden = !hobbyItem.innerText.toLowerCase().includes(filterTerm);
-    if (!hobbyItem.hidden) numberOfShownHobbies += 1;
+  for (let optionItem of elems.optionsListItems) {
+    optionItem.hidden = !optionItem.innerText.toLowerCase().includes(filterTerm);
+    if (!optionItem.hidden) numberOfShownHobbies += 1;
   }
 
   elems.availableOptionsCounter.innerText = `${numberOfShownHobbies} option${
@@ -166,10 +166,10 @@ function onCheckboxChange(event) {
     item.querySelector("label").innerText.trim()
   );
 
-  elems.optionsLegend.innerHTML = `Available hobbies (${checkedItems.length} selected)`;
+  elems.optionsLegend.innerHTML = `Available options (${checkedItems.length} selected)`;
   elems.unselectAllButtonText.innerHTML = composeFilteringButtonText(checkedItemTexts);
   updateSelectedList(checkedItemTexts);
-  elems.selectedOptionsLegend.innerText = `Selected hobbies (${checkedItemTexts.length} in total)`;
+  elems.selectedOptionsLegend.innerText = `Selected options (${checkedItemTexts.length} in total)`;
   elems.selectedOptionsCounter.innerText = `${checkedItems.length} selected.`;
 
   if (checkedItems.length === 0)
@@ -249,10 +249,10 @@ function onSelectedButtonClick(event) {
 
   if (button?.classList.contains("widget--selected-options-button")) {
     const optionText = button.innerText.trim().toLowerCase();
-    const hobbyItem = Array.from(document.querySelectorAll(".widget--options-list-item")).find(
+    const optionItem = Array.from(document.querySelectorAll(".widget--options-list-item")).find(
       (item) => item.querySelector("input").value === optionText
     );
-    hobbyItem.querySelector("input").checked = false;
+    optionItem.querySelector("input").checked = false;
 
     const selectedButtons = Array.from(
       document.querySelectorAll(".widget--selected-options-button")
