@@ -14,7 +14,7 @@ elems.selectedOptionsCounter = document.querySelector(
 );
 elems.unselectAllButton = document.querySelector(".widget--unselect-all-button");
 elems.unselectAllButtonText = document.querySelector(".widget--unselect-all-button-text");
-elems.toggleOptionsbutton = document.querySelector(".widget--toggle-options-button");
+elems.toggleOptionsButton = document.querySelector(".widget--toggle-options-button");
 elems.availableOptionsContainer = document.querySelector(".widget--available-options-container");
 elems.optionsLegend = document.querySelector(
   ".widget--options-legend"
@@ -27,22 +27,22 @@ elems.selectedOptionsList = document.querySelector(".widget--selected-options-li
 elems.eventLogger = document.querySelector(".event-logger");
 
 elems.arrowSelectableElems = [elems.filterInput, ...elems.optionsListItems];
-elems.filterInput.addEventListener("input", onFilterFieldChange);
-elems.filterInput.addEventListener("input", onFilterFieldChangeOnce);
-elems.filterInput.addEventListener("keyup", onFilterFieldKeyup);
-elems.filterInput.addEventListener("click", onFilterFieldClick);
+elems.filterInput.addEventListener("input", onFilterInputChange);
+elems.filterInput.addEventListener("input", onFilterInputChangeOnce);
+elems.filterInput.addEventListener("keyup", onFilterInputKeyup);
+elems.filterInput.addEventListener("click", onFilterInputClick);
 
-function onFilterFieldClick(event) {
-  if (filterFieldHasFocus) closeOptions();
+function onFilterInputClick(event) {
+  if (FilterInputHasFocus) closeOptions();
   else openOptions();
 }
 
-function onFilterFieldKeyup(event) {
+function onFilterInputKeyup(event) {
   if (event.key === "Escape") closeOptions();
 }
 
 let filterTerm = "";
-let filterFieldHasFocus;
+let FilterInputHasFocus;
 let lastSelected = 0;
 let numberOfElems = elems.arrowSelectableElems.length;
 const textInputRegexp = /^(([a-zA-Z])|(Backspace)|(Delete))$/;
@@ -51,9 +51,9 @@ const events = {
   optionUnselected: new CustomEvent("option-unselected"),
 };
 
-elems.toggleOptionsbutton.addEventListener("click", onFilterCloseOptionsClicked);
+elems.toggleOptionsButton.addEventListener("click", onToggleOptionsButtonClicked);
 
-function onFilterCloseOptionsClicked() {
+function onToggleOptionsButtonClicked() {
   isOptionsOpen() ? closeOptions() : openOptions();
   elems.filterInput.select();
 }
@@ -70,7 +70,7 @@ for (let elem of [elems.filterContainer, elems.availableOptionsContainer]) {
   });
 }
 
-function onFilterFieldChange(event) {
+function onFilterInputChange(event) {
   filterTerm = event.target.value.toLowerCase();
 
   let numberOfShownHobbies = 0;
@@ -86,9 +86,9 @@ function onFilterFieldChange(event) {
   openOptions();
 }
 
-function onFilterFieldChangeOnce() {
+function onFilterInputChangeOnce() {
   elems.availableOptionsCounter.setAttribute("role", "alert");
-  elems.filterInput.removeEventListener("input", onFilterFieldChangeOnce);
+  elems.filterInput.removeEventListener("input", onFilterInputChangeOnce);
 }
 
 elems.widgetContainer.addEventListener("keyup", onKeyup);
@@ -116,19 +116,19 @@ function onKeyup(event) {
 
   {
     const { target } = event;
-    const { filterField } = elems;
+    const { FilterInput } = elems;
 
     if (event.key.match(textInputRegexp)) {
-      if (target !== filterField) {
+      if (target !== FilterInput) {
         if (event.key.match(/^Backspace$/)) {
-          filterField.value = filterField.value.slice(0, -1);
+          FilterInput.value = FilterInput.value.slice(0, -1);
         } else if (event.key.match(/^Delete$/)) {
-          filterField.value = "";
+          FilterInput.value = "";
         } else {
-          filterField.value += event.key;
+          FilterInput.value += event.key;
         }
-        filterField.focus();
-        filterField.dispatchEvent(new Event("input"));
+        FilterInput.focus();
+        FilterInput.dispatchEvent(new Event("input"));
       }
     }
   }
