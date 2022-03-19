@@ -16,6 +16,8 @@ form {
   height: 24px;
   border-top-left-radius: 6px;
   padding: 2px 4px;
+  position: relative;
+  z-index: 1;
 }
 
 .widget--filter-and-options-container {
@@ -26,16 +28,17 @@ form {
   border-bottom-left-radius: 6px;
 }
 
+.widget--filter-input:hover {
+  outline: 1px solid red;
+}
+
 .widget--filter-input:focus {
   background-color: rgb(255, 235, 235);
 }
 
 .widget--filter-input:focus,
-.widget--filter-and-options-container:focus-within .widget--filter-input,
-.widget--toggle-options-button:focus {
+.widget--filter-and-options-container:focus-within .widget--filter-input {
   outline: 1px solid red;
-  position: relative;
-  z-index: 1;
 }
 
 .widget--unselect-all-button {
@@ -52,21 +55,18 @@ form {
 .widget--x-selected-text {
   font-size: 75%;
   font-weight: bold;
-  line-height: 16px;
   padding: 0 2px 0 4px
 }
 
 .widget--unselect-all-button img {
-  vertical-align: top;
+  vertical-align: middle;
 }
 
-.widget--unselect-all-button:focus {
+.widget--unselect-all-button:focus,
+.widget--unselect-all-button:hover {
   outline: 1px solid red;
-}
-
-.widget--unselect-all-button:hover,
-.widget--toggle-options-button {
   cursor: pointer;
+  background-color: rgb(255, 212, 212);
 }
 
 .widget--toggle-options-button {
@@ -75,6 +75,29 @@ form {
   margin-left: -1px;
   vertical-align: bottom; /* Not totally sure what value is best here */
   border-top-right-radius: 6px;
+}
+
+.widget--selected-options-button:focus {
+  outline: none;
+}
+
+.widget--toggle-options-button:hover,
+.widget--toggle-options-button:focus {
+  cursor: pointer;
+  outline: none;
+}
+
+.widget--toggle-options-button img,
+.widget--selected-options-button img {
+  border-radius: 8px;
+}
+
+.widget--toggle-options-button:hover img,
+.widget--toggle-options-button:focus img,
+.widget--selected-options-button:hover img,
+.widget--selected-options-button:focus img {
+  outline: 1px solid red;
+  background-color: rgb(255, 212, 212);
 }
 
 .widget--filter-and-options-container:not(.open) .widget--toggle-options-button {
@@ -116,7 +139,6 @@ form {
 .widget--selected-options-button:hover {
   cursor: pointer;
 }
-  border-radius: 6px;
 
 .widget--selected-options-button img {
   vertical-align: bottom;
@@ -137,11 +159,6 @@ form {
   overflow: hidden;
 }
 
-.options:focus-within,
-.options:hover {
-  /* background-color: rgb(179, 255, 129); */
-}
-
 .widget--available-options-list {
   color: transparent; /* To hide the bullet point numbers (1., 2., etc.) visually, but let screen readers announce them. */
   list-style: none;
@@ -155,6 +172,10 @@ form {
   width: 100%;
   box-sizing: border-box;
   border-left: 4px solid transparent; /* For high contrast mode */
+}
+
+.widget--available-options-list input:focus {
+  outline: none;
 }
 
 .widget--available-options-list input:hover {

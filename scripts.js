@@ -192,7 +192,7 @@ elems.availableOptionsListInputs.forEach((option) =>
 
 function onOptionKeyup(event) {
   if (event.key === "Escape") {
-    elems.unselectAllButton.focus();
+    elems.filterInput.focus();
     hideOptionsContainer();
   }
 }
