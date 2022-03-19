@@ -6,29 +6,23 @@ elems.widgetContainer = document.querySelector(".widget--container");
 elems.filterAndOptionsContainer = document.querySelector(".widget--filter-and-options-container");
 elems.filterContainer = document.querySelector(".widget--filter-container");
 elems.filterInput = document.querySelector(".widget--filter-input");
-elems.availableOptionsCounter = document.querySelector(
-  ".widget--available-options-counter"
-);
-elems.selectedOptionsCounter = document.querySelector(
-  ".widget--selected-options-counter"
-);
+elems.availableOptionsCounter = document.querySelector(".widget--available-options-counter");
+elems.selectedOptionsCounter = document.querySelector(".widget--selected-options-counter");
 elems.unselectAllButton = document.querySelector(".widget--unselect-all-button");
 elems.unselectAllButtonText = document.querySelector(".widget--unselect-all-button-text");
 elems.toggleOptionsButton = document.querySelector(".widget--toggle-options-button");
+elems.toggleOptionsButtonIcon = document.querySelector(".widget--toggle-options-button-icon");
 elems.availableOptionsContainer = document.querySelector(".widget--available-options-container");
-elems.optionsLegend = document.querySelector(
-  ".widget--options-legend"
-);
-elems.optionsListItems = document.querySelectorAll(".widget--options-list-item");
-elems.optionsListInputs = document.querySelectorAll(".widget--options-list-item input");
+elems.availableOptionsLegend = document.querySelector(".widget--available-options-legend");
+elems.availableOptionsListItems = document.querySelectorAll(".widget--available-options-list-item");
+elems.availableOptionsListInputs = document.querySelectorAll(".widget--available-options-list-item input");
 elems.selectedOptionsContainer = document.querySelector(".widget--selected-options-container");
 elems.selectedOptionsLegend = document.querySelector(".widget--selected-options-legend");
 elems.selectedOptionsList = document.querySelector(".widget--selected-options-list");
 elems.eventLogger = document.querySelector(".event-logger");
 
-elems.arrowSelectableElems = [elems.filterInput, ...elems.optionsListItems];
+elems.arrowSelectableElems = [elems.filterInput, ...elems.availableOptionsListItems];
 elems.filterInput.addEventListener("input", onFilterInputChange);
-elems.filterInput.addEventListener("input", onFilterInputChangeOnce);
 elems.filterInput.addEventListener("keyup", onFilterInputKeyup);
 elems.filterInput.addEventListener("click", onFilterInputClick);
 
@@ -42,6 +36,7 @@ function onFilterInputKeyup(event) {
 }
 
 let filterTerm = "";
+let filterTermText = "";
 let filterInputHasFocus;
 let lastArrowSelectedElem = 0; // TODO: I think we don't really need to manage such a counter, let's just decide on the go which element to select next (which depends on where the focus currently is)!
 const textInputRegexp = /^(([a-zA-Z])|(Backspace)|(Delete))$/;
@@ -61,7 +56,7 @@ function onToggleOptionsButtonClicked() {
 for (let elem of [elems.filterContainer, elems.availableOptionsContainer]) {
   elem.addEventListener("keyup", function (event) {
     if (event.key === "PageDown" || event.key === "PageUp") {
-      const shownElems = [...elems.optionsListItems].filter((elem) => !elem.hidden);
+      const shownElems = [...elems.availableOptionsListItems].filter((elem) => !elem.hidden);
       const elemToFocus = shownElems
         .at(event.key === "PageDown" ? -1 : 0)
         .querySelector("input");
@@ -72,23 +67,17 @@ for (let elem of [elems.filterContainer, elems.availableOptionsContainer]) {
 
 function onFilterInputChange(event) {
   filterTerm = event.target.value.toLowerCase();
+  filterTermText = filterTerm === "" ? "empty filter" : `filter "${filterTerm}"`
 
   let numberOfShownOptions = 0;
-  for (let optionItem of elems.optionsListItems) {
+  for (let optionItem of elems.availableOptionsListItems) {
     optionItem.hidden = !optionItem.innerText.toLowerCase().includes(filterTerm);
     if (!optionItem.hidden) numberOfShownOptions += 1;
   }
 
-  elems.availableOptionsCounter.innerText = `${numberOfShownOptions} option${
-    numberOfShownOptions === 1 ? "" : "s"
-  } available for ${filterTerm}`;
+  elems.availableOptionsCounter.innerText = `${numberOfShownOptions} of ${elems.availableOptionsListItems.length} for ${filterTermText}`;
 
   if (!isOptionsOpen()) showOptionsContainer();
-}
-
-function onFilterInputChangeOnce() {
-  elems.availableOptionsCounter.setAttribute("role", "alert");
-  elems.filterInput.removeEventListener("input", onFilterInputChangeOnce);
 }
 
 elems.widgetContainer.addEventListener("keyup", onKeyup);
@@ -143,8 +132,8 @@ function modulo(a, n) {
   return ((a % n) + n) % n;
 }
 
-for (let i = 0; i < elems.optionsListInputs.length; i++) {
-  const optionInput = elems.optionsListInputs[i];
+for (let i = 0; i < elems.availableOptionsListInputs.length; i++) {
+  const optionInput = elems.availableOptionsListInputs[i];
 
   optionInput.addEventListener("input", onOptionChange);
   optionInput.addEventListener("focus", () => {
@@ -159,7 +148,9 @@ for (let i = 0; i < elems.optionsListInputs.length; i++) {
 }
 
 function onOptionChange(event) {
-  const checkedItems = Array.from(elems.optionsListItems).filter(
+  const allItems = Array.from(elems.availableOptionsListItems)
+
+  const checkedItems = Array.from(elems.availableOptionsListItems).filter(
     (elem) => elem.querySelector("input").checked
   );
 
@@ -167,11 +158,11 @@ function onOptionChange(event) {
     item.querySelector("label").innerText.trim()
   );
 
-  elems.optionsLegend.innerHTML = `Available options (${checkedItems.length} selected)`;
-  elems.unselectAllButtonText.innerHTML = composeUnselectAllButtonText(checkedItemTexts);
+  elems.unselectAllButtonText.innerHTML = `${checkedItemTexts.length} selected,`;
+  elems.availableOptionsLegend.innerHTML = `Available options (${checkedItems.length} selected)`;
   updateSelectedOptionsList(checkedItemTexts);
-  elems.selectedOptionsLegend.innerText = `Selected options (${checkedItemTexts.length} in total)`;
-  elems.selectedOptionsCounter.innerText = `${checkedItems.length} selected.`;
+  elems.selectedOptionsLegend.innerText = `Selected hobbies: ${checkedItemTexts.length} of ${allItems.length}`;
+  elems.selectedOptionsCounter.innerText = `${checkedItems.length} selected`;
 
   if (checkedItems.length === 0)
     elems.unselectAllButton.setAttribute("hidden", "");
@@ -184,18 +175,6 @@ function onOptionChange(event) {
       })
     );
   }
-}
-
-function composeUnselectAllButtonText(optionLabels) {
-  const numberOfOptions = optionLabels.length;
-
-  return `${numberOfOptions} ${
-    numberOfOptions === 0
-      ? "options selected, "
-      : numberOfOptions === 1
-      ? "option selected "
-      : "options selected, "
-  }`;
 }
 
 function updateSelectedOptionsList(checkedItemTexts) {
@@ -211,7 +190,7 @@ function updateSelectedOptionsList(checkedItemTexts) {
   elems.selectedOptionsCounter.hidden = checkedItemTexts.length === 0;
 }
 
-elems.optionsListInputs.forEach((option) =>
+elems.availableOptionsListInputs.forEach((option) =>
   option.addEventListener("keyup", onOptionKeyup)
 );
 
@@ -231,7 +210,7 @@ function onFilterButtonKeyup(event) {
 }
 
 function resetOptiones() {
-  for (let option of elems.optionsListInputs) {
+  for (let option of elems.availableOptionsListInputs) {
     option.checked = false;
   }
   onOptionChange({ target: { checked: false, value: "all optiones" } });
@@ -250,7 +229,7 @@ function onSelectedButtonClick(event) {
 
   if (button?.classList.contains("widget--selected-options-button")) {
     const optionText = button.innerText.trim().toLowerCase();
-    const optionItem = Array.from(document.querySelectorAll(".widget--options-list-item")).find(
+    const optionItem = Array.from(document.querySelectorAll(".widget--available-options-list-item")).find(
       (item) => item.querySelector("input").value === optionText
     );
     optionItem.querySelector("input").checked = false;
@@ -287,14 +266,27 @@ function onSelectedButtonClick(event) {
   }
 }
 
+
+  // // `aria-live="polite"` is nicer than `role="alert"`, as the latter interrupts the current screen reader output. But only certain browsers support it thoroughly.
+  // if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+  //   // Both JAWS and NVDA seem to work with Firefox.
+  //   // TODO: What about Talkback and Firefox?
+  //   elems.availableHobbiesCounter.setAttribute("aria-live", "polite");
+  // } else {
+  //   // Let's use `role="alert"` for all other browsers (at least from Chrome+JAWS we know that `aria-live` does not work).
+  //   elems.availableHobbiesCounter.setAttribute("role", "alert");
+  // }
+
+
 function showOptionsContainer() {
   elems.availableOptionsContainer.removeAttribute("hidden");
   elems.filterInput.setAttribute("aria-expanded", true);
   elems.filterAndOptionsContainer.classList.add("open");
+  elems.toggleOptionsButtonIcon.alt = "Close options";
 
   // Some screen readers do not announce the `aria-expanded` change, so we give them some additional fodder here: we let them announce the available option's legend by adding making it a live region. Note: does not seem to work for VoiceOver/iOS, but luckily it announces the expanded state.
   setTimeout(() => { // We need a minimal timeout here so screen readers are aware of the role change; otherwise, when showing the container and adding the attribute at the very same instant, the role change seems to be ignored by some screen readers.
-    elems.optionsLegend.setAttribute("role", "alert");
+    elems.availableOptionsLegend.setAttribute("role", "alert");
   }, 200); // Maybe we do not even need a value here? It seems to work anyway.
 }
 
@@ -302,7 +294,9 @@ function hideOptionsContainer() {
   elems.availableOptionsContainer.setAttribute("hidden", "");
   elems.filterInput.setAttribute("aria-expanded", false);
   elems.filterAndOptionsContainer.classList.remove("open");
-  elems.optionsLegend.removeAttribute("role", "alert");
+  elems.toggleOptionsButtonIcon.alt = "Open options";
+
+  elems.availableOptionsLegend.removeAttribute("role", "alert");
 }
 
 function isOptionsOpen() {
