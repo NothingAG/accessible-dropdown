@@ -10,7 +10,7 @@ form {
   content: ":";
 }
 
-.widget--filter-field {
+.widget--filter-input {
   width: 160px;
   border: 1px solid #000;
   height: 24px;
@@ -18,16 +18,16 @@ form {
   padding: 2px 4px;
 }
 
-.widget--filter-and-options-container:not(.open) .widget--filter-field {
+.widget--filter-and-options-container:not(.open) .widget--filter-input {
   border-bottom-left-radius: 6px;
 }
 
-.widget--filter-field:focus {
+.widget--filter-input:focus {
   background-color: rgb(255, 235, 235);
 }
 
-.widget--filter-field:focus,
-.widget--filter-and-options-container:focus-within .widget--filter-field,
+.widget--filter-input:focus,
+.widget--filter-and-options-container:focus-within .widget--filter-input,
 .widget--toggle-options-button:focus {
   outline: 1px solid red;
   position: relative;

@@ -5,7 +5,7 @@ const elems = {};
 elems.widgetContainer = document.querySelector(".widget--container");
 elems.filterAndOptionsContainer = document.querySelector(".widget--filter-and-options-container");
 elems.filterContainer = document.querySelector(".widget--filter-container");
-elems.filterField = document.querySelector(".widget--filter-field");
+elems.filterInput = document.querySelector(".widget--filter-input");
 elems.availableOptionsCounter = document.querySelector(
   ".widget--available-options-counter"
 );
@@ -26,11 +26,11 @@ elems.selectedOptionsLegend = document.querySelector(".widget--selected-options-
 elems.selectedList = document.querySelector(".selected__list");
 elems.eventLogger = document.querySelector(".event-logger");
 
-elems.arrowSelectableElems = [elems.filterField, ...elems.optionsListItems];
-elems.filterField.addEventListener("input", onFilterFieldChange);
-elems.filterField.addEventListener("input", onFilterFieldChangeOnce);
-elems.filterField.addEventListener("keyup", onFilterFieldKeyup);
-elems.filterField.addEventListener("click", onFilterFieldClick);
+elems.arrowSelectableElems = [elems.filterInput, ...elems.optionsListItems];
+elems.filterInput.addEventListener("input", onFilterFieldChange);
+elems.filterInput.addEventListener("input", onFilterFieldChangeOnce);
+elems.filterInput.addEventListener("keyup", onFilterFieldKeyup);
+elems.filterInput.addEventListener("click", onFilterFieldClick);
 
 function onFilterFieldClick(event) {
   if (filterFieldHasFocus) closeOptions();
@@ -55,7 +55,7 @@ elems.toggleOptionsbutton.addEventListener("click", onFilterCloseOptionsClicked)
 
 function onFilterCloseOptionsClicked() {
   isOptionsOpen() ? closeOptions() : openOptions();
-  elems.filterField.select();
+  elems.filterInput.select();
 }
 
 for (let elem of [elems.filterContainer, elems.optionsContainer]) {
@@ -88,7 +88,7 @@ function onFilterFieldChange(event) {
 
 function onFilterFieldChangeOnce() {
   elems.availableOptionsCounter.setAttribute("role", "alert");
-  elems.filterField.removeEventListener("input", onFilterFieldChangeOnce);
+  elems.filterInput.removeEventListener("input", onFilterFieldChangeOnce);
 }
 
 elems.widgetContainer.addEventListener("keyup", onKeyup);
@@ -101,7 +101,7 @@ function onKeyup(event) {
         let j = modulo(direction * (i + 1) + lastSelected, numberOfElems);
         let currentElem = elems.arrowSelectableElems[j];
         if (!currentElem.hidden) {
-          if (currentElem === elems.filterField) {
+          if (currentElem === elems.filterInput) {
             currentElem.select();
           } else {
             currentElem.querySelector("input").focus();
@@ -134,7 +134,7 @@ function onKeyup(event) {
   }
 }
 
-elems.filterField.addEventListener("focus", () => {
+elems.filterInput.addEventListener("focus", () => {
   lastSelected = 0;
 });
 
@@ -226,7 +226,7 @@ elems.unselectAllButton.addEventListener("click", resetCheckboxes);
 elems.unselectAllButton.addEventListener("keyup", onFilterButtonKeyup);
 
 function onFilterButtonKeyup(event) {
-  if (event.key === "Escape") elems.filterField.select();
+  if (event.key === "Escape") elems.filterInput.select();
 }
 
 function resetCheckboxes() {
@@ -234,7 +234,7 @@ function resetCheckboxes() {
     checkbox.checked = false;
   }
   onCheckboxChange({ target: { checked: false, value: "all checkboxes" } });
-  elems.filterField.select();
+  elems.filterInput.select();
 }
 
 elems.selectedList.addEventListener("click", onSelectedButtonClick);
@@ -277,7 +277,7 @@ function onSelectedButtonClick(event) {
             nextIndex
           ].focus();
         });
-      } else elems.filterField.select();
+      } else elems.filterInput.select();
     }
 
     onCheckboxChange({ target: { checked: false, value: optionText } });
@@ -288,13 +288,13 @@ function onSelectedButtonClick(event) {
 
 function openOptions() {
   elems.optionsContainer.removeAttribute("hidden");
-  elems.filterField.setAttribute("aria-expanded", true);
+  elems.filterInput.setAttribute("aria-expanded", true);
   elems.filterAndOptionsContainer.classList.add("open");
 }
 
 function closeOptions() {
   elems.optionsContainer.setAttribute("hidden", "");
-  elems.filterField.setAttribute("aria-expanded", false);
+  elems.filterInput.setAttribute("aria-expanded", false);
   elems.filterAndOptionsContainer.classList.remove("open");
 }
 
