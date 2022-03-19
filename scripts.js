@@ -32,7 +32,7 @@ function onFilterInputClick(event) {
 function onFilterInputKeyup(event) {
   if (event.key === "Escape") {
     hideOptionsContainer();
-    elems.unselectAllButton.focus();
+    elems.unselectAllButton.focus(); // Some screen readers don't convey a change to the `aria-expanded` attribute, so it's a good idea to just move the focus to the unselect all button which results in a useful feedback to everybody.
   }
 }
 
