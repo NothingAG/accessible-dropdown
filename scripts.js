@@ -299,8 +299,8 @@ function openOptionsContainer() {
 
   // Some screen readers do not announce the changed `aria-expanded` attribute. So we give them some additional fodder to announce, namely the instructions. We append them with a little delay so each and every screen reader realises that the live region was changed and hence needs to be announced.
   setTimeout(() => {
-    // I tried to create a node at the beginning of the script and reuse it (`elems.screenReaderInstructions = document.createElement("span");`), but then Firefox+NVDA did not announce the rest of the live region anymore, so we always create a new one from scratch. Nasty, nasty Firefox!
-    elems.liveRegion.innerHTML += "<span class='widget--instructions'> enter question mark for help</span>";
+    // This does not only serve UI purposes: some screen readers do not announce a live region that is just displayed (un-hidden) without any change to its content. So by adding some content, we make sure that the live region is definitely announced.
+    elems.liveRegion.innerHTML += "<span class='widget--instructions' data-visually-hidden> (enter question mark for help)</span>"; // I tried to create a node at the beginning of the script and reuse it (`elems.screenReaderInstructions = document.createElement("span");`), but then Firefox+NVDA did not announce the rest of the live region anymore, so we always create a new one from scratch. Nasty, nasty Firefox!
   }, 200);
 }
 
