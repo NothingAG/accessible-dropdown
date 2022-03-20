@@ -46,7 +46,9 @@
           <!-- We wanna show all info visually so that visual users also have the benefit of seeing it. If you need some specific help for ie. screen reader users only, you should think about whether you are doing something overly complex. We could place also other important info there, ie. a spinner when elements are loaded through AJAX ("Loading options, please wait") or additional instructions, ie. "Type at least two characters to display options". -->
           <legend class="widget--available-options-legend">
             <span data-visually-hidden>Available Hobbies:</span>
-            <span class="widget--x-of-y-for-filter-text">12 of 12 options for empty filter</span>
+            <span class="widget--x-of-y-for-filter-text" data-live-region>
+              12 of 12 options for empty filter
+            </span>
           </legend>
 
           <ol class="widget--available-options-list">

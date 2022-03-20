@@ -17,6 +17,7 @@ elems.availableOptionsListItems = document.querySelectorAll(".widget--available-
 elems.availableOptionsListInputs = document.querySelectorAll(".widget--available-options-list-item input");
 elems.selectedOptionsContainer = document.querySelector(".widget--selected-options-container");
 elems.selectedOptionsList = document.querySelector(".widget--selected-options-list");
+elems.liveRegion = document.querySelector("[data-live-region]");
 elems.eventLogger = document.querySelector(".event-logger");
 
 elems.arrowSelectableElems = [elems.filterInput, ...elems.availableOptionsListItems];
@@ -25,15 +26,35 @@ elems.filterInput.addEventListener("keyup", onFilterInputKeyup);
 elems.filterInput.addEventListener("click", onFilterInputClick);
 
 function onFilterInputClick(event) {
-  if (filterInputHasFocus) hideOptionsContainer();
-  else showOptionsContainer();
+  if (filterInputHasFocus) closeOptionsContainer();
+  else openOptionsContainer();
 }
 
 function onFilterInputKeyup(event) {
   if (event.key === "Escape") {
-    hideOptionsContainer();
-    elems.unselectAllButton.focus(); // Some screen readers don't convey a change to the `aria-expanded` attribute, so it's a good idea to just move the focus to the unselect all button which results in a useful feedback to everybody.
+    closeOptionsContainer();
+
+    if (document.activeElement === elems.filterInput) {
+      elems.unselectAllButton.focus();
+    } else {
+      elems.filterInput.focus();
+    }
   }
+}
+
+// We try to optimise the screen reader experience here by trying to fine-tune the live region. In general, `role="alert"` is supported by pretty much all screen reader / browser combos, but it is "rude", as it immediately interrupts the current announcement.
+if (navigator.userAgent.toLowerCase().indexOf("firefox") > -1) { // https://stackoverflow.com/questions/7000190/
+  // When using `role="alert"`, Firefox prefixes each announcement with "alert", which is annoying. Luckily, Firefox supports `aria-live`.
+  elems.xOfYForFilterText.setAttribute("aria-live", "polite"); // TODO: Does FF make a difference between polite and assertive?!
+
+// VoiceOver/iOS supports both `role="alert"` as well as `aria-live`. Using `polite`, the announcement is done **after** the pressed key was announced, which is rather cumbersome and slow (the user already knows which key they pressed, I suppose). So I don't see a benefit over using it, because `assertive` has the same effect as `role="alert"`, as far as I see. So let's not handle VoiceOver differently at the moment.
+// } else if (/apple/i.test(navigator.vendor)) { // https://stackoverflow.com/questions/7000190/
+//   elems.xOfYForFilterText.setAttribute("aria-live", "assertive");
+
+} else {
+  // VoiceOver/iOS and Chrome both offer a nice user experience with `role="alert"` (no prefix, immediate announcement).
+  // TODO: What about Talkback?
+  elems.xOfYForFilterText.setAttribute("role", "alert");
 }
 
 let inputName = document.querySelector(".widget--filter-label").innerText.trim();
@@ -51,7 +72,7 @@ const events = {
 elems.toggleOptionsButton.addEventListener("click", onToggleOptionsButtonClicked);
 
 function onToggleOptionsButtonClicked() {
-  isOptionsOpen() ? hideOptionsContainer() : showOptionsContainer();
+  isOptionsContainerOpen() ? closeOptionsContainer() : openOptionsContainer();
   elems.filterInput.select();
 }
 
@@ -69,7 +90,7 @@ for (let elem of [elems.filterContainer, elems.availableOptionsContainer]) {
 
 function onFilterInputChange(event) {
   filterTerm = event.target.value.toLowerCase();
-  filterTermText = filterTerm === "" ? "empty filter" : `filter "${filterTerm}"`
+  filterTermText = filterTerm.trim() === "" ? "empty filter" : `filter "${filterTerm}"`
 
   let numberOfShownOptions = 0;
   for (let optionItem of elems.availableOptionsListItems) {
@@ -79,14 +100,14 @@ function onFilterInputChange(event) {
 
   elems.xOfYForFilterText.innerText = `${numberOfShownOptions} of ${elems.availableOptionsListItems.length} options for ${filterTermText}`;
 
-  if (!isOptionsOpen()) showOptionsContainer();
+  if (!isOptionsContainerOpen()) openOptionsContainer();
 }
 
 elems.widgetContainer.addEventListener("keyup", onKeyup);
 
 function onKeyup(event) {
   if (event.key === "ArrowDown" || event.key === "ArrowUp") {
-    if (isOptionsOpen()) {
+    if (isOptionsContainerOpen()) {
       const direction = event.key === "ArrowDown" ? 1 : -1;
       for (let i = 0; i < elems.arrowSelectableElems.length; i++) {
         let numberOfArrowSelectableElems = elems.arrowSelectableElems.length;
@@ -102,7 +123,7 @@ function onKeyup(event) {
         }
       }
     } else {
-      showOptionsContainer();
+      openOptionsContainer();
     }
   }
 
@@ -197,7 +218,7 @@ elems.availableOptionsListInputs.forEach((option) =>
 function onOptionKeyup(event) {
   if (event.key === "Escape") {
     elems.filterInput.focus();
-    hideOptionsContainer();
+    closeOptionsContainer();
   }
 }
 
@@ -266,40 +287,27 @@ function onSelectedButtonClick(event) {
   }
 }
 
-
-  // // `aria-live="polite"` is nicer than `role="alert"`, as the latter interrupts the current screen reader output. But only certain browsers support it thoroughly.
-  // if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-  //   // Both JAWS and NVDA seem to work with Firefox.
-  //   // TODO: What about Talkback and Firefox?
-  //   elems.availableHobbiesCounter.setAttribute("aria-live", "polite");
-  // } else {
-  //   // Let's use `role="alert"` for all other browsers (at least from Chrome+JAWS we know that `aria-live` does not work).
-  //   elems.availableHobbiesCounter.setAttribute("role", "alert");
-  // }
-
-
-function showOptionsContainer() {
+function openOptionsContainer() {
   elems.availableOptionsContainer.removeAttribute("hidden");
   elems.filterInput.setAttribute("aria-expanded", true);
   elems.filterAndOptionsContainer.classList.add("widget--open");
   elems.toggleOptionsButtonIcon.alt = `Close ${inputName} options`;
 
-  // Some screen readers do not announce the `aria-expanded` change, so we give them some additional fodder here: we let them announce the available option's legend by adding making it a live region. Note: does not seem to work for VoiceOver/iOS, but luckily it announces the expanded state.
-  setTimeout(() => { // We need a minimal timeout here so screen readers are aware of the role change; otherwise, when showing the container and adding the attribute at the very same instant, the role change seems to be ignored by some screen readers.
-    elems.xOfYForFilterText.setAttribute("role", "alert");
-  }, 200); // Maybe we do not even need a value here? It seems to work anyway.
+  setTimeout(() => {
+    elems.liveRegion.innerHTML += "<span class='widget--instructions'> Use X or Y</span>";
+  }, 200);
 }
 
-function hideOptionsContainer() {
+function closeOptionsContainer() {
   elems.availableOptionsContainer.setAttribute("hidden", "");
   elems.filterInput.setAttribute("aria-expanded", false);
   elems.filterAndOptionsContainer.classList.remove("widget--open");
   elems.toggleOptionsButtonIcon.alt = `Open ${inputName} options`;
-
-  elems.xOfYForFilterText.removeAttribute("role", "alert");
+  
+  document.querySelector(".widget--instructions").remove();
 }
 
-function isOptionsOpen() {
+function isOptionsContainerOpen() {
   return elems.availableOptionsContainer.getAttribute("hidden") === null;
 }
 
@@ -310,7 +318,7 @@ document.body.addEventListener("click", (event) => {
       targetElem: elems.filterAndOptionsContainer,
     })
   ) {
-    hideOptionsContainer();
+    closeOptionsContainer();
   }
 });
 
@@ -322,7 +330,7 @@ document.body.addEventListener("keyup", (event) => {
       targetElem: elems.filterAndOptionsContainer,
     })
   ) {
-    hideOptionsContainer();
+    closeOptionsContainer();
   }
 });
 

@@ -109,6 +109,8 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 - Chrome has a strange bug (regardless of NVDA or JAWS): the live region is sometimes not announced when the filter is focused (by keyboard) and then "a" or "d" is typed. Strange enough, when "f" is pressed, it seems to be announced all the time (it might have to do with the number of option displayed, or no options at all).
 - `aria-autocomplete="list"` makes some screen readers announce the element as "has auto complete", which is nice.
 - `aria-live` does not work the first time it is un-hidden! Unfortunately, we need a `setTimeout` to make it work.
+- VoiceOver/iOS needs the live region to exist early! Placing it at the page load seems optimal, otherwise it does not seem to be recognised reliantly.
+- VoiceOver/iOS announces the existing content of a live region when unhiding it after page reload. JAWS/NVDA seem to need an actual change to the content, otherwise they don't announce it.
 
 ## Some best practices
 
