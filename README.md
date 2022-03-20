@@ -28,10 +28,8 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
     - ✅ Please select all text (so the user can replace a filter term right away)
 - ✅ When a button inside "Selected hobbies" is pressed, uncheck the respective checkbox, then:
     - ✅ Focus the next button, if available.
-    - ✅ Focus the next button, if available.
     - ✅ Or focus the previous button, if available.
     - ✅ Or focus the text field.
-    - ⛔️ This used to be working, but now the focus seems to be "lost" (not set to a button)
 - ✅ When `Page Up`/`Page Down` is pressed (regardless whether inside the text field or when an option is focused), move focus to the very first/last option.
 - ✅ When `Enter` is pressed on a checkbox, toggle it (same functionality like `Space`).
     - BUG: While the checkbox indeed is checked, the rest of the widget does not react (ie. the newly selected item is not added to the "Selected hobbies", etc.)
@@ -82,7 +80,7 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
     - Although `aria-live` would be a much better replacement for `role="alert"`, JAWS seems to not support it, at least when just updating its contents! Maybe removing the whole element and then adding it back would trigger JAWS as expected?
     - Putting `role="alert"` seems to have some quirky effects:
         - While Chrome announces an alert immediately when loading the page, FF does not.
-            - UPDATE: We fix this by adding the attribute not at document load, but on first its update.
+            - UPDATE: We fix this by adding the attribute not at document load, but on first its update. UPDATE2: This is only the case when the `role` element is visible! This is not relevant anymore, as the element is hidden on document load.
         - While FF announces "alert" plus the actual content of the element, Chrome does only announce its content.
     - _Conclusion: We could try to adapt to different browsers to optimise the user experience for screen readers, e.g. we could use `aria-live` in FF and `role="alert"` in Chrome? If everything else fails, we just use `role="alert"` everywhere (it's not the most beautiful option, but it works)._
 - The interplay between `aria-describedby`, putting "everything" into a `<label>`, and having even `role="alert"` mingled into one or the other, seems to have quite a variety of behaviours, depending on the combos of browsers and screen readers.
@@ -107,6 +105,17 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 - The use of "advanced" CSS still seems to be dangerous: toggling some content inside `::after` when toggling a checkbox breaks the announcement of checked / not checked in Chrome! We better work around this with toggling an additional `<span>` or similar...
 - In JAWS + FF, focus mode seems to be on when focusing a checkbox (test by hitting a character => it will be appended to filter)! This is very surprising, as all other combos don't do this!
 - Chrome has a strange bug (regardless of NVDA or JAWS): the live region is sometimes not announced when the filter is focused (by keyboard) and then "a" or "d" is typed. Strange enough, when "f" is pressed, it seems to be announced all the time (it might have to do with the number of option displayed, or no options at all).
+- `aria-autocomplete="list"` makes some screen readers announce the element as "has auto complete", which is nice.
+- `aria-live` does not work the first time it is un-hidden! Unfortunately, we need a `setTimeout` to make it work.
+- VoiceOver/iOS needs the live region to exist early! Placing it at the page load seems optimal, otherwise it does not seem to be recognised reliantly.
+- VoiceOver/iOS announces the existing content of a live region when unhiding it after page reload. JAWS/NVDA seem to need an actual change to the content, otherwise they don't announce it.
+
+## Some best practices
+
+- If possible, use same texts for both visual and screen reader users!
+- Apply role=alert (or aria-live) only the first time such an alert is displayed, otherwise some screen readers announce it when loading the page.
+- The live region element must be displayed BEFORE its content is changed, otherwise some screen readers don't get the change.
+- On the top container, always add/remove classes that describe what's going on inside the widget (ie. `filter-focused`, `available-options-open`, `available-options-focused`, `selected-options-focused`)
 
 ## Resources
 

@@ -2,9 +2,9 @@
   <head>
     <title>Proof of Concept: Accessible Single/Multi-Select Dropdown</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="a11y-semantics.css">
 
     <!-- Taken from https://github.com/NothingAG/a11y-semantics-css -->
-    <link rel="stylesheet" href="https://raw.githack.com/NothingAG/a11y-semantics-css/master/a11y-semantics.css?v=123">
     <!-- <link rel="stylesheet" href="https://raw.githack.com/NothingAG/a11y-semantics-css/master/a11y-semantics-visible.css?v=123"> -->
   </head>
   <body>
@@ -16,56 +16,122 @@
 
     <form>
     <div class="widget--container">
-      <label for="hobbies" class="widget--filter-label" data-inline-block>My hobbies</label>
-      <div class="widget--filter-and-options-container" data-inline-block>
-        <span class="widget--filter-container">
-          <input class="widget--filter-input" id="hobbies" type="text" role="combobox" aria-expanded="false" type="text" autocomplete="off" placeholder="Filter term"
+      <label for="hobbies" class="widget--filter-label" data-inline-block>Hobbies</label>
+      <span class="widget--filter-and-options-container" data-inline-block>
+        <span class="widget--filter-container" data-inline-block>
+          <input class="widget--filter-input"
+                 id="hobbies"
+                 type="text"
+                 role="combobox"
+                 aria-expanded="false"
+                 type="text"
+                 autocomplete="off"
+                 placeholder="Enter filter term"
+                 aria-describedby="hobbies-x-options-selected"
           
-          ><span data-visually-hidden>
-            <!-- We might wanna show this info visually so that visual users also have the benefit of seeing it. General rule: try to show all relevant info to all users! If you need some specific help for ie. screen reader users only, you should think about whether you are doing something overly complex. We could place it inside `widget--options-legend`, or (if this produces too much noise when jumping inside the `fieldset`), just outside of it (and visually hide the `fieldset`). We could place also other important info there, ie. a spinner when elements are loaded through AJAX ("Loading options, please wait") or additional instructions, ie. "Type at least two characters to display options". -->
-            <span class="widget--available-options-counter">12 options available</span>,
-            <span class="widget--selected-options-counter">3 selected.</span>
-          </span
-
-          ><!--<p data-visually-hidden>
-            Enter text to filter.
-            Keyboard: press up or down to walk through options, then space to toggle, escape to close.
-            Mobile: click option below.
-          </p
-        >--></label
+        ></span
         
         ><button class="widget--unselect-all-button" type="button">
-          <span class="widget--unselect-all-button-text" data-visually-hidden>3 options selected,</span>
+          <span id="hobbies-x-options-selected">
+            <span class="widget--x-selected-count">3</span>
+            <span data-visually-hidden>Hobbies selected:
+              <span class="widget--x-selected-labels">Soccer, Hiking, Coding</span>,
+            </span>
+          </span>
           <img src="clear.svg" alt="unselect all" />
         </button
 
         ><button class="widget--toggle-options-button" type="button">
-          <img src="close.svg" alt="" />
-          <span data-visually-hidden>Open options</span><!-- TODO: Change to "Close options" when clicked! -->
+          <img src="close.svg" class="widget--toggle-options-button-icon" alt="Open Hobbies options" />
         </button>
 
         <fieldset class="widget--available-options-container" hidden>
-          <legend class="widget--options-legend">Available hobbies (3 selected)</legend>
+          <!-- We wanna show all info visually so that visual users also have the benefit of seeing it. If you need some specific help for ie. screen reader users only, you should think about whether you are doing something overly complex. We could place also other important info there, ie. a spinner when elements are loaded through AJAX ("Loading options, please wait") or additional instructions, ie. "Type at least two characters to display options". -->
+          <legend class="widget--available-options-legend">
+            <span data-visually-hidden>Available Hobbies:</span>
+            <span class="widget--x-of-y-for-filter-text" data-live-region>
+              12 of 12 options for empty filter<span data-visually-hidden>, starting with "Soccer"</span>
+            </span>
+          </legend>
 
-          <ol class="widget--options-list">
-            <li class="widget--options-list-item"><label><input type="checkbox" name="hobbies" value="soccer" checked data-visually-hidden><span> Soccer<span class="check"></span></span></label></li>
-            <li class="widget--options-list-item"><label><input type="checkbox" name="hobbies" value="badminton" data-visually-hidden><span> Badminton<span class="check"></span></span></label></li>
-            <li class="widget--options-list-item"><label><input type="checkbox" name="hobbies" value="movies" data-visually-hidden><span> Movies<span class="check"></span></span></label></li>
-            <li class="widget--options-list-item"><label><input type="checkbox" name="hobbies" value="gardening" data-visually-hidden><span> Gardening<span class="check"></span></span></label></li>
-            <li class="widget--options-list-item"><label><input type="checkbox" name="hobbies" value="kickboxing" data-visually-hidden><span> Kickboxing<span class="check"></span></span></label></li>
-            <li class="widget--options-list-item"><label><input type="checkbox" name="hobbies" value="hiking" checked data-visually-hidden><span> Hiking<span class="check"></span></span></label></li>
-            <li class="widget--options-list-item"><label><input type="checkbox" name="hobbies" value="dancing" data-visually-hidden><span> Dancing<span class="check"></span></span></label></li>
-            <li class="widget--options-list-item"><label><input type="checkbox" name="hobbies" value="painting" data-visually-hidden><span> Painting<span class="check"></span></span></label></li>
-            <li class="widget--options-list-item"><label><input type="checkbox" name="hobbies" value="cooking" checked data-visually-hidden><span> Cooking<span class="check"></span></span></label></li>
-            <li class="widget--options-list-item"><label><input type="checkbox" name="hobbies" value="reading" data-visually-hidden><span> Reading<span class="check"></span></span></label></li>
-            <li class="widget--options-list-item"><label><input type="checkbox" name="hobbies" value="sleeping" data-visually-hidden><span> Sleeping<span class="check"></span></span></label></li>
-            <li class="widget--options-list-item"><label><input type="checkbox" name="hobbies" value="programming" data-visually-hidden><span> Programming<span class="check"></span></span></label></li>
+          <ol class="widget--available-options-list">
+            <li class="widget--available-options-list-item">
+              <label data-inline-block>
+                <input type="checkbox" name="hobbies" value="soccer" checked>
+                <span>Soccer<span class="check"></span></span>
+              </label></li>
+            <li class="widget--available-options-list-item">
+              <label data-inline-block>
+                <input type="checkbox" name="hobbies" value="badminton">
+                <span> Badminton<span class="check"></span></span>
+              </label>
+            </li>
+            <li class="widget--available-options-list-item">
+              <label data-inline-block>
+                <input type="checkbox" name="hobbies" value="movies">
+                <span> Movies<span class="check"></span>
+              </span>
+            </label></li>
+            <li class="widget--available-options-list-item">
+              <label data-inline-block>
+                <input type="checkbox" name="hobbies" value="gardening">
+                <span> Gardening<span class="check"></span></span>
+              </label>
+            </li>
+            <li class="widget--available-options-list-item">
+              <label data-inline-block>
+                <input type="checkbox" name="hobbies" value="kickboxing">
+                <span> Kickboxing<span class="check"></span></span>
+              </label>
+            </li>
+            <li class="widget--available-options-list-item">
+              <label data-inline-block>
+                <input type="checkbox" name="hobbies" value="hiking" checked>
+                <span> Hiking<span class="check"></span></span>
+              </label>
+            </li>
+            <li class="widget--available-options-list-item">
+              <label data-inline-block>
+                <input type="checkbox" name="hobbies" value="dancing">
+                <span> Dancing<span class="check"></span></span>
+              </label>
+            </li>
+            <li class="widget--available-options-list-item">
+              <label data-inline-block>
+                <input type="checkbox" name="hobbies" value="painting">
+                <span> Painting<span class="check"></span></span>
+              </label>
+            </li>
+            <li class="widget--available-options-list-item">
+              <label data-inline-block>
+                <input type="checkbox" name="hobbies" value="cooking" checked>
+                <span> Cooking<span class="check"></span></span>
+              </label>
+            </li>
+            <li class="widget--available-options-list-item">
+              <label data-inline-block>
+                <input type="checkbox" name="hobbies" value="reading">
+                <span> Reading<span class="check"></span></span>
+              </label>
+            </li>
+            <li class="widget--available-options-list-item">
+              <label data-inline-block>
+                <input type="checkbox" name="hobbies" value="sleeping">
+                <span> Sleeping<span class="check"></span></span>
+              </label>
+            </li>
+            <li class="widget--available-options-list-item">
+              <label data-inline-block>
+                <input type="checkbox" name="hobbies" value="programming">
+                <span> Programming<span class="check"></span></span>
+              </label>
+            </li>
           </ol>
         </fieldset>
-      </div>
+      </span>
 
       <fieldset class="widget--selected-options-container">
-        <legend class="widget--selected-options-legend" data-visually-hidden>Selected hobbies (3 in total)</legend>
+        <legend data-visually-hidden>Selected Hobbies</legend>
 
         <ol class="widget--selected-options-list">
           <li>

@@ -16,10 +16,21 @@ form {
   height: 24px;
   border-top-left-radius: 6px;
   padding: 2px 4px;
+  position: relative;
+  z-index: 1;
+  caret-color: red;
 }
 
-.widget--filter-and-options-container:not(.open) .widget--filter-input {
+.widget--filter-and-options-container {
+  position: relative;
+}
+
+.widget--filter-and-options-container:not(.widget--open) .widget--filter-input {
   border-bottom-left-radius: 6px;
+}
+
+.widget--filter-input:hover {
+  outline: 1px solid red;
 }
 
 .widget--filter-input:focus {
@@ -27,31 +38,36 @@ form {
 }
 
 .widget--filter-input:focus,
-.widget--filter-and-options-container:focus-within .widget--filter-input,
-.widget--toggle-options-button:focus {
+.widget--filter-and-options-container:focus-within .widget--filter-input {
   outline: 1px solid red;
-  position: relative;
-  z-index: 1;
 }
 
 .widget--unselect-all-button {
   position: absolute;
   border: 0;
   background-color: transparent;
-  margin-left: -20px;
+  right: 34px;
   margin-top: 4px;
   z-index: 2;
   padding: 0;
-  border-radius: 100%;
+  border-radius: 8px;
 }
 
-.widget--unselect-all-button:focus {
+.widget--x-selected-count {
+  font-size: 75%;
+  font-weight: bold;
+  padding-left: 4px;
+}
+
+.widget--unselect-all-button img {
+  vertical-align: middle;
+}
+
+.widget--unselect-all-button:focus,
+.widget--unselect-all-button:hover {
   outline: 1px solid red;
-}
-
-.widget--unselect-all-button:hover,
-.widget--toggle-options-button {
   cursor: pointer;
+  background-color: rgb(255, 212, 212);
 }
 
 .widget--toggle-options-button {
@@ -62,11 +78,34 @@ form {
   border-top-right-radius: 6px;
 }
 
-.widget--filter-and-options-container:not(.open) .widget--toggle-options-button {
+.widget--selected-options-button:focus {
+  outline: none;
+}
+
+.widget--toggle-options-button:hover,
+.widget--toggle-options-button:focus {
+  cursor: pointer;
+  outline: none;
+}
+
+.widget--toggle-options-button img,
+.widget--selected-options-button img {
+  border-radius: 8px;
+}
+
+.widget--toggle-options-button:hover img,
+.widget--toggle-options-button:focus img,
+.widget--selected-options-button:hover img,
+.widget--selected-options-button:focus img {
+  outline: 1px solid red;
+  background-color: rgb(255, 212, 212);
+}
+
+.widget--filter-and-options-container:not(.widget--open) .widget--toggle-options-button {
   border-bottom-right-radius: 6px;
 }
 
-.widget--filter-and-options-container:not(.open) .widget--toggle-options-button img {
+.widget--filter-and-options-container:not(.widget--open) .widget--toggle-options-button img {
   transform: rotate(180deg);
 }
 
@@ -101,7 +140,6 @@ form {
 .widget--selected-options-button:hover {
   cursor: pointer;
 }
-  border-radius: 6px;
 
 .widget--selected-options-button img {
   vertical-align: bottom;
@@ -122,43 +160,41 @@ form {
   overflow: hidden;
 }
 
-.options:focus-within,
-.options:hover {
-  /* background-color: rgb(179, 255, 129); */
-}
-
-.widget--options-list {
+.widget--available-options-list {
   color: transparent; /* To hide the bullet point numbers (1., 2., etc.) visually, but let screen readers announce them. */
+  list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.widget--options-list label {
+.widget--available-options-list label {
   color: #000;
   padding: 2 4px;
-  display: inline-block;
   width: 100%;
   box-sizing: border-box;
   border-left: 4px solid transparent; /* For high contrast mode */
 }
 
-.widget--options-list input:hover {
+.widget--available-options-list input:focus {
+  outline: none;
+}
+
+.widget--available-options-list input:hover {
   cursor: pointer;
 }
 
-.widget--options-list label:focus-within,
-.widget--options-list label:hover {
+.widget--available-options-list label:focus-within,
+.widget--available-options-list label:hover {
   background-color: rgb(255, 167, 167);
   cursor: pointer;
   border-left-color: #000;
 }
 
-.widget--options-list input:checked + span {
+.widget--available-options-list input:checked + span {
   font-weight: bold;
 }
 
-/* Seems to break checked / not checked announcements in Chrome (for both NVDA and JAWS) => an alternative could be to simply toggle the display of a <span> with an SVG as background. */
-.widget--options-list input:checked + span .check {
+.widget--available-options-list input:checked + span .check {
   content: " ";
   display: inline-block;
   margin-left: 0.25em;
@@ -168,7 +204,7 @@ form {
   background: url(check.svg);
 }
 
-.widget--options-legend {
+.widget--available-options-legend {
   background-color: #000;
   color: #fff;
   border: 1px solid #000;
