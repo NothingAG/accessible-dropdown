@@ -99,12 +99,12 @@ function onFilterInputChange(event) {
   for (let optionItem of elems.availableOptionsListItems) {
     optionItem.hidden = !optionItem.innerText.toLowerCase().includes(filterTerm);
     if (!optionItem.hidden) {
-      if (numberOfShownOptions == 0) filterTermText += `, starting with "${optionItem.innerText.trim()}"`
+      if (numberOfShownOptions == 0) filterTermText += `<span data-visually-hidden>, starting with "${optionItem.innerText.trim()}"</span>`
       numberOfShownOptions += 1;
     }
   }
 
-  elems.xOfYForFilterText.innerText = `${numberOfShownOptions} of ${elems.availableOptionsListItems.length} options for ${filterTermText}`;
+  elems.xOfYForFilterText.innerHTML = `${numberOfShownOptions} of ${elems.availableOptionsListItems.length} options for ${filterTermText}`;
 
   if (!isOptionsContainerOpen()) openOptionsContainer();
 }
@@ -132,23 +132,24 @@ function onKeyup(event) {
       openOptionsContainer();
     }
   }
+  
+  if (event.key === "?")
+    console.log("Help not yet implemented!");
 
-  {
-    const { target } = event;
-    const { filterInput } = elems;
+  const { target } = event;
+  const { filterInput } = elems;
 
-    if (event.key.match(textInputRegexp)) {
-      if (target !== filterInput) {
-        if (event.key.match(/^Backspace$/)) {
-          filterInput.value = filterInput.value.slice(0, -1);
-        } else if (event.key.match(/^Delete$/)) {
-          filterInput.value = "";
-        } else {
-          filterInput.value += event.key;
-        }
-        filterInput.focus();
-        filterInput.dispatchEvent(new Event("input"));
+  if (event.key.match(textInputRegexp)) {
+    if (target !== filterInput) {
+      if (event.key.match(/^Backspace$/)) {
+        filterInput.value = filterInput.value.slice(0, -1);
+      } else if (event.key.match(/^Delete$/)) {
+        filterInput.value = "";
+      } else {
+        filterInput.value += event.key;
       }
+      filterInput.focus();
+      filterInput.dispatchEvent(new Event("input"));
     }
   }
 }
