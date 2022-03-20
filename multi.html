@@ -33,9 +33,12 @@
         
         ><button class="widget--unselect-all-button" type="button">
           <span id="hobbies-x-options-selected">
-            <span class="widget--x-selected-text">3</span> <span data-visually-hidden>Hobbies selected</span></span
-            ><span data-visually-hidden>,</span
-          ><img src="clear.svg" alt="unselect all" />
+            <span class="widget--x-selected-count">3</span>
+            <span data-visually-hidden>Hobbies selected:
+              <span class="widget--x-selected-labels">Soccer, Hiking, Coding</span>,
+            </span>
+          </span>
+          <img src="clear.svg" alt="unselect all" />
         </button
 
         ><button class="widget--toggle-options-button" type="button">
@@ -47,7 +50,7 @@
           <legend class="widget--available-options-legend">
             <span data-visually-hidden>Available Hobbies:</span>
             <span class="widget--x-of-y-for-filter-text" data-live-region>
-              12 of 12 options for empty filter
+              12 of 12 options for empty filter, starting with "Soccer"              
             </span>
           </legend>
 
@@ -128,9 +131,7 @@
       </span>
 
       <fieldset class="widget--selected-options-container">
-        <legend data-visually-hidden>
-          Selected Hobbies: <span class="widget--x-selected-text">3</span>
-        </legend>
+        <legend data-visually-hidden>Selected Hobbies</legend>
 
         <ol class="widget--selected-options-list">
           <li>

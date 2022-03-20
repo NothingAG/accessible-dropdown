@@ -18,6 +18,7 @@ form {
   padding: 2px 4px;
   position: relative;
   z-index: 1;
+  caret-color: red;
 }
 
 .widget--filter-and-options-container {
@@ -52,10 +53,10 @@ form {
   border-radius: 8px;
 }
 
-.widget--x-selected-text {
+.widget--x-selected-count {
   font-size: 75%;
   font-weight: bold;
-  padding: 0 2px 0 4px
+  padding-left: 4px;
 }
 
 .widget--unselect-all-button img {

@@ -12,7 +12,8 @@ elems.toggleOptionsButton = document.querySelector(".widget--toggle-options-butt
 elems.toggleOptionsButtonIcon = document.querySelector(".widget--toggle-options-button-icon");
 elems.availableOptionsContainer = document.querySelector(".widget--available-options-container");
 elems.xOfYForFilterText = document.querySelector(".widget--x-of-y-for-filter-text");
-elems.xSelectedTexts = document.querySelectorAll(".widget--x-selected-text");
+elems.xSelectedCount = document.querySelector(".widget--x-selected-count");
+elems.xSelectedLabels = document.querySelector(".widget--x-selected-labels");
 elems.availableOptionsListItems = document.querySelectorAll(".widget--available-options-list-item");
 elems.availableOptionsListInputs = document.querySelectorAll(".widget--available-options-list-item input");
 elems.selectedOptionsContainer = document.querySelector(".widget--selected-options-container");
@@ -42,21 +43,21 @@ function onFilterInputKeyup(event) {
   }
 }
 
+setupLiveRegion();
+
 // We try to optimise the screen reader experience here by trying to fine-tune the live region. In general, `role="alert"` is supported by pretty much all screen reader / browser combos, but it is "rude", as it immediately interrupts the current announcement.
-if (navigator.userAgent.toLowerCase().indexOf("firefox") > -1) { // https://stackoverflow.com/questions/7000190/
-  // When using `role="alert"`, Firefox prefixes each announcement with "alert", which is annoying. Luckily, Firefox supports `aria-live`.
-  // - NVDA works great with that!
-  // - JAWS announces "too" much: not only the `aria-live` container, but also some infos around it (like "Available hobbies") that lives in the same `<legend>`. This is not really a problem - it's better to have too much info than not enough.
-  elems.xOfYForFilterText.setAttribute("aria-live", "polite"); // TODO: Does FF make a difference between polite and assertive?!
+function setupLiveRegion() {
+  if (navigator.userAgent.toLowerCase().indexOf("firefox") > -1) { // https://stackoverflow.com/questions/7000190/
+    // When using `role="alert"`, Firefox prefixes each announcement with "alert", which is annoying. Luckily, Firefox supports `aria-live`, and both NVDA and JAWS work great with that!
+    elems.xOfYForFilterText.setAttribute("aria-live", "assertive");
 
-// VoiceOver/iOS supports both `role="alert"` as well as `aria-live`. Using `polite`, the announcement is done **after** the pressed key was announced, which is rather cumbersome and slow (the user already knows which key they pressed, I suppose). So I don't see a benefit over using it, because `assertive` has the same effect as `role="alert"`, as far as I see. So let's not handle VoiceOver differently at the moment.
-// } else if (/apple/i.test(navigator.vendor)) { // https://stackoverflow.com/questions/7000190/
-//   elems.xOfYForFilterText.setAttribute("aria-live", "assertive");
+    // Note: JAWS announces "too" much: not only the `aria-live` container, but also some infos around it (like "Available hobbies") that lives in the same `<legend>`. This is not really a problem - it's better to have too much info than not enough.
+  } else {
+    // VoiceOver/iOS, Talkback, and Chrome (Windows) all offer a nice user experience with `role="alert"` (no prefix, immediate announcement).
+    elems.xOfYForFilterText.setAttribute("role", "alert");
 
-} else {
-  // VoiceOver/iOS and Chrome both offer a nice user experience with `role="alert"` (no prefix, immediate announcement).
-  // TODO: What about Talkback?
-  elems.xOfYForFilterText.setAttribute("role", "alert");
+    // Note: VoiceOver/iOS supports both `role="alert"` as well as `aria-live`. Using `polite`, the announcement is done **after** the pressed key was announced, which is rather cumbersome and slow (the user already knows which key they pressed, I suppose). So I don't see a benefit of using it, because `assertive` has the same effect as `role="alert"`, as far as I see.
+  }
 }
 
 let inputName = document.querySelector(".widget--filter-label").innerText.trim();
@@ -97,7 +98,10 @@ function onFilterInputChange(event) {
   let numberOfShownOptions = 0;
   for (let optionItem of elems.availableOptionsListItems) {
     optionItem.hidden = !optionItem.innerText.toLowerCase().includes(filterTerm);
-    if (!optionItem.hidden) numberOfShownOptions += 1;
+    if (!optionItem.hidden) {
+      if (numberOfShownOptions == 0) filterTermText += `, starting with "${optionItem.innerText.trim()}"`
+      numberOfShownOptions += 1;
+    }
   }
 
   elems.xOfYForFilterText.innerText = `${numberOfShownOptions} of ${elems.availableOptionsListItems.length} options for ${filterTermText}`;
@@ -182,10 +186,8 @@ function onOptionChange(event) {
   );
 
   updateSelectedOptionsList(checkedItemTexts);
-
-  elems.xSelectedTexts.forEach(elem => {
-    elem.innerText = `${checkedItems.length}`;
-});
+  elems.xSelectedCount.innerText = `${checkedItems.length}`;
+  elems.xSelectedLabels.innerText = `${checkedItemTexts.join(', ')}`;
 
   if (checkedItems.length === 0)
     elems.unselectAllButton.setAttribute("hidden", "");
@@ -297,7 +299,8 @@ function openOptionsContainer() {
 
   // Some screen readers do not announce the changed `aria-expanded` attribute. So we give them some additional fodder to announce, namely the instructions. We append them with a little delay so each and every screen reader realises that the live region was changed and hence needs to be announced.
   setTimeout(() => {
-    elems.liveRegion.innerHTML += "<span class='widget--instructions'> Use X or Y</span>";
+    // I tried to create a node at the beginning of the script and reuse it (`elems.screenReaderInstructions = document.createElement("span");`), but then Firefox+NVDA did not announce the rest of the live region anymore, so we always create a new one from scratch. Nasty, nasty Firefox!
+    elems.liveRegion.innerHTML += "<span class='widget--instructions'> enter question mark for help</span>";
   }, 200);
 }
 
@@ -306,9 +309,9 @@ function closeOptionsContainer() {
   elems.filterInput.setAttribute("aria-expanded", false);
   elems.filterAndOptionsContainer.classList.remove("widget--open");
   elems.toggleOptionsButtonIcon.alt = `Open ${inputName} options`;
-  elems.widgetInstructions = document.querySelector(".widget--instructions");
   
-  if (elems.widgetInstructions) elems.widgetInstructions.remove();
+  let itemToRemove = document.querySelector(".widget--instructions");
+  if (itemToRemove !== null) itemToRemove.remove();
 }
 
 function isOptionsContainerOpen() {
