@@ -306,8 +306,9 @@ function closeOptionsContainer() {
   elems.filterInput.setAttribute("aria-expanded", false);
   elems.filterAndOptionsContainer.classList.remove("widget--open");
   elems.toggleOptionsButtonIcon.alt = `Open ${inputName} options`;
+  elems.widgetInstructions = document.querySelector(".widget--instructions");
   
-  document.querySelector(".widget--instructions").remove();
+  if (elems.widgetInstructions) elems.widgetInstructions.remove();
 }
 
 function isOptionsContainerOpen() {
