@@ -28,7 +28,6 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
     - ✅ Please select all text (so the user can replace a filter term right away)
 - ✅ When a button inside "Selected hobbies" is pressed, uncheck the respective checkbox, then:
     - ✅ Focus the next button, if available.
-    - ✅ Focus the next button, if available.
     - ✅ Or focus the previous button, if available.
     - ✅ Or focus the text field.
     - ⛔️ This used to be working, but now the focus seems to be "lost" (not set to a button)
