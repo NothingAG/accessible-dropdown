@@ -45,6 +45,8 @@ function onFilterInputKeyup(event) {
 // We try to optimise the screen reader experience here by trying to fine-tune the live region. In general, `role="alert"` is supported by pretty much all screen reader / browser combos, but it is "rude", as it immediately interrupts the current announcement.
 if (navigator.userAgent.toLowerCase().indexOf("firefox") > -1) { // https://stackoverflow.com/questions/7000190/
   // When using `role="alert"`, Firefox prefixes each announcement with "alert", which is annoying. Luckily, Firefox supports `aria-live`.
+  // - NVDA works great with that!
+  // - JAWS announces "too" much: not only the `aria-live` container, but also some infos around it (like "Available hobbies") that lives in the same `<legend>`. This is not really a problem - it's better to have too much info than not enough.
   elems.xOfYForFilterText.setAttribute("aria-live", "polite"); // TODO: Does FF make a difference between polite and assertive?!
 
 // VoiceOver/iOS supports both `role="alert"` as well as `aria-live`. Using `polite`, the announcement is done **after** the pressed key was announced, which is rather cumbersome and slow (the user already knows which key they pressed, I suppose). So I don't see a benefit over using it, because `assertive` has the same effect as `role="alert"`, as far as I see. So let's not handle VoiceOver differently at the moment.
@@ -293,6 +295,7 @@ function openOptionsContainer() {
   elems.filterAndOptionsContainer.classList.add("widget--open");
   elems.toggleOptionsButtonIcon.alt = `Close ${inputName} options`;
 
+  // Some screen readers do not announce the changed `aria-expanded` attribute. So we give them some additional fodder to announce, namely the instructions. We append them with a little delay so each and every screen reader realises that the live region was changed and hence needs to be announced.
   setTimeout(() => {
     elems.liveRegion.innerHTML += "<span class='widget--instructions'> Use X or Y</span>";
   }, 200);

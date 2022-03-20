@@ -82,7 +82,7 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
     - Although `aria-live` would be a much better replacement for `role="alert"`, JAWS seems to not support it, at least when just updating its contents! Maybe removing the whole element and then adding it back would trigger JAWS as expected?
     - Putting `role="alert"` seems to have some quirky effects:
         - While Chrome announces an alert immediately when loading the page, FF does not.
-            - UPDATE: We fix this by adding the attribute not at document load, but on first its update.
+            - UPDATE: We fix this by adding the attribute not at document load, but on first its update. UPDATE2: This is only the case when the `role` element is visible! This is not relevant anymore, as the element is hidden on document load.
         - While FF announces "alert" plus the actual content of the element, Chrome does only announce its content.
     - _Conclusion: We could try to adapt to different browsers to optimise the user experience for screen readers, e.g. we could use `aria-live` in FF and `role="alert"` in Chrome? If everything else fails, we just use `role="alert"` everywhere (it's not the most beautiful option, but it works)._
 - The interplay between `aria-describedby`, putting "everything" into a `<label>`, and having even `role="alert"` mingled into one or the other, seems to have quite a variety of behaviours, depending on the combos of browsers and screen readers.
