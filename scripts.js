@@ -261,7 +261,7 @@ function onSelectedButtonClick(event) {
       document.querySelectorAll(".widget--selected-options-button")
     );
     const clickedIndex = selectedButtons.reduce((acc, curr, index) => {
-      if (curr.innerText.trim() === optionText) return index;
+      if (curr.innerText.toLowerCase().trim() === optionText) return index;
       else {
         return acc;
       }
