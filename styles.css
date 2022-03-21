@@ -11,7 +11,6 @@ form {
 }
 
 .widget--filter-input {
-  width: 160px;
   border: 1px solid #000;
   height: 24px;
   border-top-left-radius: 6px;
@@ -152,7 +151,7 @@ form {
   position: absolute;
   margin-top: -1px;
   background-color: #fff;
-  width: 189px;
+  width: 100%;
   box-sizing: border-box;
   box-shadow: 0px 0px 24px #0000007a;
   border-bottom-left-radius: 6px;
