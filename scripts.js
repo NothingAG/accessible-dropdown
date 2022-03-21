@@ -14,12 +14,27 @@ elems.availableOptionsContainer = document.querySelector(".widget--available-opt
 elems.xOfYForFilterText = document.querySelector(".widget--x-of-y-for-filter-text");
 elems.xSelectedCount = document.querySelector(".widget--x-selected-count");
 elems.xSelectedLabels = document.querySelector(".widget--x-selected-labels");
-elems.availableOptionsListItems = document.querySelectorAll(".widget--available-options-list-item");
-elems.availableOptionsListInputs = document.querySelectorAll(".widget--available-options-list-item input");
+elems.availableOptionsList = document.querySelector(".widget--available-options-list");
 elems.selectedOptionsContainer = document.querySelector(".widget--selected-options-container");
 elems.selectedOptionsList = document.querySelector(".widget--selected-options-list");
 elems.liveRegion = document.querySelector("[data-live-region]");
 elems.eventLogger = document.querySelector(".event-logger");
+
+const type = 'radio'; // Xaver: Change between 'checkbox' and 'radio'!
+const OPTIONS = ["Soccer", "Badminton", "Movies", "Gardening", "Kickboxing", "Hiking", "Dancing", "Painting", "Cooking", "Reading", "Sleeping", "Programming"]
+
+OPTIONS.forEach((option, i) => {
+  elems.availableOptionsList.innerHTML +=
+    `<li class="widget--available-options-list-item">
+      <label data-inline-block>
+        <input type="${type}" name="hobbies" value="${option.toLowerCase()}">
+        <span> ${option}<span class="check"></span></span>
+      </label>
+    </li>`;
+});
+
+elems.availableOptionsListItems = document.querySelectorAll(".widget--available-options-list-item");
+elems.availableOptionsListInputs = document.querySelectorAll(".widget--available-options-list-item input");
 
 elems.arrowSelectableElems = [elems.filterInput, ...elems.availableOptionsListItems];
 elems.filterInput.addEventListener("input", onFilterInputChange);
