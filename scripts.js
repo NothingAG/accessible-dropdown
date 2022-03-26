@@ -124,10 +124,12 @@ function onFilterInputChange(event) {
   if (!isOptionsContainerOpen()) openOptionsContainer();
 }
 
-elems.widgetContainer.addEventListener("keyup", onKeyup);
+elems.widgetContainer.addEventListener("keydown", onKeydown);
 
-function onKeyup(event) {
+function onKeydown(event) {
   if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+    event.preventDefault(); // Xaver: I'm unsure whether we should rather just rely on the browser behaviour for toggling through radio buttons, instead of implementing a custom way to navigate through them (which we need for checkboxes though)?
+
     if (isOptionsContainerOpen()) {
       const direction = event.key === "ArrowDown" ? 1 : -1;
       for (let i = 0; i < elems.arrowSelectableElems.length; i++) {
@@ -156,6 +158,8 @@ function onKeyup(event) {
 
   if (event.key.match(textInputRegexp)) {
     if (target !== filterInput) {
+      event.preventDefault();
+      
       if (event.key.match(/^Backspace$/)) {
         filterInput.value = filterInput.value.slice(0, -1);
       } else if (event.key.match(/^Delete$/)) {
