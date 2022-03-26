@@ -240,7 +240,9 @@ function updateSelectedOptionsList(checkedItemTexts) {
     )
     .join("");
   elems.selectedOptionsList.innerHTML = allEntries;
-  elems.selectedOptionsContainer.hidden = checkedItemTexts.length === 0;
+
+  if (type === 'checkbox')
+    elems.selectedOptionsContainer.hidden = checkedItemTexts.length === 0;
 }
 
 elems.availableOptionsListInputs.forEach((option) =>
