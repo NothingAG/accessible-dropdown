@@ -188,10 +188,11 @@ for (let i = 0; i < elems.availableOptionsListInputs.length; i++) {
   optionInput.addEventListener("focus", () => {
     lastArrowSelectedElem = i + 1;
   });
-  optionInput.addEventListener("keyup", (event) => {
+  optionInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
-      const isChecked = optionInput.checked;
-      optionInput.checked = !isChecked;
+      optionInput.checked = !optionInput.checked;
+      // optionInput.dispatchEvent(new Event("change")); // Xaver: does not seem to fix the problem.
+      event.preventDefault();
     }
   });
 }
@@ -219,6 +220,13 @@ function onOptionChange(event) {
         detail: event.target.value,
       })
     );
+  }
+
+  if (type === 'radio') {
+    elems.filterInput.value = event.target.labels[0].innerText.trim();
+    closeOptionsContainer();
+    elems.filterInput.focus();
+    elems.filterInput.select();
   }
 }
 
