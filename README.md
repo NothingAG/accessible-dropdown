@@ -9,7 +9,7 @@ It is a collaboration between [ETH Zürich](https://ethz.ch) and [Nothing](https
 - Needs to feel and look like traditional solutions (similar to [Select2](https://select2.org/getting-started/basic-usage)), but instead of using ARIA excessively, we want to rely on basic HTML form controls and intelligent focus management.
 - Needs to work for both single and multi selection.
     - For single selection, we will use radio buttons.
-    - For multi selection, we will use radio buttons.
+    - For multi selection, we will use checkboxes.
 - In a first version, it needs to support desktop computers:
     - Mouse usage (obviously)
     - Keyboard-only usage (`Up`, `Down`, `Enter`, `Space`, `Esc`)
